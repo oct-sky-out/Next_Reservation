@@ -8,8 +8,8 @@ const globalStyle = css`
     box-sizing: border-box;
   }
   body {
-    font-family: 'Ubuntu Mono', 'IBM Plex Sans KR', sans-serif;
-    color: ${palette.black};
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    color: ${palette.snow};
   }
 `;
 
