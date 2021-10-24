@@ -38,11 +38,7 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <link
-            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Ubuntu+Mono&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100&display=swap&subset=korean"
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400&display=swap&subset=korean"
             rel="stylesheet"
           />
         </Head>
