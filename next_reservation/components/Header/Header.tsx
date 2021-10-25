@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import Container from 'styles/components/Header/Header';
+import Container from '../../styles/components/Header/Header';
 import YasumiCol from '../../public/yasumi_col.svg';
 import YasumiTxt from '../../public/yasumi_txt.svg';
 

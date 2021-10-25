@@ -2,7 +2,9 @@
   "env": {
     "browser": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true,
+    "cypress": true
   },
   "parser": "@babel/eslint-parser",
   "extends": [
@@ -23,7 +25,7 @@
     },
     "ecmaVersion": 8,
     "sourceType": "module",
-    "requireConfigFile" : false
+    "requireConfigFile": false
   },
   "plugins": ["react", "react-hooks", "prettier"],
   "rules": {
