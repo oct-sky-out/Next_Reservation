@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   position: sticky;
-  width: 100%;
+  width: 100vw;
   height: 80px;
   display: flex;
   justify-content: space-between;
@@ -13,10 +13,10 @@ const Container = styled.div`
   z-index: 1;
   .header-wrapper {
     display: flex;
+    height: 80px;
     align-items: center;
     .header-logo {
       margin-top: 15px;
-      height: 80px;
     }
     .header-txt {
       margin-top: 15px;
@@ -25,7 +25,11 @@ const Container = styled.div`
   .header-auth-btns {
     .header-sign-up-btn,
     .header-sign-in-btn {
+      margin-top: 15px;
+      width: 110px;
+      height: 50px;
       background-color: #48cfae;
+      font-size: 1rem;
       color: #fffafa;
     }
   }
