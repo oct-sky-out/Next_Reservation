@@ -65,6 +65,7 @@ const SignUp = () => {
                 이메일 주소
               </label>
               <Input
+                data-testid="email"
                 type="email"
                 className="form-control"
                 id="email-input"
@@ -79,6 +80,7 @@ const SignUp = () => {
                 이름
               </label>
               <Input
+                data-testid="name"
                 type="name"
                 id="name-input"
                 placeholder="이름을 입력해주세요."
@@ -92,6 +94,7 @@ const SignUp = () => {
                 비밀번호
               </label>
               <Input
+                data-testid="pwd1"
                 type={`${checkState.passwordField}`}
                 id="password-input"
                 placeholder="비밀번호를 입력해주세요."
@@ -105,6 +108,7 @@ const SignUp = () => {
                 비밀번호 확인
               </label>
               <Input
+                data-testid="pwd2"
                 type={`${checkState.checkPaswordField}`}
                 id="check-password"
                 placeholder="비밀번호 확인을 위해 한번 더 입력해 주세요."
@@ -118,6 +122,7 @@ const SignUp = () => {
             </div>
             <button
               type="submit"
+              data-testid="submit"
               className="btn submit-btn"
               disabled={
                 !(
