@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import palette from 'styles/palette/palette';
+import palette from '../../styles/palette/palette';
 
 const CommonInputStyle = styled.div<{ iconExist: boolean }>`
   .input-wrapper {

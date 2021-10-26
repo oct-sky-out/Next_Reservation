@@ -1,4 +1,4 @@
-import { useCallback, useReducer } from 'react';
+import React, { useCallback, useReducer, useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible, AiOutlineUser } from 'react-icons/ai';
 import { FiMail } from 'react-icons/fi';
 import Input from '../common/Input';
@@ -28,6 +28,22 @@ const SignUp = () => {
   };
 
   const [checkState, dispatch] = useReducer(reducer, initState);
+  const [allInputValue, setAllInputValue] = useState({
+    email: '',
+    name: '',
+    password1: '',
+    password2: '',
+  });
+
+  const changeInputValue = useCallback(
+    (
+      prop: 'email' | 'name' | 'password1' | 'password2',
+      e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+      setAllInputValue({ ...allInputValue, [prop]: e.target.value });
+    },
+    [allInputValue]
+  );
 
   const isShowing = useCallback(
     (state: string, filedType: 'PWD_FIELD' | 'CHECK_PWD_FIELD') =>
@@ -54,6 +70,8 @@ const SignUp = () => {
                 id="email-input"
                 placeholder="이메일을 입력해주세요."
                 icon={<FiMail />}
+                value={`${allInputValue.email}`}
+                onChange={(e) => changeInputValue('email', e)}
               />
             </div>
             <div className="mb-3">
@@ -65,6 +83,8 @@ const SignUp = () => {
                 id="name-input"
                 placeholder="이름을 입력해주세요."
                 icon={<AiOutlineUser />}
+                value={`${allInputValue.name}`}
+                onChange={(e) => changeInputValue('name', e)}
               />
             </div>
             <div className="mb-3">
@@ -76,6 +96,8 @@ const SignUp = () => {
                 id="password-input"
                 placeholder="비밀번호를 입력해주세요."
                 icon={isShowing(checkState.passwordField, 'PWD_FIELD')}
+                value={`${allInputValue.password1}`}
+                onChange={(e) => changeInputValue('password1', e)}
               />
             </div>
             <div className="mb-3">
@@ -90,9 +112,22 @@ const SignUp = () => {
                   checkState.checkPaswordField,
                   'CHECK_PWD_FIELD'
                 )}
+                value={`${allInputValue.password2}`}
+                onChange={(e) => changeInputValue('password2', e)}
               />
             </div>
-            <button type="submit" className="btn submit-btn">
+            <button
+              type="submit"
+              className="btn submit-btn"
+              disabled={
+                !(
+                  allInputValue.email &&
+                  allInputValue.name &&
+                  allInputValue.password1 &&
+                  allInputValue.password2
+                )
+              }
+            >
               가입
             </button>
           </form>
