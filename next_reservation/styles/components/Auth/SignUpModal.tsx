@@ -4,7 +4,7 @@ import palette from '../../palette/palette';
 const SignUpModalStyle = styled.div`
   .sign-up {
     width: 600px;
-    height: 500px;
+    height: 670px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -27,6 +27,16 @@ const SignUpModalStyle = styled.div`
       background-color: #48cfae;
       font-size: 1.3rem;
       color: #fffafa;
+    }
+    .brithDay-wrapper {
+      display: flex;
+      align-items: center;
+      .year-select,
+      .month-select,
+      .day-select {
+        width: 120px;
+        justify-content: space-evenly;
+      }
     }
   }
 `;
