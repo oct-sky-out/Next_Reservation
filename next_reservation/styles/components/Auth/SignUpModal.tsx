@@ -4,7 +4,7 @@ import palette from '../../palette/palette';
 const SignUpModalStyle = styled.div`
   .sign-up {
     width: 600px;
-    height: 400px;
+    height: 670px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -14,7 +14,7 @@ const SignUpModalStyle = styled.div`
   .sign-up-wrapper {
     border: 1px solid ${palette.gary_b0};
     border-radius: 20px;
-    color: ${palette.gary_bb};
+    color: ${palette.black};
     width: 100%;
     height: 100%;
     background-color: ${palette.snow};
@@ -27,6 +27,16 @@ const SignUpModalStyle = styled.div`
       background-color: #48cfae;
       font-size: 1.3rem;
       color: #fffafa;
+    }
+    .brithDay-wrapper {
+      display: flex;
+      align-items: center;
+      .year-select,
+      .month-select,
+      .day-select {
+        width: 120px;
+        justify-content: space-evenly;
+      }
     }
   }
 `;
