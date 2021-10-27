@@ -2971,6 +2971,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/uuid@npm:^8.3.1":
+  version: 8.3.1
+  resolution: "@types/uuid@npm:8.3.1"
+  checksum: b41bdc5e86c6f0f1899306be10455636da0f2168c9489b869edd6837ddeb7c0e501b1ff7d857402462986bada2a379125743dd895fa801d03437cd632116a373
+  languageName: node
+  linkType: hard
+
 "@types/yargs-parser@npm:*":
   version: 20.2.1
   resolution: "@types/yargs-parser@npm:20.2.1"
@@ -8844,6 +8851,7 @@ __metadata:
     "@types/react": 17.0.31
     "@types/react-dom": ^17.0.10
     "@types/styled-components": ^5.1.15
+    "@types/uuid": ^8.3.1
     autoprefixer: ^10.3.7
     babel-eslint: ^10.1.0
     babel-jest: ^27.3.1
@@ -8877,6 +8885,7 @@ __metadata:
     styled-reset: ^4.3.4
     tailwindcss: ^2.2.17
     typescript: 4.4.4
+    uuid: ^8.3.2
   languageName: unknown
   linkType: soft
 
