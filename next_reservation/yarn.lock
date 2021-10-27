@@ -8899,6 +8899,7 @@ __metadata:
     react-is: ^17.0.2
     styled-components: ^5.3.3
     styled-reset: ^4.3.4
+    sweetalert2: ^11.1.9
     tailwindcss: ^2.2.17
     typescript: 4.4.4
     uuid: ^8.3.2
@@ -11300,6 +11301,13 @@ resolve@^2.0.0-next.3:
   bin:
     svgo: bin/svgo
   checksum: 7da6574958185368356d1e0f50d7860afc01d9fffb0f75c8aab87d1af237d27d8a838c7f09e6829a0e81b1952cf6c4e12abe1bd3920a526ea0f0ca9dd1cd59c5
+  languageName: node
+  linkType: hard
+
+"sweetalert2@npm:^11.1.9":
+  version: 11.1.9
+  resolution: "sweetalert2@npm:11.1.9"
+  checksum: d37eb8312532bf17cd1327cf8f41f0db24edbc199187136d69c6e4692f8d3ab68ad038dc284225c1a6b82552b4b35ec16885b040707596fc65727cfa745b2053
   languageName: node
   linkType: hard
 
