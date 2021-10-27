@@ -1,7 +1,11 @@
 import React, { useCallback, useReducer, useState } from 'react';
-import { getFirestore } from 'firebase/firestore';
+import { useRouter } from 'next/router';
+import { AuthErrorCodes } from 'firebase/auth';
+import axios from '../../lib/api/Axios';
+import { IFirebaseSignUpError } from '../../pages/api/auth/FirebaseSignUp';
 import { AiFillEye, AiFillEyeInvisible, AiOutlineUser } from 'react-icons/ai';
 import { FiMail } from 'react-icons/fi';
+import Swal from 'sweetalert2';
 import Input from '../common/Input';
 import Selector from '../common/Selector';
 import { Years } from '../../lib/staticData/Years';
@@ -20,6 +24,8 @@ type AllInputValuePropType =
   | 'password2';
 
 const SignUp = () => {
+  const router = useRouter();
+
   const initState = {
     passwordField: 'password',
     checkPaswordField: 'password',
@@ -79,11 +85,71 @@ const SignUp = () => {
     [checkState]
   );
 
+  const isSamePassword = () =>
+    allInputValue.password1 === allInputValue.password2;
+
+  const onSignUp = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+      if (!isSamePassword()) {
+        return Swal.fire({
+          icon: 'error',
+          title: '비밀번호가 다릅니다.',
+          text: '비밀번호가 같은지 확인해주세요!',
+          timer: 3000,
+        });
+      }
+      axios
+        .post('/api/auth/FirebaseSignUp', {
+          email: allInputValue.email,
+          name: allInputValue.name,
+          year: allInputValue.year,
+          month: allInputValue.month,
+          day: allInputValue.day,
+          password: allInputValue.password1,
+        })
+        .then((signUpRes) => {
+          if (signUpRes.data.type === 'complete') {
+            Swal.fire({
+              icon: 'success',
+              title: '가입완료!',
+              text: '👏 축하합니다! 가입이 완료되었습니다. 👏',
+              timer: 3000,
+            }).then(() => {
+              router.push('/');
+            });
+          }
+          if (signUpRes.data.type === 'error') {
+            throw {
+              code: signUpRes.data.code,
+              message: signUpRes.data.message,
+            };
+          }
+        })
+        .catch((error: IFirebaseSignUpError) => {
+          if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
+            return Swal.fire({
+              icon: 'error',
+              title: '중복된 이메일.',
+              text: `중복된 이메일이 존재합니다.`,
+            });
+          }
+          Swal.fire({
+            icon: 'error',
+            title: `예기치 못한 에러 발생. ${error.code}`,
+            text: `Error : ${error.message}`,
+          });
+        });
+    },
+    [allInputValue]
+  );
+
   return (
     <SignUpStyle>
       <div className="sign-up">
         <div className="sign-up-wrapper shadow-xl">
-          <form>
+          <form onSubmit={onSignUp}>
             <div className="mb-3">
               <label htmlFor="email-input" className="form-label">
                 이메일 주소
