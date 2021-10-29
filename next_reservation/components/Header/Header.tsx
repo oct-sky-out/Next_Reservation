@@ -1,8 +1,8 @@
 import React, { useState, useReducer, useCallback } from 'react';
 import Link from 'next/link';
 import Container from '../../styles/components/Header/Header';
-import YasumiCol from '../../public/yasumi_col.svg';
-import YasumiTxt from '../../public/yasumi_txt.svg';
+import YasumiCol from '../../public/static/yasumi/yasumi_col.svg';
+import YasumiTxt from '../../public/static/yasumi/yasumi_txt.svg';
 import SignUpModal from '../Auth/SignUpModal';
 import ModalPotal from '../ModalPotal/Modal';
 
