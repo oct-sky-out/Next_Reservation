@@ -1,5 +1,7 @@
 import React, { useCallback, useReducer, useState } from 'react';
 import { useRouter } from 'next/router';
+import { userAction } from '../../store/user';
+import { useDispatch } from 'react-redux';
 import { AuthErrorCodes } from 'firebase/auth';
 import axios from '../../lib/api/Axios';
 import { IFirebaseSignUpError } from '../../pages/api/auth/FirebaseSignUp';
@@ -8,9 +10,7 @@ import { FiMail } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import Input from '../common/Input';
 import Selector from '../common/Selector';
-import { Years } from '../../lib/staticData/Years';
-import { Months } from '../../lib/staticData/Months';
-import { Days } from '../../lib/staticData/Days';
+import { Years, Months, Days } from '../../lib/staticData/Date';
 import SignUpStyle from '../../styles/components/Auth/SignUpModal';
 
 type ActionType = { type: 'PWD_FIELD' | 'CHECK_PWD_FIELD' };
@@ -25,7 +25,7 @@ type AllInputValuePropType =
 
 const SignUp = () => {
   const router = useRouter();
-
+  const userDispatch = useDispatch();
   const initState = {
     passwordField: 'password',
     checkPaswordField: 'password',
@@ -89,7 +89,7 @@ const SignUp = () => {
     allInputValue.password1 === allInputValue.password2;
 
   const onSignUp = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+    async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
       if (!isSamePassword()) {
@@ -100,47 +100,53 @@ const SignUp = () => {
           timer: 3000,
         });
       }
-      axios
-        .post('/api/auth/FirebaseSignUp', {
+      try {
+        const { data } = await axios.post('/api/auth/FirebaseSignUp', {
           email: allInputValue.email,
           name: allInputValue.name,
           year: allInputValue.year,
           month: allInputValue.month,
           day: allInputValue.day,
           password: allInputValue.password1,
-        })
-        .then((signUpRes) => {
-          if (signUpRes.data.type === 'complete') {
-            Swal.fire({
-              icon: 'success',
-              title: '가입완료!',
-              text: '👏 축하합니다! 가입이 완료되었습니다. 👏',
-              timer: 3000,
-            }).then(() => {
-              router.push('/');
-            });
-          }
-          if (signUpRes.data.type === 'error') {
-            throw {
-              code: signUpRes.data.code,
-              message: signUpRes.data.message,
-            };
-          }
-        })
-        .catch((error: IFirebaseSignUpError) => {
-          if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
-            return Swal.fire({
-              icon: 'error',
-              title: '중복된 이메일.',
-              text: `중복된 이메일이 존재합니다.`,
-            });
-          }
-          Swal.fire({
-            icon: 'error',
-            title: `예기치 못한 에러 발생. ${error.code}`,
-            text: `Error : ${error.message}`,
-          });
         });
+        if (data.type === 'success') {
+          Swal.fire({
+            icon: 'success',
+            title: '가입완료!',
+            text: '👏 축하합니다! 가입이 완료되었습니다. 👏',
+            timer: 3000,
+          });
+          userDispatch(
+            userAction.setLoggedUser({
+              email: allInputValue.email,
+              name: allInputValue.name,
+              brithDay: `${allInputValue.year}.${allInputValue.month}.${allInputValue.day}`,
+              userPicture: '/public/static/user/default_user_picture.jpg',
+              isLogged: false,
+            })
+          );
+          router.reload();
+        }
+        if (data.type === 'error') {
+          throw {
+            code: data.code,
+            message: data.message,
+          };
+        }
+      } catch (error: IFirebaseSignUpError | any) {
+        if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
+          return Swal.fire({
+            icon: 'error',
+            title: '중복된 이메일.',
+            text: `중복된 이메일이 존재합니다.`,
+          });
+        }
+        Swal.fire({
+          icon: 'error',
+          title: `예기치 못한 에러 발생. ${error.code}`,
+          text: `Error : ${error.message}`,
+        });
+      }
     },
     [allInputValue]
   );
