@@ -6,10 +6,9 @@ import axios from 'axios';
 import http from 'http';
 import { AuthErrorCodes } from 'firebase/auth';
 import requestListener from '../requestListener.util';
-import createUser from '../../../pages/api/auth/FirebaseSignUp';
+import FirebaseSignUp from '../../../pages/api/auth/FirebaseSignUp';
 
 test('Firebase 회원가입 테스트', async () => {
-  const server = http.createServer(requestListener({ handler: createUser }));
   const result = await axios.post(
     'http://localhost:3000/api/auth/FirebaseSignUp',
     {

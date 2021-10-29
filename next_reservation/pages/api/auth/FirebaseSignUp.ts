@@ -18,7 +18,7 @@ export interface IFirebaseSignUpError {
 
 const USER_COLLECTION = collection(firestore, 'NEXT_USER');
 
-export default async function createUser(
+export default async function FirebaseSignUp(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -26,33 +26,37 @@ export default async function createUser(
     const { email, name, year, month, day, password } = req.body;
     const brithDay = new Date(`${year}.${month}.${day}`);
     const hashPassword = await hash(password, 10);
-
-    return createUserWithEmailAndPassword(auth, email, hashPassword)
-      .then(async (firebaseResponse) => {
-        const docID = await addDoc(USER_COLLECTION, {
-          email,
-          name,
-          brithDay,
-        }).catch((error: FirestoreError) => {
-          return res.send({
-            type: 'error' as const,
-            code: error.code,
-            message: error.message,
-          });
-        });
-        res.status(200);
-        return res.send({
-          type: 'complete' as const,
-          email: firebaseResponse.user.email,
-          docID: docID ? docID.id : '',
-        });
-      })
-      .catch((error: AuthError) => {
-        return res.send({
-          type: 'error' as const,
-          code: error.code,
-          message: error.message,
-        });
+    try {
+      const createUserRes = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        hashPassword
+      );
+      const docID = await addDoc(USER_COLLECTION, {
+        email,
+        name,
+        brithDay,
+        isLogged: false,
+        userPicture: '',
       });
+
+      res.status(200);
+      res.send({
+        type: 'success' as const,
+        email: createUserRes.user.email,
+        docID: docID.id,
+      });
+    } catch (error: AuthError | FirestoreError | any) {
+      if (error.code === 'auth/email-already-in-use') res.statusCode = 409;
+      if (error.code !== 'auth/email-already-in-use') res.statusCode = 400;
+
+      res.send({
+        type: 'error' as const,
+        code: error.code,
+        message: error.message,
+      });
+    }
   }
+  res.statusCode = 503;
+  res.end();
 }
