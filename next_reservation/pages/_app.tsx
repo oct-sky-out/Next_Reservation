@@ -1,4 +1,3 @@
-import { GetServerSideProps } from 'next';
 import type { AppProps } from 'next/app';
 import { wrapper } from '../store/index';
 import 'tailwindcss/tailwind.css';
