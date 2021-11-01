@@ -1,14 +1,19 @@
 import { AnyAction } from 'redux';
-import { HYDRATE, createWrapper } from 'next-redux-wrapper';
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { HYDRATE, createWrapper, MakeStore } from 'next-redux-wrapper';
+import createSagaMiddleware from 'redux-saga';
 import {
-  TypedUseSelectorHook,
   useSelector as useReduxSelector,
+  TypedUseSelectorHook,
 } from 'react-redux';
-import user, { userAction } from './user';
-
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import userSignUpReducer from './user/userSignUp';
+import userSignInReducer from './user/userSignIn';
+import rootSaga from './sagas';
 // 여러개의 리듀서 컴바인
-const rootReducer = combineReducers({ user: user.reducer });
+const rootReducer = combineReducers({
+  userSignUp: userSignUpReducer,
+  userSignIn: userSignInReducer,
+});
 
 // 스토어 타입
 export type RootState = ReturnType<typeof rootReducer>;
@@ -28,10 +33,18 @@ const reducer = (state: any, action: AnyAction) => {
   return rootReducer(state, action);
 };
 
-// 타입 지원가능한 useReducer 제작
+const initStore: MakeStore<any> = () => {
+  const sagaMiddleware = createSagaMiddleware();
+  const store = configureStore({
+    reducer,
+    middleware: [sagaMiddleware],
+    devTools: true,
+  });
+
+  sagaMiddleware.run(rootSaga);
+  return store;
+};
+
 export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
 
-const initStore = () => {
-  return configureStore({ reducer, devTools: true });
-};
 export const wrapper = createWrapper(initStore);
