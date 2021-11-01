@@ -3,13 +3,13 @@ import { signInWithEmailAndPassword, AuthError } from 'firebase/auth';
 import { auth } from '../../../firebase.config';
 
 export interface IFirebaseSignInResult {
-  type: 'success';
+  type: string;
   email: string;
-  provider: string;
+  isLogged: boolean;
 }
 
 export interface IFirebaseSignInError {
-  type: 'error';
+  type: string;
   code: string;
   message: string;
 }
@@ -23,16 +23,21 @@ export default async function FirebaseSignIn<
 
     try {
       const loginRes = await signInWithEmailAndPassword(auth, email, password);
-      res.statusCode = 200;
-      res.send({
-        type: 'success' as const,
-        email,
-        token: await loginRes.user.getIdToken(true),
-      });
+      const token = await loginRes.user.getIdToken();
+      const expires = new Date(Date.now() + 60 * 60 * 24 * 1000 * 3);
+      res
+        .status(200)
+        .setHeader(
+          'Set-Cookie',
+          `access_token=${token};path=/;expires=${expires.toUTCString()};httponly`
+        )
+        .json({
+          type: 'success',
+          email,
+        });
     } catch (err: AuthError | any) {
-      res.statusCode = 403;
-      res.send({
-        type: 'error' as const,
+      res.status(400).send({
+        type: 'error',
         code: err.code,
         message: err.message,
       });
