@@ -1,19 +1,22 @@
-import React, { useCallback, useReducer, useState } from 'react';
-import { useRouter } from 'next/router';
-import { userAction } from '../../store/user';
+import React, { useCallback, useState } from 'react';
+import usePasswordType from '../hooks/useTogglePasswordType';
 import { useDispatch } from 'react-redux';
-import { AuthErrorCodes } from 'firebase/auth';
+import { userAction } from '../../store/user/userSignUp';
 import axios from '../../lib/api/Axios';
-import { IFirebaseSignUpError } from '../../pages/api/auth/FirebaseSignUp';
-import { AiFillEye, AiFillEyeInvisible, AiOutlineUser } from 'react-icons/ai';
+import { AuthErrorCodes } from 'firebase/auth';
+import { AiOutlineUser } from 'react-icons/ai';
 import { FiMail } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import Input from '../common/Input';
 import Selector from '../common/Selector';
 import { Years, Months, Days } from '../../lib/staticData/Date';
-import SignUpStyle from '../../styles/components/Auth/SignUpModal';
+import SignUpStyle from '../../styles/components/Auth/SignInAndUpModal';
+import DefaultUserPicture from '../../public/static/user/default_user_picture.png';
 
-type ActionType = { type: 'PWD_FIELD' | 'CHECK_PWD_FIELD' };
+interface IProps {
+  closeModal: () => void;
+}
+
 type AllInputValuePropType =
   | 'email'
   | 'name'
@@ -23,30 +26,17 @@ type AllInputValuePropType =
   | 'password1'
   | 'password2';
 
-const SignUp = () => {
-  const router = useRouter();
+const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
   const userDispatch = useDispatch();
-  const initState = {
-    passwordField: 'password',
-    checkPaswordField: 'password',
-  };
-
-  const reducer = (state: typeof initState, action: ActionType) => {
-    switch (action.type) {
-      case 'PWD_FIELD':
-        if (state.passwordField === 'password')
-          return { ...state, passwordField: 'text' };
-        else return { ...state, passwordField: 'password' };
-      case 'CHECK_PWD_FIELD':
-        if (state.checkPaswordField === 'password')
-          return { ...state, checkPaswordField: 'text' };
-        else return { ...state, checkPaswordField: 'password' };
-      default:
-        return state;
-    }
-  };
-
-  const [checkState, dispatch] = useReducer(reducer, initState);
+  const { getCheckState, isShowing } = usePasswordType();
+  const [validation, setValidation] = useState({
+    email: false,
+    password1: {
+      includedNameOrEmail: false,
+      length8: false,
+      includedNumAndSign: false,
+    },
+  });
   const [allInputValue, setAllInputValue] = useState({
     email: '',
     name: '',
@@ -64,25 +54,38 @@ const SignUp = () => {
         | React.ChangeEvent<HTMLInputElement>
         | React.ChangeEvent<HTMLSelectElement>
     ) => {
+      if (prop === 'email') {
+        const isMatch = e.target.value.match(
+          /^[A-Za-z]([-_\.]?[\dA-Za-z])*@[\dA-Za-z]([-_\.]*[\dA-Za-z])*\.[A-Za-z]{2,3}$/gi
+        );
+        if (isMatch !== null) setValidation({ ...validation, [prop]: true });
+      }
+
+      if (prop === 'password1') {
+        const includedNumAndSign = e.target.value.match(
+          /([a-zA-z\d!@#$%^&*_+\-=~])+/gi
+        );
+        const length8 = e.target.value.length >= 8;
+        const includedNameOrEmail = !(
+          e.target.value.includes(
+            allInputValue.email.slice(0, allInputValue.email.indexOf('@'))
+          ) || e.target.value.includes(allInputValue.name)
+        );
+
+        setValidation({
+          ...validation,
+          [prop]: {
+            ...validation['password1'],
+            includedNumAndSign: Boolean(includedNumAndSign),
+            length8: length8,
+            includedNameOrEmail: includedNameOrEmail,
+          },
+        });
+      }
+
       setAllInputValue({ ...allInputValue, [prop]: e.target.value });
     },
-    [allInputValue]
-  );
-
-  const isShowing = useCallback(
-    (state: string, filedType: 'PWD_FIELD' | 'CHECK_PWD_FIELD') =>
-      state === 'password' ? (
-        <AiFillEyeInvisible
-          data-testid="changeTypeText"
-          onClick={() => dispatch({ type: filedType })}
-        />
-      ) : (
-        <AiFillEye
-          data-testid="changeTypePassword"
-          onClick={() => dispatch({ type: filedType })}
-        />
-      ),
-    [checkState]
+    [allInputValue, validation]
   );
 
   const isSamePassword = () =>
@@ -108,33 +111,28 @@ const SignUp = () => {
           month: allInputValue.month,
           day: allInputValue.day,
           password: allInputValue.password1,
+          isLogged: true,
+          userPicture: DefaultUserPicture,
         });
         if (data.type === 'success') {
-          Swal.fire({
+          await Swal.fire({
             icon: 'success',
             title: '가입완료!',
             text: '👏 축하합니다! 가입이 완료되었습니다. 👏',
             timer: 3000,
           });
           userDispatch(
-            userAction.setLoggedUser({
-              email: allInputValue.email,
-              name: allInputValue.name,
-              brithDay: `${allInputValue.year}.${allInputValue.month}.${allInputValue.day}`,
-              userPicture: '/public/static/user/default_user_picture.jpg',
+            userAction.userSignUpSuccess({
+              type: data.type,
+              email: data.email,
               isLogged: false,
             })
           );
-          router.reload();
+          closeModal();
         }
-        if (data.type === 'error') {
-          throw {
-            code: data.code,
-            message: data.message,
-          };
-        }
-      } catch (error: IFirebaseSignUpError | any) {
-        if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
+      } catch (error: any) {
+        const { data } = error.response;
+        if (data.code === AuthErrorCodes.EMAIL_EXISTS) {
           return Swal.fire({
             icon: 'error',
             title: '중복된 이메일.',
@@ -152,7 +150,7 @@ const SignUp = () => {
   );
 
   return (
-    <SignUpStyle>
+    <SignUpStyle signInOrUp="up">
       <div className="sign-up">
         <div className="sign-up-wrapper shadow-xl">
           <form onSubmit={onSignUp}>
@@ -245,10 +243,10 @@ const SignUp = () => {
               </label>
               <Input
                 data-testid="pwd1"
-                type={checkState.passwordField}
+                type={getCheckState().passwordField}
                 id="password-input"
                 placeholder="비밀번호를 입력해주세요."
-                icon={isShowing(checkState.passwordField, 'PWD_FIELD')}
+                icon={isShowing(getCheckState().passwordField, 'PWD_FIELD')}
                 value={allInputValue.password1}
                 onChange={(e) => changeInputValue('password1', e)}
               />
@@ -259,11 +257,11 @@ const SignUp = () => {
               </label>
               <Input
                 data-testid="pwd2"
-                type={checkState.checkPaswordField}
+                type={getCheckState().checkPaswordField}
                 id="check-password"
                 placeholder="비밀번호 확인을 위해 한번 더 입력해 주세요."
                 icon={isShowing(
-                  checkState.checkPaswordField,
+                  getCheckState().checkPaswordField,
                   'CHECK_PWD_FIELD'
                 )}
                 value={allInputValue.password2}
@@ -282,7 +280,11 @@ const SignUp = () => {
                   allInputValue.month &&
                   allInputValue.day &&
                   allInputValue.password1 &&
-                  allInputValue.password2
+                  allInputValue.password2 &&
+                  validation.email &&
+                  validation.password1.includedNumAndSign &&
+                  validation.password1.length8 &&
+                  validation.password1.includedNameOrEmail
                 )
               }
             >
@@ -295,4 +297,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpModal;
