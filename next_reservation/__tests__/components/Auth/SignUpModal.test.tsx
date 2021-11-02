@@ -1,12 +1,9 @@
-import * as reactRedux from 'react-redux';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { isDisabled } from '@testing-library/user-event/dist/utils';
 import '@testing-library/jest-dom/extend-expect';
 import SignUp from '../../../components/Auth/SignUpModal';
-
-let useSelectorMock = jest.spyOn(reactRedux, 'useSelector');
-let useDispatchMock = jest.spyOn(reactRedux, 'useDispatch');
+import { useDispatchMock } from '../../../__mocks__/auth/authMocks';
 
 test('회원가입 모달 렌더링', () => {
   useDispatchMock.mockReturnValue(jest.fn());

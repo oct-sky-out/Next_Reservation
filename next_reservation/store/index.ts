@@ -33,8 +33,9 @@ const reducer = (state: any, action: AnyAction) => {
   return rootReducer(state, action);
 };
 
+const sagaMiddleware = createSagaMiddleware();
+
 const initStore: MakeStore<any> = () => {
-  const sagaMiddleware = createSagaMiddleware();
   const store = configureStore({
     reducer,
     middleware: [sagaMiddleware],
@@ -44,6 +45,11 @@ const initStore: MakeStore<any> = () => {
   sagaMiddleware.run(rootSaga);
   return store;
 };
+
+export const useMockStore = configureStore({
+  reducer,
+  middleware: [sagaMiddleware],
+});
 
 export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
 
