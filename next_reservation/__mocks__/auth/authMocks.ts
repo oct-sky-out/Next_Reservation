@@ -1,8 +1,13 @@
 import * as reactRedux from 'react-redux';
+import { useMockStore } from '../../store/index';
 import * as customSelecor from '../../store/index';
 
+const store = useMockStore;
+const dispatchMock = jest.fn(store.dispatch);
+store.dispatch = dispatchMock;
+
 export let useSelectorMock = jest.spyOn(customSelecor, 'useSelector');
-export let useDispatchMock = jest.spyOn(reactRedux, 'useDispatch');
+export let useDispatchMock = dispatchMock;
 
 export const mockStoreValue = {
   loginForm: {
