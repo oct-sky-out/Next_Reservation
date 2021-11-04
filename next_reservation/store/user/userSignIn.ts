@@ -3,6 +3,10 @@ import {
   IFirebaseSignInError,
   IFirebaseSignInResult,
 } from 'pages/api/auth/FirebaseSignIn';
+import {
+  IFirebaseSignUpError,
+  IFirebaseSignUpResult,
+} from 'pages/api/auth/FirebaseSignUp';
 
 export type LoginFormType = { email: string; password: string };
 
@@ -10,6 +14,7 @@ const initialState: {
   loginForm: LoginFormType;
   data: IFirebaseSignInResult;
   error: IFirebaseSignInError;
+  logged: boolean;
 } = {
   loginForm: {
     email: '',
@@ -18,13 +23,16 @@ const initialState: {
   data: {
     type: '',
     email: '',
-    isLogged: false,
+    brithDay: 0,
+    name: '',
+    userPicture: new Object(null),
   },
   error: {
     type: '',
     code: '',
     message: '',
   },
+  logged: false,
 };
 
 const userSignInSlice = createSlice({
@@ -45,6 +53,7 @@ const userSignInSlice = createSlice({
           ...state,
           loginForm: { ...state.loginForm, password: '' },
           data: action.payload,
+          logged: true,
         });
       },
       prepare: (data: IFirebaseSignInResult) => {
@@ -61,6 +70,17 @@ const userSignInSlice = createSlice({
       },
       prepare: (error: IFirebaseSignInError) => {
         return { payload: error };
+      },
+    },
+    setLogeed: {
+      reducer: (state, action: PayloadAction<boolean>) => {
+        return (state = {
+          ...state,
+          logged: action.payload,
+        });
+      },
+      prepare: (islogged: boolean) => {
+        return { payload: islogged };
       },
     },
   },

@@ -17,8 +17,7 @@ beforeEach(() => {
   store.dispatch = dispatchMock;
   useSelectorMock.mockImplementation((selector) =>
     selector({
-      userSignIn: mockStoreValue,
-      userSignUp: { data: { type: '', email: '', isLogged: false } },
+      user: mockStoreValue,
     })
   );
 });

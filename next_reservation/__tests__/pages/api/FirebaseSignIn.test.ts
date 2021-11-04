@@ -4,8 +4,10 @@
 import { render, screen } from '@testing-library/react';
 import axios from 'axios';
 import SignInModal from '../../../components/Auth/SignInModal';
-import { auth } from '../../../firebase.config';
+import { auth } from '../../../firebaseClient';
 import { AuthErrorCodes, signOut } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { USER_COLLECTION } from '../../../fireStoreDB';
 
 test('Firebase 로그인 테스트', async () => {
   const res = await axios.post(
@@ -18,6 +20,9 @@ test('Firebase 로그인 테스트', async () => {
 
   if (res.data.type === 'success') {
     expect(res.data.email).toBe('abc123@google.com');
+    expect(
+      (await getDoc(doc(USER_COLLECTION, res.data.email))).data()
+    ).not.toBeUndefined();
   } else {
     expect(res.data.code).toMatch(AuthErrorCodes.INVALID_PASSWORD);
   }

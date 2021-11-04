@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import usePasswordType from '../hooks/useTogglePasswordType';
+import { useSelector } from '../../store/index';
 import { useDispatch } from 'react-redux';
-import { userAction } from '../../store/user/userSignUp';
+import { userSignInActions } from '../../store/user/userSignIn';
 import axios from '../../lib/api/Axios';
 import { AuthErrorCodes } from 'firebase/auth';
 import { AiOutlineUser } from 'react-icons/ai';
@@ -27,8 +28,11 @@ type AllInputValuePropType =
   | 'password2';
 
 const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
+  //* Redux
   const userDispatch = useDispatch();
+  //* password Type Change
   const { getCheckState, isShowing } = usePasswordType();
+  //* Set email passwords Validation
   const [validation, setValidation] = useState({
     email: false,
     password1: {
@@ -37,6 +41,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
       includedNumAndSign: false,
     },
   });
+  //* User SignUp Form
   const [allInputValue, setAllInputValue] = useState({
     email: '',
     name: '',
@@ -104,7 +109,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
         });
       }
       try {
-        const { data } = await axios.post('/api/auth/FirebaseSignUp', {
+        const sendValue = {
           email: allInputValue.email,
           name: allInputValue.name,
           year: allInputValue.year,
@@ -113,7 +118,11 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
           password: allInputValue.password1,
           isLogged: true,
           userPicture: DefaultUserPicture,
-        });
+        };
+        const { data } = await axios.post(
+          '/api/auth/FirebaseSignUp',
+          sendValue
+        );
         if (data.type === 'success') {
           await Swal.fire({
             icon: 'success',
@@ -122,10 +131,15 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
             timer: 3000,
           });
           userDispatch(
-            userAction.userSignUpSuccess({
+            userSignInActions.userSignInSuccess({
               type: data.type,
-              email: data.email,
-              isLogged: false,
+              email: allInputValue.email,
+              name: allInputValue.name,
+              brithDay:
+                new Date(
+                  `${allInputValue.year}.${allInputValue.month}.${allInputValue.day}`
+                ).getTime() * 1000,
+              userPicture: DefaultUserPicture,
             })
           );
           closeModal();

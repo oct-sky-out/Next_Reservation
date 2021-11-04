@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from '../../store/index';
 import { userSignInActions } from '../../store/user/userSignIn';
 import usePasswordType from '../hooks/useTogglePasswordType';
+import { AuthErrorCodes } from 'firebase/auth';
 import { FiMail } from 'react-icons/fi';
 import Input from '../common/Input';
 import SignInAndUpModal from '../../styles/components/Auth/SignInAndUpModal';
@@ -17,27 +18,46 @@ type signInFormProp = 'email' | 'password';
 
 const SignInModal: React.FC<IProps> = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const { form, data, error } = useSelector((store) => {
+  const { data, error, logged } = useSelector((store) => {
     return {
-      form: store.userSignIn.loginForm,
-      data: store.userSignIn.data,
-      error: store.userSignIn.error,
+      data: store.user.data,
+      error: store.user.error,
+      logged: store.user.logged,
     };
   });
-
   useEffect(() => {
-    if (!!data.type) {
-      closeModal();
+    if (data.type === 'success' && logged) {
+      return closeModal();
     }
-    if (!!error.type) {
-      Swal.fire({
-        icon: 'error',
-        title: '비밀번호가 다릅니다.',
-        text: '비밀번호를 확인해주세요!',
-        timer: 3000,
-      });
+    if (error.type === 'error') {
+      if (
+        error.code === AuthErrorCodes.INVALID_PASSWORD ||
+        error.code === AuthErrorCodes.USER_DELETED
+      ) {
+        Swal.fire({
+          icon: 'error',
+          title: '이메일, 비밀번호 확인.',
+          text: '이메일 혹은 비밀번호를 확인해주세요!',
+          timer: 3000,
+        }).then(() => {
+          dispatch(
+            userSignInActions.userSignInFailure({
+              type: '',
+              code: '',
+              message: '',
+            })
+          );
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: '예상치 못한 에러',
+          text: `${error.message}`,
+          timer: 3000,
+        });
+      }
     }
-  }, [dispatch, data, error]);
+  }, [dispatch, data, error, logged]);
 
   const [signInForm, setSignInform] = useState({ email: '', password: '' });
   const { getCheckState, isShowing } = usePasswordType();

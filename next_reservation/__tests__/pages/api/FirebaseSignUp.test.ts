@@ -4,6 +4,8 @@
 
 import axios from 'axios';
 import { AuthErrorCodes } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { USER_COLLECTION } from '../../../fireStoreDB';
 import DefaultUserPicture from '../../../public/static/user/default_user_picture.png';
 
 test('Firebase 회원가입 테스트', async () => {
@@ -21,8 +23,9 @@ test('Firebase 회원가입 테스트', async () => {
         userPicture: DefaultUserPicture,
       }
     );
-    if (result.data.type === 'success')
+    if (result.data.type === 'success') {
       expect(result.data.email).toMatch('abc123@google.com');
+    }
   } catch (err: any) {
     expect(err.response.data.message).toMatch(AuthErrorCodes.EMAIL_EXISTS);
   }

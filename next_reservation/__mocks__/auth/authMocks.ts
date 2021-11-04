@@ -17,11 +17,14 @@ export const mockStoreValue = {
   data: {
     type: '',
     email: '',
-    isLogged: false,
+    brithDay: 0,
+    name: '',
+    userPicture: new Object(null),
   },
   error: {
     type: '',
     code: '',
     message: '',
   },
+  logged: false,
 };
