@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createUserWithEmailAndPassword, AuthError } from 'firebase/auth';
-import { addDoc, collection, FirestoreError } from 'firebase/firestore';
-import { auth, firestore } from '../../../firebase.config';
+import { setDoc, doc, FirestoreError, Timestamp } from 'firebase/firestore';
+import { auth, firestore } from '../../../firebaseClient';
+import { USER_COLLECTION } from '../../../fireStoreDB';
 
 export interface IFirebaseSignUpResult {
   type: string;
   email: string;
-  isLogged: boolean;
 }
 
 export interface IFirebaseSignUpError {
@@ -14,8 +14,6 @@ export interface IFirebaseSignUpError {
   code: any;
   message: any;
 }
-
-const USER_COLLECTION = collection(firestore, 'NEXT_USERS');
 
 export default async function FirebaseSignUp(
   req: NextApiRequest,
@@ -32,10 +30,10 @@ export default async function FirebaseSignUp(
         email,
         password
       );
-      await addDoc(USER_COLLECTION, {
+      await setDoc(doc(USER_COLLECTION, email), {
         email,
         name,
-        brithDay,
+        brithDay: Timestamp.fromDate(brithDay),
         isLogged,
         userPicture,
       });
@@ -51,7 +49,6 @@ export default async function FirebaseSignUp(
         .json({
           type: 'success',
           email: createUserRes.user.email,
-          isLogged: true,
         });
     } catch (error: AuthError | FirestoreError | any) {
       res.status(400).send({

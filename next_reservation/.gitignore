@@ -44,4 +44,8 @@ yarn-error.log*
 !.yarn/versions
 
 #firebase config
-/firebase.config.*
+/firebaseClient.ts
+/firebaseAdmin.ts
+
+#firestore
+/firestoreDB.ts
