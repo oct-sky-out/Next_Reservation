@@ -46,6 +46,7 @@ yarn-error.log*
 #firebase config
 /firebaseClient.ts
 /firebaseAdmin.ts
+/serviceAccountKey.json
 
 #firestore
 /firestoreDB.ts

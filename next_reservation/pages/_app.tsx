@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import App, { AppProps, AppContext } from 'next/app';
 import withReduxSaga from 'next-redux-saga';
 import { wrapper } from '../store/index';
-import { userSignInActions } from '../store/user/userSignIn';
+import { userSignInAndUpActions } from '../store/user/userSignInAndUp';
 import axios from '../lib/api';
 import Header from '../components/Header/Header';
 import cookieParseToArray from '../lib/utils/cookieParseToArray';
@@ -37,10 +37,10 @@ app.getInitialProps = async (context: AppContext) => {
   try {
     if (!logged && accessToken) {
       axios.defaults.headers.common = {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: 'Bearer ' + accessToken,
       };
       const { data } = await axios.get('/api/auth/FirebaseGetUser');
-      store.dispatch(userSignInActions.userSignInSuccess(data));
+      store.dispatch(userSignInAndUpActions.userSignInOrUpSuccess(data));
     }
   } catch (error: any) {
     console.log(error.message);

@@ -1,6 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import usePasswordType from '../hooks/useTogglePasswordType';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'store';
+import { userSignInAndUpActions } from '../../store/user/userSignInAndUp';
 import axios from '../../lib/api';
 import { AuthErrorCodes } from 'firebase/auth';
 import { AiOutlineUser } from 'react-icons/ai';
@@ -26,7 +28,15 @@ type AllInputValuePropType =
   | 'password2';
 
 const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
-  //* password Type Change
+  //* redux
+  const dispatch = useDispatch();
+  const { successData, failureData } = useSelector((selector) => {
+    return {
+      successData: selector.user.data,
+      failureData: selector.user.error,
+    };
+  });
+  //* password Type Change CustomHook
   const { getCheckState, isShowing } = usePasswordType();
   //* Set email passwords Validation
   const [validation, setValidation] = useState({
@@ -47,7 +57,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
     password1: '',
     password2: '',
   });
-
+  //* useCallback
   const changeInputValue = useCallback(
     (
       prop: AllInputValuePropType,
@@ -88,10 +98,8 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
     },
     [allInputValue, validation]
   );
-
   const isSamePassword = () =>
     allInputValue.password1 === allInputValue.password2;
-
   const onSignUp = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -104,48 +112,55 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
           timer: 3000,
         });
       }
-      try {
-        const sendValue = {
-          email: allInputValue.email,
-          name: allInputValue.name,
-          year: allInputValue.year,
-          month: allInputValue.month,
-          day: allInputValue.day,
-          password: allInputValue.password1,
-          isLogged: true,
-          userPicture: DefaultUserPicture,
-        };
-        const { data } = await axios.post(
-          '/api/auth/FirebaseSignUp',
-          sendValue
-        );
-        if (data.type === 'success') {
-          await Swal.fire({
-            icon: 'success',
-            title: '가입완료!',
-            text: '👏 축하합니다! 이메일 인증 후 로그인해주세요!👏',
-            timer: 3000,
-          });
-          closeModal();
-        }
-      } catch (error: any) {
-        const { data } = error.response;
-        if (data.code === AuthErrorCodes.EMAIL_EXISTS) {
-          return Swal.fire({
-            icon: 'error',
-            title: '중복된 이메일.',
-            text: `중복된 이메일이 존재합니다.`,
-          });
-        }
-        Swal.fire({
-          icon: 'error',
-          title: `예기치 못한 에러 발생. ${error.code}`,
-          text: `Error : ${error.message}`,
-        });
-      }
+      const sendValue = {
+        email: allInputValue.email,
+        name: allInputValue.name,
+        year: allInputValue.year,
+        month: allInputValue.month,
+        day: allInputValue.day,
+        password: allInputValue.password1,
+        isLogged: true,
+        userPicture: DefaultUserPicture,
+      };
+      dispatch(userSignInAndUpActions.userSignUp(sendValue));
     },
     [allInputValue]
   );
+  //* useEffect
+  useEffect(() => {
+    if (successData.type === 'success') {
+      Swal.fire({
+        icon: 'success',
+        title: '가입완료!',
+        text: '👏 축하합니다! 이메일 인증 후 로그인해주세요!👏',
+        timer: 3000,
+      }).then(() => {
+        closeModal();
+      });
+    }
+    if (failureData.type === 'false') {
+      if (failureData.code === AuthErrorCodes.EMAIL_EXISTS) {
+        Swal.fire({
+          icon: 'error',
+          title: '중복된 이메일.',
+          text: `중복된 이메일이 존재합니다.`,
+        });
+      }
+      if (failureData.code !== AuthErrorCodes.EMAIL_EXISTS)
+        Swal.fire({
+          icon: 'error',
+          title: `예기치 못한 에러 발생. ${failureData.code}`,
+          text: `Error : ${failureData.message}`,
+        });
+      dispatch(
+        userSignInAndUpActions.userSignInOrFailure({
+          type: '',
+          code: '',
+          message: '',
+        })
+      );
+    }
+  }, [successData, failureData]);
 
   return (
     <SignUpStyle signInOrUp="up">

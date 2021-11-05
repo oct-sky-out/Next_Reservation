@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../store/index';
-import { userSignInActions } from '../../store/user/userSignIn';
+import { userSignInAndUpActions } from '../../store/user/userSignInAndUp';
 import usePasswordType from '../hooks/useTogglePasswordType';
 import { AuthErrorCodes } from 'firebase/auth';
 import { FiMail } from 'react-icons/fi';
@@ -9,6 +9,7 @@ import Input from '../common/Input';
 import SignInAndUpModal from '../../styles/components/Auth/SignInAndUpModal';
 import YasumiTxt from '../../public/static/yasumi/yasumi_txt.svg';
 import Swal from 'sweetalert2';
+import nookies from 'nookies';
 
 interface IProps {
   closeModal: () => void;
@@ -27,7 +28,14 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
   });
   useEffect(() => {
     if (data.type === 'success' && logged) {
-      return closeModal();
+      if (data.token) {
+        nookies.set(null, 'access_token', data.token, {
+          path: '/',
+          maxAge: 60 * 60,
+          secure: true,
+        });
+        return closeModal();
+      }
     }
     if (error.type === 'error') {
       if (
@@ -48,7 +56,7 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
         });
       }
       dispatch(
-        userSignInActions.userSignInFailure({
+        userSignInAndUpActions.userSignInOrFailure({
           type: '',
           code: '',
           message: '',
@@ -69,7 +77,7 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(
-        userSignInActions.userSignIn({
+        userSignInAndUpActions.userSignIn({
           email: signInForm.email,
           password: signInForm.password,
         })

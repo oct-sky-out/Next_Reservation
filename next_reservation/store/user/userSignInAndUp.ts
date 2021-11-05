@@ -2,20 +2,28 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   IFirebaseSignInError,
   IFirebaseSignInResult,
-} from 'pages/api/auth/FirebaseSignIn';
-import {
   IFirebaseSignUpError,
   IFirebaseSignUpResult,
-} from 'pages/api/auth/FirebaseSignUp';
-
-export type LoginFormType = { email: string; password: string };
+  SignInFormType,
+  SignUpFormType,
+} from '../../types/reduxActionTypes/ReduxUserActionTypes';
 
 const initialState: {
-  loginForm: LoginFormType;
-  data: IFirebaseSignInResult;
-  error: IFirebaseSignInError;
+  signUpForm: SignUpFormType;
+  loginForm: SignInFormType;
+  data: IFirebaseSignInResult | IFirebaseSignUpResult;
+  error: IFirebaseSignInError | IFirebaseSignUpError;
   logged: boolean;
 } = {
+  signUpForm: {
+    email: '',
+    name: '',
+    year: '',
+    month: '',
+    day: '',
+    password: '',
+    userPicture: { src: '', height: 0, width: 0 },
+  },
   loginForm: {
     email: '',
     password: '',
@@ -23,9 +31,10 @@ const initialState: {
   data: {
     type: '',
     email: '',
-    brithDay: 0,
+    brithDay: new Date(),
     name: '',
-    userPicture: new Object(null),
+    userPicture: { src: '', height: 0, width: 0 },
+    token: '',
   },
   error: {
     type: '',
@@ -39,16 +48,27 @@ const userSignInSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    userSignUp: {
+      reducer: (state, action: PayloadAction<SignUpFormType>) => {
+        return (state = { ...state, signUpForm: action.payload });
+      },
+      prepare: (signUpForm: SignUpFormType) => {
+        return { payload: signUpForm };
+      },
+    },
     userSignIn: {
-      reducer: (state, action: PayloadAction<LoginFormType>) => {
+      reducer: (state, action: PayloadAction<SignInFormType>) => {
         return (state = { ...state, loginForm: { ...action.payload } });
       },
-      prepare: (loginForm: LoginFormType) => {
+      prepare: (loginForm: SignInFormType) => {
         return { payload: loginForm };
       },
     },
-    userSignInSuccess: {
-      reducer: (state, action: PayloadAction<IFirebaseSignInResult>) => {
+    userSignInOrUpSuccess: {
+      reducer: (
+        state,
+        action: PayloadAction<IFirebaseSignInResult | IFirebaseSignUpResult>
+      ) => {
         return (state = {
           ...state,
           loginForm: { ...state.loginForm, password: '' },
@@ -60,8 +80,11 @@ const userSignInSlice = createSlice({
         return { payload: data };
       },
     },
-    userSignInFailure: {
-      reducer: (state, action: PayloadAction<IFirebaseSignInError>) => {
+    userSignInOrFailure: {
+      reducer: (
+        state,
+        action: PayloadAction<IFirebaseSignInError | IFirebaseSignUpError>
+      ) => {
         return (state = {
           ...state,
           loginForm: { ...state.loginForm, password: '' },
@@ -88,6 +111,6 @@ const userSignInSlice = createSlice({
 
 const { actions, reducer } = userSignInSlice;
 
-export const userSignInActions = actions;
+export const userSignInAndUpActions = actions;
 
 export default userSignInSlice;

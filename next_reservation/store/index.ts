@@ -6,11 +6,12 @@ import {
   TypedUseSelectorHook,
 } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import userSignIn from './user/userSignIn';
+import userSignInAndUp from './user/userSignInAndUp';
 import rootSaga from './sagas';
+
 // 여러개의 리듀서 컴바인
 const rootReducer = combineReducers({
-  user: userSignIn.reducer,
+  user: userSignInAndUp.reducer,
 });
 
 // 스토어 타입

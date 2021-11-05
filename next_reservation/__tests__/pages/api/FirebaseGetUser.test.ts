@@ -2,9 +2,8 @@
  * @jest-environment node
  */
 import { getIdToken, signInWithEmailAndPassword } from 'firebase/auth';
-import admin from 'firebase-admin';
+import { verifyIdToken } from '../../../firebaseAdmin';
 import cookieParseToArray from '../../../lib/utils/cookieParseToArray';
-import { firebaseAdminConfig } from '../../../firebaseAdmin';
 import { auth as clientAuth } from '../../../firebaseClient';
 import { DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier';
 
@@ -32,15 +31,6 @@ test('(쿠키의)토큰 발행 후 토큰에 저장된 유저 정보 조회', as
     if (cookie.key === 'access_token') return (cookieToken = cookie.value);
   });
 
-  user = await admin
-    .initializeApp({
-      credential: admin.credential.cert({
-        projectId: firebaseAdminConfig.project_id,
-        clientEmail: firebaseAdminConfig.client_email,
-        privateKey: firebaseAdminConfig.private_key,
-      }),
-    })
-    .auth()
-    .verifySessionCookie(cookieToken);
+  user = await verifyIdToken(cookieToken);
   expect(user.email).toEqual('abc123@google.com');
 });
