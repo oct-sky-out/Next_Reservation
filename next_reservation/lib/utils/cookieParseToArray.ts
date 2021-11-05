@@ -1,6 +1,6 @@
 type SplitionCookieType = { key: string; value: string };
 
-export default function (cookieString: string | undefined) {
+export default function cookieParseToArray(cookieString: string | undefined) {
   const splitionCookies: SplitionCookieType[] = [];
 
   if (cookieString !== undefined) {
