@@ -90,4 +90,4 @@ const { actions, reducer } = userSignInSlice;
 
 export const userSignInActions = actions;
 
-export default reducer;
+export default userSignInSlice;

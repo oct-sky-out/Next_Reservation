@@ -1,9 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import usePasswordType from '../hooks/useTogglePasswordType';
-import { useSelector } from '../../store/index';
 import { useDispatch } from 'react-redux';
-import { userSignInActions } from '../../store/user/userSignIn';
-import axios from '../../lib/api/Axios';
+import axios from '../../lib/api';
 import { AuthErrorCodes } from 'firebase/auth';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FiMail } from 'react-icons/fi';
@@ -28,8 +26,6 @@ type AllInputValuePropType =
   | 'password2';
 
 const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
-  //* Redux
-  const userDispatch = useDispatch();
   //* password Type Change
   const { getCheckState, isShowing } = usePasswordType();
   //* Set email passwords Validation
@@ -127,21 +123,9 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
           await Swal.fire({
             icon: 'success',
             title: '가입완료!',
-            text: '👏 축하합니다! 가입이 완료되었습니다. 👏',
+            text: '👏 축하합니다! 이메일 인증 후 로그인해주세요!👏',
             timer: 3000,
           });
-          userDispatch(
-            userSignInActions.userSignInSuccess({
-              type: data.type,
-              email: allInputValue.email,
-              name: allInputValue.name,
-              brithDay:
-                new Date(
-                  `${allInputValue.year}.${allInputValue.month}.${allInputValue.day}`
-                ).getTime() * 1000,
-              userPicture: DefaultUserPicture,
-            })
-          );
           closeModal();
         }
       } catch (error: any) {

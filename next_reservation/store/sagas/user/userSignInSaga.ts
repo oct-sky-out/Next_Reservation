@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { LoginFormType, userSignInActions } from '../../user/userSignIn';
-import axios from '../../../lib/api/Axios';
+import axios from '../../../lib/api';
 import {
   IFirebaseSignUpError,
   IFirebaseSignUpResult,

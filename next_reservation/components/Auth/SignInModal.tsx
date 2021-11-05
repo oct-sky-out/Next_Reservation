@@ -39,23 +39,21 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
           title: '이메일, 비밀번호 확인.',
           text: '이메일 혹은 비밀번호를 확인해주세요!',
           timer: 3000,
-        }).then(() => {
-          dispatch(
-            userSignInActions.userSignInFailure({
-              type: '',
-              code: '',
-              message: '',
-            })
-          );
         });
       } else {
         Swal.fire({
           icon: 'error',
-          title: '예상치 못한 에러',
+          title: '에러',
           text: `${error.message}`,
-          timer: 3000,
         });
       }
+      dispatch(
+        userSignInActions.userSignInFailure({
+          type: '',
+          code: '',
+          message: '',
+        })
+      );
     }
   }, [dispatch, data, error, logged]);
 

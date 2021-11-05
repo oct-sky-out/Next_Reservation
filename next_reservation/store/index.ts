@@ -6,13 +6,11 @@ import {
   TypedUseSelectorHook,
 } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import userSignUpReducer from './user/userSignUp';
-import userSignInReducer from './user/userSignIn';
+import userSignIn from './user/userSignIn';
 import rootSaga from './sagas';
 // 여러개의 리듀서 컴바인
 const rootReducer = combineReducers({
-  userSignUp: userSignUpReducer,
-  userSignIn: userSignInReducer,
+  user: userSignIn.reducer,
 });
 
 // 스토어 타입
@@ -43,6 +41,7 @@ const initStore: MakeStore<any> = () => {
   });
 
   sagaMiddleware.run(rootSaga);
+  initialRootState = store.getState();
   return store;
 };
 

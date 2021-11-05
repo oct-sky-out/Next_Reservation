@@ -33,10 +33,22 @@ export default async function FirebaseSignIn<
 
     try {
       const loginRes = await signInWithEmailAndPassword(auth, email, password);
+
+      // * 이메일 인증을 하지않으면 오류 발생
+      if (!loginRes.user.emailVerified) {
+        res.status(401).send({
+          type: 'error',
+          code: '이메일 인증을 완료해주세요.',
+          message:
+            '이메일 인증을 완료해야 로그인이 가능합니다.\n가입하셨던 이메일을 확인하세요.',
+        });
+      }
+
       const token = await loginRes.user.getIdToken();
       const expires = new Date(Date.now() + 60 * 60 * 24 * 1000 * 3);
       const document = doc(USER_COLLECTION, email);
 
+      // * 파이어 스토어 해당 유저의 로그인 상태를 true로 만듬
       let documentData: DocumentData | undefined = {
         name: '',
         userPicture: '',
@@ -44,7 +56,9 @@ export default async function FirebaseSignIn<
         isLogged: false,
         email: '',
       };
+
       documentData = (await getDoc(document)).data();
+
       if (documentData) {
         const { email, name, brithDay, userPicture } = documentData;
         setDoc(doc(USER_COLLECTION, email), {
@@ -52,6 +66,7 @@ export default async function FirebaseSignIn<
           brithDay: new Date(brithDay.seconds * 1000),
           isLogged: true,
         });
+
         res
           .status(200)
           .setHeader(

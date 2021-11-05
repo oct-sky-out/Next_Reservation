@@ -1,7 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { createUserWithEmailAndPassword, AuthError } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  AuthError,
+  sendEmailVerification,
+  signOut,
+} from 'firebase/auth';
 import { setDoc, doc, FirestoreError, Timestamp } from 'firebase/firestore';
-import { auth, firestore } from '../../../firebaseClient';
+import { auth } from '../../../firebaseClient';
 import { USER_COLLECTION } from '../../../fireStoreDB';
 
 export interface IFirebaseSignUpResult {
@@ -30,6 +35,8 @@ export default async function FirebaseSignUp(
         email,
         password
       );
+      await sendEmailVerification(createUserRes.user);
+
       await setDoc(doc(USER_COLLECTION, email), {
         email,
         name,
@@ -37,19 +44,11 @@ export default async function FirebaseSignUp(
         isLogged,
         userPicture,
       });
-      const token = await createUserRes.user.getIdToken();
-      const expires = new Date(Date.now() + 60 * 60 * 24 * 1000 * 3);
 
-      res
-        .status(200)
-        .setHeader(
-          'Set-Cookie',
-          `access_token=${token};path=/;expires=${expires.toUTCString()};httponly`
-        )
-        .json({
-          type: 'success',
-          email: createUserRes.user.email,
-        });
+      res.status(200).json({
+        type: 'success',
+        email: createUserRes.user.email,
+      });
     } catch (error: AuthError | FirestoreError | any) {
       res.status(400).send({
         type: 'error',
