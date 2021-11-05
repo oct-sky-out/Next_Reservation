@@ -24,7 +24,7 @@ test('(테스트) 임의의 쿠키에 저장된 토큰 조회 후 토큰 분리'
   expect(token).not.toEqual('');
 });
 
-test('(쿠키의)토큰 발행 후 유저 정보 조회', async () => {
+test('(쿠키의)토큰 발행 후 토큰에 저장된 유저 정보 조회', async () => {
   const cookies = cookieParseToArray(tokenMock(token));
   let cookieToken = '';
 
