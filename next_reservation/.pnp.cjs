@@ -82,6 +82,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next-redux-saga", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:4.1.2"],
             ["next-redux-wrapper", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:6.0.2"],
             ["node-sass", "npm:6.0.1"],
+            ["nookies", "npm:2.5.2"],
             ["postcss", "npm:8.3.11"],
             ["prettier", "npm:2.4.1"],
             ["react", "npm:17.0.2"],
@@ -7427,6 +7428,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["cookie", [
+        ["npm:0.4.1", {
+          "packageLocation": "./.yarn/cache/cookie-npm-0.4.1-cc5e2ebb42-bd7c47f5d9.zip/node_modules/cookie/",
+          "packageDependencies": [
+            ["cookie", "npm:0.4.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["core-js", [
         ["npm:3.6.5", {
           "packageLocation": "./.yarn/unplugged/core-js-npm-3.6.5-5941340066/node_modules/core-js/",
@@ -13052,6 +13062,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next-redux-saga", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:4.1.2"],
             ["next-redux-wrapper", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:6.0.2"],
             ["node-sass", "npm:6.0.1"],
+            ["nookies", "npm:2.5.2"],
             ["postcss", "npm:8.3.11"],
             ["prettier", "npm:2.4.1"],
             ["react", "npm:17.0.2"],
@@ -13249,6 +13260,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["sass-graph", "npm:2.2.5"],
             ["stdout-stream", "npm:1.4.1"],
             ["true-case-path", "npm:1.0.3"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["nookies", [
+        ["npm:2.5.2", {
+          "packageLocation": "./.yarn/cache/nookies-npm-2.5.2-691fdd44ab-4cc6fd8d0a.zip/node_modules/nookies/",
+          "packageDependencies": [
+            ["nookies", "npm:2.5.2"],
+            ["cookie", "npm:0.4.1"],
+            ["set-cookie-parser", "npm:2.4.8"]
           ],
           "linkType": "HARD",
         }]
@@ -15158,6 +15180,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/set-blocking-npm-2.0.0-49e2cffa24-6e65a05f7c.zip/node_modules/set-blocking/",
           "packageDependencies": [
             ["set-blocking", "npm:2.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["set-cookie-parser", [
+        ["npm:2.4.8", {
+          "packageLocation": "./.yarn/cache/set-cookie-parser-npm-2.4.8-3e04c5b17b-e15b5df9a5.zip/node_modules/set-cookie-parser/",
+          "packageDependencies": [
+            ["set-cookie-parser", "npm:2.4.8"]
           ],
           "linkType": "HARD",
         }]
