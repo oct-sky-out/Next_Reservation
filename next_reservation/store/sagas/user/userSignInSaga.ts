@@ -27,7 +27,7 @@ const signInApi = async ({ email, password }: SignInFormType) => {
       };
     }
 
-    const token = await loginRes.user.getIdToken();
+    const token = await loginRes.user.getIdToken(true);
 
     const document = doc(USER_COLLECTION, email);
 

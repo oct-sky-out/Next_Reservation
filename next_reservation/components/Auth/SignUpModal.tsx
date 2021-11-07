@@ -3,8 +3,8 @@ import usePasswordType from '../hooks/useTogglePasswordType';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
 import { userSignInAndUpActions } from '../../store/user/userSignInAndUp';
-import axios from '../../lib/api';
-import { AuthErrorCodes } from 'firebase/auth';
+import { signOut, AuthErrorCodes } from 'firebase/auth';
+import { auth } from '../../firebaseClient';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FiMail } from 'react-icons/fi';
 import Swal from 'sweetalert2';
@@ -126,7 +126,8 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
     },
     [allInputValue]
   );
-  //* useEffect
+
+  //* useEffect 회원가입 스토어 감지 후 업데이트, 회원가입 후 자동 로그아웃.
   useEffect(() => {
     if (successData.type === 'success') {
       Swal.fire({
@@ -135,7 +136,9 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
         text: '👏 축하합니다! 이메일 인증 후 로그인해주세요!👏',
         timer: 3000,
       }).then(() => {
-        closeModal();
+        auth.signOut().then(() => {
+          closeModal();
+        });
       });
     }
     if (failureData.type === 'false') {

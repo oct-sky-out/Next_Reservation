@@ -3,24 +3,19 @@ import styled from 'styled-components';
 const Container = styled.div`
   position: sticky;
   width: 100vw;
-  height: 80px;
+  height: 120px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 8px;
   background-color: #fff;
   box-shadow: #00000008;
+  border-bottom: 2px solid #48cfae;
   z-index: 1;
   .header-wrapper {
     display: flex;
     height: 80px;
     align-items: center;
-    .header-logo {
-      margin-top: 15px;
-    }
-    .header-txt {
-      margin-top: 15px;
-    }
   }
   .header-auth-btns {
     .header-sign-up-btn,

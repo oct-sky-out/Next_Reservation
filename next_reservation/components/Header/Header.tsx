@@ -27,7 +27,11 @@ const Header: React.FC = () => {
   }, [signUpAndInModal]);
   return (
     <>
-      <Container className={getModalOpenedState() ? 'filter blur-md' : ''}>
+      <Container
+        className={`${
+          getModalOpenedState() ? 'filter blur-md' : ''
+        } rounded-b-2xl p-0 flex justify-center`}
+      >
         <Link href="/">
           <a>
             <div className="header-wrapper ">
@@ -39,7 +43,7 @@ const Header: React.FC = () => {
         {isLogged && <HeaderUserProfile />}
         {!isLogged && (
           <>
-            <div className="header-auth-btns">
+            <div className="header-auth-btns flex">
               <button
                 type="button"
                 className="shadow-xl rounded-full py-3 px-6 header-sign-up-btn"
@@ -54,42 +58,6 @@ const Header: React.FC = () => {
               >
                 로그인
               </button>
-            </div>
-
-            <div
-              className="modal fade"
-              id="exampleModal"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">
-                      Modal title
-                    </h5>
-                    <button
-                      type="button"
-                      className="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div className="modal-body">...</div>
-                  <div className="modal-footer">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button type="button" className="btn btn-primary">
-                      Save changes
-                    </button>
-                  </div>
-                </div>
-              </div>
             </div>
           </>
         )}
