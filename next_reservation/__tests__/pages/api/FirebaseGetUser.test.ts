@@ -1,10 +1,10 @@
 /**
  * @jest-environment node
  */
-import { getIdToken, signInWithEmailAndPassword } from 'firebase/auth';
+import { getIdToken, signInWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { verifyIdToken } from '../../../firebaseAdmin';
 import cookieParseToArray from '../../../lib/utils/cookieParseToArray';
-import { auth as clientAuth } from '../../../firebaseClient';
+import { clientApp } from '../../../firebaseClient';
 import { DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier';
 
 const tokenMock = jest.fn((token: string) => 'access_token=' + token);
@@ -15,7 +15,7 @@ let user: DecodedIdToken | null;
 
 test('(테스트) 임의의 쿠키에 저장된 토큰 조회 후 토큰 분리', async () => {
   const { user } = await signInWithEmailAndPassword(
-    clientAuth,
+    getAuth(clientApp),
     'abc123@google.com',
     '1234567'
   );

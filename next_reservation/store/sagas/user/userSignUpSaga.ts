@@ -4,9 +4,9 @@ import {
   AuthError,
   createUserWithEmailAndPassword,
   sendEmailVerification,
-  signOut,
+  getAuth,
 } from 'firebase/auth';
-import { auth } from '../../../firebaseClient';
+import { clientApp } from '../../../firebaseClient';
 import { setDoc, doc, Timestamp, FirestoreError } from 'firebase/firestore';
 import { USER_COLLECTION } from '../../../fireStoreDB';
 import { SignUpFormType } from 'types/reduxActionTypes/ReduxUserActionTypes';
@@ -21,6 +21,7 @@ const signUpApi = async ({
   userPicture,
 }: SignUpFormType) => {
   try {
+    const auth = getAuth(clientApp);
     const brithDay = new Date(`${year}.${month}.${day}`);
     const createUserRes = await createUserWithEmailAndPassword(
       auth,
@@ -36,7 +37,7 @@ const signUpApi = async ({
       isLogged: false,
       userPicture,
     });
-    await signOut(auth);
+
     return {
       result: {
         type: 'success',

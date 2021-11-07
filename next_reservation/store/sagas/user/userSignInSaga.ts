@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { userSignInAndUpActions } from '../../user/userSignInAndUp';
-import { AuthError, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../../firebaseClient';
+import { getAuth, AuthError, signInWithEmailAndPassword } from 'firebase/auth';
+import { clientApp } from '../../../firebaseClient';
 import {
   setDoc,
   doc,
@@ -15,6 +15,7 @@ import { SignInFormType } from 'types/reduxActionTypes/ReduxUserActionTypes';
 
 const signInApi = async ({ email, password }: SignInFormType) => {
   try {
+    const auth = getAuth(clientApp);
     const loginRes = await signInWithEmailAndPassword(auth, email, password);
 
     // * 이메일 인증을 하지않으면 오류 발생
@@ -83,8 +84,16 @@ function* fetchSignInSaga({
   payload,
 }: ReturnType<typeof userSignInAndUpActions.userSignIn>) {
   try {
+    if (payload.email === '' || payload.password === '') {
+      throw {
+        type: 'error',
+        code: '이메일, 비밀번호 확인',
+        message: '이메일 또는 비밀번호를 입력해주세요.',
+      };
+    }
     const { result } = yield call(signInApi, payload);
     yield put(userSignInAndUpActions.userSignInOrUpSuccess(result));
+    yield put(userSignInAndUpActions.setLogeed(true));
   } catch (error: any) {
     const data = error;
     yield put(userSignInAndUpActions.userSignInOrFailure(data));

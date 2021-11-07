@@ -9,6 +9,7 @@ import Input from '../common/Input';
 import SignInAndUpModal from '../../styles/components/Auth/SignInAndUpModal';
 import YasumiTxt from '../../public/static/yasumi/yasumi_txt.svg';
 import Swal from 'sweetalert2';
+import Loader from 'react-loader-spinner';
 import nookies from 'nookies';
 
 interface IProps {
@@ -26,47 +27,60 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
       logged: store.user.logged,
     };
   });
-  useEffect(() => {
-    if (data.type === 'success' && logged) {
-      if (data.token) {
-        nookies.set(null, 'access_token', data.token, {
-          path: '/',
-          maxAge: 60 * 60,
-          secure: true,
-        });
-        return closeModal();
-      }
-    }
-    if (error.type === 'error') {
-      if (
-        error.code === AuthErrorCodes.INVALID_PASSWORD ||
-        error.code === AuthErrorCodes.USER_DELETED
-      ) {
-        Swal.fire({
-          icon: 'error',
-          title: '이메일, 비밀번호 확인.',
-          text: '이메일 혹은 비밀번호를 확인해주세요!',
-          timer: 3000,
-        });
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: '에러',
-          text: `${error.message}`,
-        });
-      }
-      dispatch(
-        userSignInAndUpActions.userSignInOrFailure({
-          type: '',
-          code: '',
-          message: '',
-        })
-      );
-    }
-  }, [dispatch, data, error, logged]);
 
+  useEffect(() => {
+    try {
+      if (data.type === 'success' && logged) {
+        setIsLoading(false);
+        if (data.token) {
+          nookies.set(null, 'access_token', data.token, {
+            path: '/',
+            maxAge: 60 * 60,
+            secure: true,
+          });
+          return closeModal();
+        }
+      }
+      if (error.type === 'error') {
+        if (
+          error.code === AuthErrorCodes.INVALID_PASSWORD ||
+          error.code === AuthErrorCodes.USER_DELETED
+        ) {
+          setIsLoading(false);
+          Swal.fire({
+            icon: 'error',
+            title: '이메일, 비밀번호 확인.',
+            text: '이메일 혹은 비밀번호를 확인해주세요!',
+            timer: 3000,
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: '에러',
+            text: `${error.message}`,
+          });
+        }
+        dispatch(
+          userSignInAndUpActions.userSignInOrFailure({
+            type: '',
+            code: '',
+            message: '',
+          })
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  }, [data, error, logged]);
+
+  const [isLoading, setIsLoading] = useState(false);
   const [signInForm, setSignInform] = useState({ email: '', password: '' });
   const { getCheckState, isShowing } = usePasswordType();
+
+  const startLoading = useCallback(() => {
+    setIsLoading(true);
+  }, [isLoading]);
   const changedSignInForm = useCallback(
     (propName: signInFormProp, e: React.ChangeEvent<HTMLInputElement>) => {
       setSignInform({ ...signInForm, [propName]: e.target.value });
@@ -76,6 +90,7 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
   const onSignIn = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      startLoading();
       dispatch(
         userSignInAndUpActions.userSignIn({
           email: signInForm.email,
@@ -127,7 +142,13 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
               className="btn submit-btn"
               disabled={!(signInForm.email && signInForm.password)}
             >
-              로그인
+              <div className=" w-full h-full flex justify-center items-center ">
+                {isLoading ? (
+                  <Loader type="Oval" color="#fff" height="40" width="40" />
+                ) : (
+                  '로그인'
+                )}
+              </div>
             </button>
           </form>
         </div>

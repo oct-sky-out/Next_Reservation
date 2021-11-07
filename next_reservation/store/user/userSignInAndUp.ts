@@ -73,7 +73,6 @@ const userSignInSlice = createSlice({
           ...state,
           loginForm: { ...state.loginForm, password: '' },
           data: action.payload,
-          logged: true,
         });
       },
       prepare: (data: IFirebaseSignInResult) => {
@@ -109,7 +108,7 @@ const userSignInSlice = createSlice({
   },
 });
 
-const { actions, reducer } = userSignInSlice;
+const { actions } = userSignInSlice;
 
 export const userSignInAndUpActions = actions;
 

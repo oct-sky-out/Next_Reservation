@@ -1,18 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import usePasswordType from '../hooks/useTogglePasswordType';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
 import { userSignInAndUpActions } from '../../store/user/userSignInAndUp';
-import { signOut, AuthErrorCodes } from 'firebase/auth';
-import { auth } from '../../firebaseClient';
+import { getAuth, signOut, AuthErrorCodes } from 'firebase/auth';
+import { clientApp } from '../../firebaseClient';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FiMail } from 'react-icons/fi';
 import Swal from 'sweetalert2';
+import Loader from 'react-loader-spinner';
 import Input from '../common/Input';
 import Selector from '../common/Selector';
 import { Years, Months, Days } from '../../lib/staticData/Date';
 import SignUpStyle from '../../styles/components/Auth/SignInAndUpModal';
 import DefaultUserPicture from '../../public/static/user/default_user_picture.png';
+import { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } from 'constants';
 
 interface IProps {
   closeModal: () => void;
@@ -28,6 +31,8 @@ type AllInputValuePropType =
   | 'password2';
 
 const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
+  //* Next js router
+  const router = useRouter();
   //* redux
   const dispatch = useDispatch();
   const { successData, failureData } = useSelector((selector) => {
@@ -57,6 +62,8 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
     password1: '',
     password2: '',
   });
+  //* Loading status
+  const [isLoading, setIsLoading] = useState(false);
   //* useCallback
   const changeInputValue = useCallback(
     (
@@ -98,6 +105,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
     },
     [allInputValue, validation]
   );
+
   const isSamePassword = () =>
     allInputValue.password1 === allInputValue.password2;
   const onSignUp = useCallback(
@@ -112,6 +120,9 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
           timer: 3000,
         });
       }
+
+      setIsLoading(true);
+
       const sendValue = {
         email: allInputValue.email,
         name: allInputValue.name,
@@ -124,11 +135,12 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
       };
       dispatch(userSignInAndUpActions.userSignUp(sendValue));
     },
-    [allInputValue]
+    [allInputValue, isLoading]
   );
 
   //* useEffect 회원가입 스토어 감지 후 업데이트, 회원가입 후 자동 로그아웃.
   useEffect(() => {
+    setIsLoading(false);
     if (successData.type === 'success') {
       Swal.fire({
         icon: 'success',
@@ -136,12 +148,29 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
         text: '👏 축하합니다! 이메일 인증 후 로그인해주세요!👏',
         timer: 3000,
       }).then(() => {
-        auth.signOut().then(() => {
-          closeModal();
-        });
+        getAuth(clientApp)
+          .signOut()
+          .then(() => {
+            closeModal();
+          })
+          .then(() => {
+            dispatch(
+              userSignInAndUpActions.userSignInOrUpSuccess({
+                type: '',
+                email: '',
+                name: '',
+                brithDay: new Date(),
+                token: '',
+                userPicture: { src: '', width: 0, height: 0 },
+              })
+            );
+          })
+          .then(() => {
+            router.push('/');
+          });
       });
     }
-    if (failureData.type === 'false') {
+    if (failureData.type === 'error') {
       if (failureData.code === AuthErrorCodes.EMAIL_EXISTS) {
         Swal.fire({
           icon: 'error',
@@ -304,7 +333,13 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
                 )
               }
             >
-              가입
+              <div className=" w-full h-full flex justify-center items-center ">
+                {isLoading ? (
+                  <Loader type="Oval" color="#fff" height="40" width="40" />
+                ) : (
+                  '가입'
+                )}
+              </div>
             </button>
           </form>
         </div>

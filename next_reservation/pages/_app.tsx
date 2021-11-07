@@ -41,6 +41,7 @@ app.getInitialProps = async (context: AppContext) => {
       };
       const { data } = await axios.get('/api/auth/FirebaseGetUser');
       store.dispatch(userSignInAndUpActions.userSignInOrUpSuccess(data));
+      store.dispatch(userSignInAndUpActions.setLogeed(true));
     }
   } catch (error: any) {
     console.log(error.message);

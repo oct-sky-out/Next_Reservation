@@ -3,49 +3,49 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { useSelector } from '../../store/index';
 import { useDispatch } from 'react-redux';
 import { userSignInAndUpActions } from '../../store/user/userSignInAndUp';
-import { signOut, getAuth } from 'firebase/auth';
-import { auth } from '../../firebaseClient';
+import { getAuth } from 'firebase/auth';
+import { clientApp } from '../../firebaseClient';
 import nookies from 'nookies';
 import HeaderUserProfileStyle from '../../styles/components/Header/HeaderUserProfile';
+import { getApp } from '@firebase/app';
 
 const HeaderUserProfile = () => {
-  // * redux
+  //* friebase Auth
+  const auth = getAuth(clientApp);
+  //* redux
   const dispatch = useDispatch();
-  const { userProfile, logged } = useSelector((selector) => {
+  const { userProfile } = useSelector((selector) => {
     return { userProfile: selector.user.data, logged: selector.user.logged };
   });
   //* 유저 프로파일 메뉴 열림 닫힘
   const [isUserMenuOpened, setIsUserMenuOpened] = useState(false);
 
   //* 로그아웃 버튼 누를 시 로그아웃, 쿠키 삭제
-  const signOutAndDeleteCookie = useCallback(async () => {
+  const signOutAndDeleteCookie = useCallback(() => {
     try {
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          signOut(auth)
-            .then(() => {
-              dispatch(
-                userSignInAndUpActions.userSignInOrUpSuccess({
-                  type: '',
-                  email: '',
-                  name: '',
-                  token: '',
-                  brithDay: new Date(),
-                  userPicture: { src: '', height: 0, width: 0 },
-                })
-              );
-              dispatch(userSignInAndUpActions.setLogeed(false));
-              nookies.destroy(null, 'access_token');
+      auth
+        .signOut()
+        .then(() => {
+          dispatch(
+            userSignInAndUpActions.userSignInOrUpSuccess({
+              type: '',
+              email: '',
+              name: '',
+              token: '',
+              brithDay: new Date(),
+              userPicture: { src: '', height: 0, width: 0 },
             })
-            .catch((error: any) => {
-              throw error;
-            });
-        }
-      });
+          );
+          dispatch(userSignInAndUpActions.setLogeed(false));
+          nookies.destroy(null, 'access_token');
+        })
+        .catch((error: any) => {
+          throw error;
+        });
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <OutsideClickHandler
