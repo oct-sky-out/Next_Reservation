@@ -1,21 +1,35 @@
-import * as reactRedux from 'react-redux';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { isDisabled } from '@testing-library/user-event/dist/utils';
 import '@testing-library/jest-dom/extend-expect';
 import SignUp from '../../../components/Auth/SignUpModal';
+import { Provider } from 'react-redux';
+import { useMockStore } from '../../../store/index';
+import { useDispatchMock } from '../../../__mocks__/auth/authMocks';
 
-let useSelectorMock = jest.spyOn(reactRedux, 'useSelector');
-let useDispatchMock = jest.spyOn(reactRedux, 'useDispatch');
+const store = useMockStore;
+
+beforeEach(() => {
+  const dispatchMock = useDispatchMock;
+  store.dispatch = dispatchMock;
+});
 
 test('회원가입 모달 렌더링', () => {
   useDispatchMock.mockReturnValue(jest.fn());
-  render(<SignUp closeModal={jest.fn} />);
+
+  render(
+    <Provider store={store}>
+      <SignUp closeModal={jest.fn} />
+    </Provider>
+  );
 });
 
 test('회원가입 모달 렌더링 | input태그에 입력 후 체크 | 모두 입력 시 버튼 활성화', async () => {
-  useDispatchMock.mockReturnValue(jest.fn());
-  render(<SignUp closeModal={jest.fn} />);
+  render(
+    <Provider store={store}>
+      <SignUp closeModal={jest.fn} />
+    </Provider>
+  );
 
   const emailField = await screen.getByTestId<HTMLInputElement>('email');
   const nameField = await screen.getByTestId<HTMLInputElement>('name');
@@ -51,8 +65,11 @@ test('회원가입 모달 렌더링 | input태그에 입력 후 체크 | 모두 
 });
 
 test('회원가입 모달 렌더링 | 비밀번호 입력 후 비밀번호 시각 활성화 비활성화 테스트', async () => {
-  useDispatchMock.mockReturnValue(jest.fn());
-  render(<SignUp closeModal={jest.fn} />);
+  render(
+    <Provider store={store}>
+      <SignUp closeModal={jest.fn} />
+    </Provider>
+  );
 
   const pwd1Field = await screen.getByTestId<HTMLInputElement>('pwd1');
   const pwd2Field = await screen.getByTestId<HTMLInputElement>('pwd2');

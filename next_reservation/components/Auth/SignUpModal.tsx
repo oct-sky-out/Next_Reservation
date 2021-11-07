@@ -1,17 +1,21 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import usePasswordType from '../hooks/useTogglePasswordType';
 import { useDispatch } from 'react-redux';
-import { userAction } from '../../store/user/userSignUp';
-import axios from '../../lib/api/Axios';
-import { AuthErrorCodes } from 'firebase/auth';
+import { useSelector } from 'store';
+import { userSignInAndUpActions } from '../../store/user/userSignInAndUp';
+import { getAuth, signOut, AuthErrorCodes } from 'firebase/auth';
+import { clientApp } from '../../firebaseClient';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FiMail } from 'react-icons/fi';
 import Swal from 'sweetalert2';
+import Loader from 'react-loader-spinner';
 import Input from '../common/Input';
 import Selector from '../common/Selector';
 import { Years, Months, Days } from '../../lib/staticData/Date';
 import SignUpStyle from '../../styles/components/Auth/SignInAndUpModal';
 import DefaultUserPicture from '../../public/static/user/default_user_picture.png';
+import { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } from 'constants';
 
 interface IProps {
   closeModal: () => void;
@@ -27,8 +31,19 @@ type AllInputValuePropType =
   | 'password2';
 
 const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
-  const userDispatch = useDispatch();
+  //* Next js router
+  const router = useRouter();
+  //* redux
+  const dispatch = useDispatch();
+  const { successData, failureData } = useSelector((selector) => {
+    return {
+      successData: selector.user.data,
+      failureData: selector.user.error,
+    };
+  });
+  //* password Type Change CustomHook
   const { getCheckState, isShowing } = usePasswordType();
+  //* Set email passwords Validation
   const [validation, setValidation] = useState({
     email: false,
     password1: {
@@ -37,6 +52,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
       includedNumAndSign: false,
     },
   });
+  //* User SignUp Form
   const [allInputValue, setAllInputValue] = useState({
     email: '',
     name: '',
@@ -46,7 +62,9 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
     password1: '',
     password2: '',
   });
-
+  //* Loading status
+  const [isLoading, setIsLoading] = useState(false);
+  //* useCallback
   const changeInputValue = useCallback(
     (
       prop: AllInputValuePropType,
@@ -90,7 +108,6 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
 
   const isSamePassword = () =>
     allInputValue.password1 === allInputValue.password2;
-
   const onSignUp = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -103,51 +120,79 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
           timer: 3000,
         });
       }
-      try {
-        const { data } = await axios.post('/api/auth/FirebaseSignUp', {
-          email: allInputValue.email,
-          name: allInputValue.name,
-          year: allInputValue.year,
-          month: allInputValue.month,
-          day: allInputValue.day,
-          password: allInputValue.password1,
-          isLogged: true,
-          userPicture: DefaultUserPicture,
-        });
-        if (data.type === 'success') {
-          await Swal.fire({
-            icon: 'success',
-            title: '가입완료!',
-            text: '👏 축하합니다! 가입이 완료되었습니다. 👏',
-            timer: 3000,
+
+      setIsLoading(true);
+
+      const sendValue = {
+        email: allInputValue.email,
+        name: allInputValue.name,
+        year: allInputValue.year,
+        month: allInputValue.month,
+        day: allInputValue.day,
+        password: allInputValue.password1,
+        isLogged: true,
+        userPicture: DefaultUserPicture,
+      };
+      dispatch(userSignInAndUpActions.userSignUp(sendValue));
+    },
+    [allInputValue, isLoading]
+  );
+
+  //* useEffect 회원가입 스토어 감지 후 업데이트, 회원가입 후 자동 로그아웃.
+  useEffect(() => {
+    setIsLoading(false);
+    if (successData.type === 'success') {
+      Swal.fire({
+        icon: 'success',
+        title: '가입완료!',
+        text: '👏 축하합니다! 이메일 인증 후 로그인해주세요!👏',
+        timer: 3000,
+      }).then(() => {
+        getAuth(clientApp)
+          .signOut()
+          .then(() => {
+            closeModal();
+          })
+          .then(() => {
+            dispatch(
+              userSignInAndUpActions.userSignInOrUpSuccess({
+                type: '',
+                email: '',
+                name: '',
+                brithDay: new Date(),
+                token: '',
+                userPicture: { src: '', width: 0, height: 0 },
+              })
+            );
+          })
+          .then(() => {
+            router.push('/');
           });
-          userDispatch(
-            userAction.userSignUpSuccess({
-              type: data.type,
-              email: data.email,
-              isLogged: false,
-            })
-          );
-          closeModal();
-        }
-      } catch (error: any) {
-        const { data } = error.response;
-        if (data.code === AuthErrorCodes.EMAIL_EXISTS) {
-          return Swal.fire({
-            icon: 'error',
-            title: '중복된 이메일.',
-            text: `중복된 이메일이 존재합니다.`,
-          });
-        }
+      });
+    }
+    if (failureData.type === 'error') {
+      if (failureData.code === AuthErrorCodes.EMAIL_EXISTS) {
         Swal.fire({
           icon: 'error',
-          title: `예기치 못한 에러 발생. ${error.code}`,
-          text: `Error : ${error.message}`,
+          title: '중복된 이메일.',
+          text: `중복된 이메일이 존재합니다.`,
         });
       }
-    },
-    [allInputValue]
-  );
+      if (failureData.code !== AuthErrorCodes.EMAIL_EXISTS)
+        Swal.fire({
+          icon: 'error',
+          title: `예기치 못한 에러 발생. ${failureData.code}`,
+          text: `Error : ${failureData.message}`,
+        });
+      dispatch(
+        userSignInAndUpActions.userSignInOrFailure({
+          type: '',
+          code: '',
+          message: '',
+        })
+      );
+    }
+  }, [successData, failureData]);
 
   return (
     <SignUpStyle signInOrUp="up">
@@ -288,7 +333,13 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
                 )
               }
             >
-              가입
+              <div className=" w-full h-full flex justify-center items-center ">
+                {isLoading ? (
+                  <Loader type="Oval" color="#fff" height="40" width="40" />
+                ) : (
+                  '가입'
+                )}
+              </div>
             </button>
           </form>
         </div>

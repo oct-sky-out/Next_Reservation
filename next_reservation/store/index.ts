@@ -6,13 +6,12 @@ import {
   TypedUseSelectorHook,
 } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import userSignUpReducer from './user/userSignUp';
-import userSignInReducer from './user/userSignIn';
+import userSignInAndUp from './user/userSignInAndUp';
 import rootSaga from './sagas';
+
 // 여러개의 리듀서 컴바인
 const rootReducer = combineReducers({
-  userSignUp: userSignUpReducer,
-  userSignIn: userSignInReducer,
+  user: userSignInAndUp.reducer,
 });
 
 // 스토어 타입
@@ -33,8 +32,9 @@ const reducer = (state: any, action: AnyAction) => {
   return rootReducer(state, action);
 };
 
+const sagaMiddleware = createSagaMiddleware();
+
 const initStore: MakeStore<any> = () => {
-  const sagaMiddleware = createSagaMiddleware();
   const store = configureStore({
     reducer,
     middleware: [sagaMiddleware],
@@ -42,8 +42,14 @@ const initStore: MakeStore<any> = () => {
   });
 
   sagaMiddleware.run(rootSaga);
+  initialRootState = store.getState();
   return store;
 };
+
+export const useMockStore = configureStore({
+  reducer,
+  middleware: [sagaMiddleware],
+});
 
 export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
 

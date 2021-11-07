@@ -1,13 +1,16 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../store/index';
-import { userSignInActions } from '../../store/user/userSignIn';
+import { userSignInAndUpActions } from '../../store/user/userSignInAndUp';
 import usePasswordType from '../hooks/useTogglePasswordType';
+import { AuthErrorCodes } from 'firebase/auth';
 import { FiMail } from 'react-icons/fi';
 import Input from '../common/Input';
 import SignInAndUpModal from '../../styles/components/Auth/SignInAndUpModal';
 import YasumiTxt from '../../public/static/yasumi/yasumi_txt.svg';
 import Swal from 'sweetalert2';
+import Loader from 'react-loader-spinner';
+import nookies from 'nookies';
 
 interface IProps {
   closeModal: () => void;
@@ -17,30 +20,67 @@ type signInFormProp = 'email' | 'password';
 
 const SignInModal: React.FC<IProps> = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const { form, data, error } = useSelector((store) => {
+  const { data, error, logged } = useSelector((store) => {
     return {
-      form: store.userSignIn.loginForm,
-      data: store.userSignIn.data,
-      error: store.userSignIn.error,
+      data: store.user.data,
+      error: store.user.error,
+      logged: store.user.logged,
     };
   });
 
   useEffect(() => {
-    if (!!data.type) {
-      closeModal();
+    try {
+      if (data.type === 'success' && logged) {
+        setIsLoading(false);
+        if (data.token) {
+          nookies.set(null, 'access_token', data.token, {
+            path: '/',
+            maxAge: 60 * 60,
+            secure: true,
+          });
+          return closeModal();
+        }
+      }
+      if (error.type === 'error') {
+        if (
+          error.code === AuthErrorCodes.INVALID_PASSWORD ||
+          error.code === AuthErrorCodes.USER_DELETED
+        ) {
+          setIsLoading(false);
+          Swal.fire({
+            icon: 'error',
+            title: '이메일, 비밀번호 확인.',
+            text: '이메일 혹은 비밀번호를 확인해주세요!',
+            timer: 3000,
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: '에러',
+            text: `${error.message}`,
+          });
+        }
+        dispatch(
+          userSignInAndUpActions.userSignInOrFailure({
+            type: '',
+            code: '',
+            message: '',
+          })
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
     }
-    if (!!error.type) {
-      Swal.fire({
-        icon: 'error',
-        title: '비밀번호가 다릅니다.',
-        text: '비밀번호를 확인해주세요!',
-        timer: 3000,
-      });
-    }
-  }, [dispatch, data, error]);
+  }, [data, error, logged]);
 
+  const [isLoading, setIsLoading] = useState(false);
   const [signInForm, setSignInform] = useState({ email: '', password: '' });
   const { getCheckState, isShowing } = usePasswordType();
+
+  const startLoading = useCallback(() => {
+    setIsLoading(true);
+  }, [isLoading]);
   const changedSignInForm = useCallback(
     (propName: signInFormProp, e: React.ChangeEvent<HTMLInputElement>) => {
       setSignInform({ ...signInForm, [propName]: e.target.value });
@@ -50,8 +90,9 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
   const onSignIn = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      startLoading();
       dispatch(
-        userSignInActions.userSignIn({
+        userSignInAndUpActions.userSignIn({
           email: signInForm.email,
           password: signInForm.password,
         })
@@ -101,7 +142,13 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
               className="btn submit-btn"
               disabled={!(signInForm.email && signInForm.password)}
             >
-              로그인
+              <div className=" w-full h-full flex justify-center items-center ">
+                {isLoading ? (
+                  <Loader type="Oval" color="#fff" height="40" width="40" />
+                ) : (
+                  '로그인'
+                )}
+              </div>
             </button>
           </form>
         </div>
