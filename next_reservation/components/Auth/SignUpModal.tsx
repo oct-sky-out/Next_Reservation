@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import usePasswordType from '../hooks/useTogglePasswordType';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'store';
+import { useSelector } from '../../store';
 import { userSignInAndUpActions } from '../../store/user/userSignInAndUp';
 import { getAuth, signOut, AuthErrorCodes } from 'firebase/auth';
 import { clientApp } from '../../firebaseClient';
@@ -15,7 +15,6 @@ import Selector from '../common/Selector';
 import { Years, Months, Days } from '../../lib/staticData/Date';
 import SignUpStyle from '../../styles/components/Auth/SignInAndUpModal';
 import DefaultUserPicture from '../../public/static/user/default_user_picture.png';
-import { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } from 'constants';
 
 interface IProps {
   closeModal: () => void;
