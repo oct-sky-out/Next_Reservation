@@ -28,12 +28,12 @@ export interface IFirebaseSignInError {
   message: string;
 }
 
-export interface SignInFormType {
+export interface ISignInForm {
   email: string;
   password: string;
 }
 
-export interface SignUpFormType {
+export interface ISignUpForm {
   email: string;
   name: string;
   year: string;

@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../store/index';
-import { userSignInAndUpActions } from '../../store/user/userSignInAndUp';
+import { userSignInAndUpActions } from '../../store/userSignInAndUp';
 import usePasswordType from '../hooks/useTogglePasswordType';
 import { AuthErrorCodes } from 'firebase/auth';
 import { FiMail } from 'react-icons/fi';

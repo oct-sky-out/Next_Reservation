@@ -4,13 +4,13 @@ import {
   IFirebaseSignInResult,
   IFirebaseSignUpError,
   IFirebaseSignUpResult,
-  SignInFormType,
-  SignUpFormType,
-} from '../../types/reduxActionTypes/ReduxUserActionTypes';
+  ISignInForm,
+  ISignUpForm,
+} from '../types/reduxActionTypes/ReduxUserActionTypes';
 
 const initialState: {
-  signUpForm: SignUpFormType;
-  loginForm: SignInFormType;
+  signUpForm: ISignUpForm;
+  loginForm: ISignInForm;
   data: IFirebaseSignInResult | IFirebaseSignUpResult;
   error: IFirebaseSignInError | IFirebaseSignUpError;
   logged: boolean;
@@ -49,18 +49,18 @@ const userSignInSlice = createSlice({
   initialState,
   reducers: {
     userSignUp: {
-      reducer: (state, action: PayloadAction<SignUpFormType>) => {
+      reducer: (state, action: PayloadAction<ISignUpForm>) => {
         return (state = { ...state, signUpForm: action.payload });
       },
-      prepare: (signUpForm: SignUpFormType) => {
+      prepare: (signUpForm: ISignUpForm) => {
         return { payload: signUpForm };
       },
     },
     userSignIn: {
-      reducer: (state, action: PayloadAction<SignInFormType>) => {
+      reducer: (state, action: PayloadAction<ISignInForm>) => {
         return (state = { ...state, loginForm: { ...action.payload } });
       },
-      prepare: (loginForm: SignInFormType) => {
+      prepare: (loginForm: ISignInForm) => {
         return { payload: loginForm };
       },
     },

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import usePasswordType from '../hooks/useTogglePasswordType';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../store';
-import { userSignInAndUpActions } from '../../store/user/userSignInAndUp';
+import { userSignInAndUpActions } from '../../store/userSignInAndUp';
 import { getAuth, signOut, AuthErrorCodes } from 'firebase/auth';
 import { clientApp } from '../../firebaseClient';
 import { AiOutlineUser } from 'react-icons/ai';

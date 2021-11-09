@@ -6,7 +6,7 @@ import {
   TypedUseSelectorHook,
 } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import userSignInAndUp from './user/userSignInAndUp';
+import userSignInAndUp from './userSignInAndUp';
 import rootSaga from './sagas';
 
 // 여러개의 리듀서 컴바인

@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { userSignInAndUpActions } from '../../user/userSignInAndUp';
+import { userSignInAndUpActions } from '../../userSignInAndUp';
 import {
   AuthError,
   createUserWithEmailAndPassword,
@@ -9,7 +9,7 @@ import {
 import { clientApp } from '../../../firebaseClient';
 import { setDoc, doc, Timestamp, FirestoreError } from 'firebase/firestore';
 import { USER_COLLECTION } from '../../../fireStoreDB';
-import { SignUpFormType } from 'types/reduxActionTypes/ReduxUserActionTypes';
+import { ISignUpForm } from '../../../types/reduxActionTypes/ReduxUserActionTypes';
 
 const signUpApi = async ({
   email,
@@ -19,7 +19,7 @@ const signUpApi = async ({
   day,
   password,
   userPicture,
-}: SignUpFormType) => {
+}: ISignUpForm) => {
   try {
     const auth = getAuth(clientApp);
     const brithDay = new Date(`${year}.${month}.${day}`);

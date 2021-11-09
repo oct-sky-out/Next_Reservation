@@ -7,7 +7,7 @@ import {
   mockStoreValue,
   useDispatchMock,
   useSelectorMock,
-} from '../../../__mocks__/auth/authMocks';
+} from '../../../__mocks__/redux/reduxStateMocks';
 import { useMockStore } from '../../../store';
 
 const store = useMockStore;
@@ -15,9 +15,7 @@ const store = useMockStore;
 beforeEach(() => {
   const dispatchMock = useDispatchMock;
   store.dispatch = dispatchMock;
-  useSelectorMock.mockImplementation((selector) =>
-    selector({ user: mockStoreValue })
-  );
+  useSelectorMock.mockImplementation((selector) => selector(mockStoreValue));
 });
 
 test('헤더 렌더링 | 버튼 확인', () => {

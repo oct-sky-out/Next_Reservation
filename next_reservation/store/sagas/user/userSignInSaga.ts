@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { userSignInAndUpActions } from '../../user/userSignInAndUp';
+import { userSignInAndUpActions } from '../../userSignInAndUp';
 import { getAuth, AuthError, signInWithEmailAndPassword } from 'firebase/auth';
 import { clientApp } from '../../../firebaseClient';
 import {
@@ -11,9 +11,9 @@ import {
   FirestoreError,
 } from 'firebase/firestore';
 import { USER_COLLECTION } from '../../../fireStoreDB';
-import { SignInFormType } from 'types/reduxActionTypes/ReduxUserActionTypes';
+import { ISignInForm } from 'types/reduxActionTypes/ReduxUserActionTypes';
 
-const signInApi = async ({ email, password }: SignInFormType) => {
+const signInApi = async ({ email, password }: ISignInForm) => {
   try {
     const auth = getAuth(clientApp);
     const loginRes = await signInWithEmailAndPassword(auth, email, password);

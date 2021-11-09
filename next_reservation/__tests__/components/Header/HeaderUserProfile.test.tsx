@@ -8,7 +8,7 @@ import {
   useDispatchMock,
   useSelectorMock,
   mockStoreValue,
-} from '../../../__mocks__/auth/authMocks';
+} from '../../../__mocks__/redux/reduxStateMocks';
 
 // 실제 파일의 import 할 패키지
 import React, { useState } from 'react';
@@ -80,9 +80,7 @@ const HeaderUserProfile = () => {
 beforeEach(() => {
   const dispatchMock = useDispatchMock;
   store.dispatch = dispatchMock;
-  useSelectorMock.mockImplementation((selector) =>
-    selector({ user: mockStoreValue })
-  );
+  useSelectorMock.mockImplementation((selector) => selector(mockStoreValue));
 });
 
 test('유저 프로필 버튼을 누르면 메뉴가 열림', async () => {
