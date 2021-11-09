@@ -2,20 +2,21 @@ import React, { useState, useCallback } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useSelector } from '../../store/index';
 import { useDispatch } from 'react-redux';
-import { userSignInAndUpActions } from '../../store/user/userSignInAndUp';
+import { userSignInAndUpActions } from '../../store/userSignInAndUp';
 import { getAuth } from 'firebase/auth';
 import { clientApp } from '../../firebaseClient';
 import nookies from 'nookies';
 import HeaderUserProfileStyle from '../../styles/components/Header/HeaderUserProfile';
-import { getApp } from '@firebase/app';
 
 const HeaderUserProfile = () => {
   //* friebase Auth
   const auth = getAuth(clientApp);
   //* redux
   const dispatch = useDispatch();
-  const { userProfile } = useSelector((selector) => {
-    return { userProfile: selector.user.data, logged: selector.user.logged };
+  const { userPicture } = useSelector((selector) => {
+    return {
+      userPicture: selector.user.data.userPicture,
+    };
   });
   //* 유저 프로파일 메뉴 열림 닫힘
   const [isUserMenuOpened, setIsUserMenuOpened] = useState(false);
@@ -63,10 +64,7 @@ const HeaderUserProfile = () => {
             setIsUserMenuOpened(!isUserMenuOpened);
           }}
         >
-          <img
-            src={userProfile.userPicture.src}
-            className="header-user-profile-image"
-          />
+          <img src={userPicture.src} className="header-user-profile-image" />
         </button>
         {isUserMenuOpened && (
           <>
@@ -76,6 +74,18 @@ const HeaderUserProfile = () => {
                 className="py-3 px-6 header-user-profile-management text-black border-b-2 border-emerald"
               >
                 계정
+              </button>
+              <button
+                type="button"
+                className="py-3 px-6 text-black border-b-2 border-emerald"
+              >
+                숙소관리
+              </button>
+              <button
+                type="button"
+                className="py-3 px-6 text-black border-b-2 border-emerald"
+              >
+                숙소등록
               </button>
               <button
                 type="button"

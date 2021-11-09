@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect';
 import SignUp from '../../../components/Auth/SignUpModal';
 import { Provider } from 'react-redux';
 import { useMockStore } from '../../../store/index';
-import { useDispatchMock } from '../../../__mocks__/auth/authMocks';
+import { useDispatchMock } from '../../../__mocks__/redux/reduxStateMocks';
 
 const store = useMockStore;
 

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import App, { AppProps, AppContext } from 'next/app';
 import withReduxSaga from 'next-redux-saga';
 import { wrapper } from '../store/index';
-import { userSignInAndUpActions } from '../store/user/userSignInAndUp';
+import { userSignInAndUpActions } from '../store/userSignInAndUp';
 import axios from '../lib/api';
 import Header from '../components/Header/Header';
 import cookieParseToArray from '../lib/utils/cookieParseToArray';

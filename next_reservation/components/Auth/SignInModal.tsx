@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../store/index';
-import { userSignInAndUpActions } from '../../store/user/userSignInAndUp';
+import { userSignInAndUpActions } from '../../store/userSignInAndUp';
 import usePasswordType from '../hooks/useTogglePasswordType';
 import { AuthErrorCodes } from 'firebase/auth';
 import { FiMail } from 'react-icons/fi';
@@ -129,7 +129,7 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
               <Input
                 data-testid="pwd"
                 type={getCheckState().passwordField}
-                id="check-password"
+                id="password-input"
                 placeholder="비밀번호를 입력해주세요."
                 icon={isShowing(getCheckState().passwordField, 'PWD_FIELD')}
                 value={signInForm.password}
