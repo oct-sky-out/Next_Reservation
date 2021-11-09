@@ -77,13 +77,13 @@ const HeaderUserProfile = () => {
               </button>
               <button
                 type="button"
-                className="py-3 px-6 header-user-logout text-black border-b-2 border-emerald"
+                className="py-3 px-6 text-black border-b-2 border-emerald"
               >
                 숙소관리
               </button>
               <button
                 type="button"
-                className="py-3 px-6 header-user-logout text-black border-b-2 border-emerald"
+                className="py-3 px-6 text-black border-b-2 border-emerald"
               >
                 숙소등록
               </button>

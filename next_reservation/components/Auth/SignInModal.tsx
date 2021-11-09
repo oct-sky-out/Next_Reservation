@@ -129,7 +129,7 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
               <Input
                 data-testid="pwd"
                 type={getCheckState().passwordField}
-                id="check-password"
+                id="password-input"
                 placeholder="비밀번호를 입력해주세요."
                 icon={isShowing(getCheckState().passwordField, 'PWD_FIELD')}
                 value={signInForm.password}

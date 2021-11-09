@@ -173,7 +173,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
       if (failureData.code === AuthErrorCodes.EMAIL_EXISTS) {
         Swal.fire({
           icon: 'error',
-          title: '중복된 이메일.',
+          title: '중복된 이메일',
           text: `중복된 이메일이 존재합니다.`,
         });
       }
@@ -234,6 +234,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
               <div className="brithDay-wrapper year-select">
                 <Selector
                   data-testid="brithYear"
+                  className="brithYear"
                   options={Years}
                   disableOption="년"
                   value={allInputValue.year}
@@ -246,6 +247,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
               <div className="brithDay-wrapper month-select">
                 <Selector
                   data-testid="brithMonth"
+                  className="brithMonth"
                   options={Months}
                   disableOption="월"
                   value={allInputValue.month}
@@ -258,6 +260,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
               <div className="brithDay-wrapper month-select">
                 <Selector
                   data-testid="brithDay"
+                  className="brithDay"
                   options={Days}
                   disableOption="일"
                   value={allInputValue.day}
