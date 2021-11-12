@@ -8,7 +8,19 @@ import {
   ISignInForm,
   ISignUpForm,
 } from 'types/reduxActionTypes/ReduxUserActionTypes';
+import { IRyokanType } from '../../types/reduxActionTypes/ReduxRegiserRyokanType';
 import userDefaultProfilePicture from '../../public/static/user/default_user_picture.png';
+
+type mockStoreType = {
+  user: {
+    signUpForm: ISignUpForm;
+    loginForm: ISignInForm;
+    data: IFirebaseSignInResult | IFirebaseSignUpResult;
+    error: IFirebaseSignInError | IFirebaseSignUpError;
+    logged: boolean;
+  };
+  registerRyokan: IRyokanType;
+};
 
 const store = useMockStore;
 const dispatchMock = jest.fn(store.dispatch);
@@ -17,15 +29,7 @@ store.dispatch = dispatchMock;
 export let useSelectorMock = jest.spyOn(customSelecor, 'useSelector');
 export let useDispatchMock = dispatchMock;
 
-export const mockStoreValue: {
-  user: {
-    signUpForm: ISignUpForm;
-    loginForm: ISignInForm;
-    data: IFirebaseSignInResult | IFirebaseSignUpResult;
-    error: IFirebaseSignInError | IFirebaseSignUpError;
-    logged: boolean;
-  };
-} = {
+export const mockStoreValue: mockStoreType = {
   user: {
     signUpForm: {
       email: '',
@@ -54,5 +58,10 @@ export const mockStoreValue: {
       message: '',
     },
     logged: false,
+  },
+  registerRyokan: {
+    buildingType: '',
+    ryokanType: '',
+    isBuiltInOnsen: false,
   },
 };
