@@ -1,6 +1,4 @@
-import { useSelector } from '../../store';
 import { registerRyokanActions } from '../../store/registerRyokan';
-import { useDispatch } from 'react-redux';
 import { useMockStore } from '../../store';
 import {
   mockStoreValue,
