@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useState, useCallback } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useSelector } from '../../store/index';
@@ -9,6 +10,8 @@ import nookies from 'nookies';
 import HeaderUserProfileStyle from '../../styles/components/Header/HeaderUserProfile';
 
 const HeaderUserProfile = () => {
+  //*Router
+  const router = useRouter();
   //* friebase Auth
   const auth = getAuth(clientApp);
   //* redux
@@ -48,6 +51,10 @@ const HeaderUserProfile = () => {
     }
   }, [dispatch]);
 
+  const goingRegistRyokan = useCallback(() => {
+    router.push('/room/register/ryokan');
+  }, []);
+
   return (
     <OutsideClickHandler
       onOutsideClick={() => {
@@ -82,6 +89,7 @@ const HeaderUserProfile = () => {
                 숙소관리
               </button>
               <button
+                onClick={goingRegistRyokan}
                 type="button"
                 className="py-3 px-6 text-black border-b-2 border-emerald"
               >

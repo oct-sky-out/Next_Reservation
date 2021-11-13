@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next';
 import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../../store';
@@ -7,8 +8,14 @@ import {
   RyokanType as RyokanTypes,
   BuildingType as BuildingTypes,
 } from '../../../lib/staticData/RegisterRyokanType';
+import RegisterFooter from '../RegisterFooter/RegisterFooter';
+import RegisterRyokanStyle from '../../../styles/components/Register/RegisterRyokan';
 
-const RegisterRyokan = () => {
+interface IPorps {
+  priviousHref: string;
+}
+
+const RegisterRyokan: React.FC<IPorps> = ({ priviousHref }) => {
   //* Redux
   const dispatch = useDispatch();
   const { ryokanType, buildingType, isBuiltInOnsen } = useSelector(
@@ -58,31 +65,50 @@ const RegisterRyokan = () => {
   );
 
   return (
-    <div>
-      <Selector
-        onChange={(e) => selectedRyokanTypeOrBuildingType(e)(RyokanTypes)}
-        value={ryokanAndBuildingType.ryokan}
-        disableOption="료칸유형을 선택해주세요."
-        options={Object.values(RyokanTypes)}
-      />
-      <Selector
-        onChange={(e) => selectedRyokanTypeOrBuildingType(e)(BuildingTypes)}
-        value={ryokanAndBuildingType.building}
-        disableOption="건물유형을 선택해주세요."
-        options={Object.values(BuildingTypes)}
-      />
-      <div className="list-group">
-        <label className="list-group-item">
-          <input
-            className="form-check-input me-1"
-            type="checkbox"
-            value=""
-            onChange={selectedBuiltInOnsen}
+    <RegisterRyokanStyle>
+      <div className="grid grid-cols-2 h-full">
+        <div className="left-side-description col-start-1 flex justify-center items-center">
+          <h1 className="text-white text-5xl">
+            호스팅 할 료칸유형을 선택해주세요.
+          </h1>
+        </div>
+        <div className="w-full col-start-2 flex flex-col justify-center p-10">
+          <span className="text-black mb-3">1. 료칸유형</span>
+          <Selector
+            className="mb-5"
+            onChange={(e) => selectedRyokanTypeOrBuildingType(e)(RyokanTypes)}
+            value={ryokanAndBuildingType.ryokan}
+            disableOption="료칸유형을 선택해주세요."
+            options={Object.values(RyokanTypes)}
           />
-          객실 내부에 온천이 있습니까?
-        </label>
+          <span className="text-black mb-3">2. 건물유형</span>
+          <Selector
+            className="mb-5"
+            onChange={(e) => selectedRyokanTypeOrBuildingType(e)(BuildingTypes)}
+            value={ryokanAndBuildingType.building}
+            disableOption="건물유형을 선택해주세요."
+            options={Object.values(BuildingTypes)}
+          />
+          <div className="list-group mb-5 flex justify-center">
+            <span className="text-black mb-3">3. 객실 내 온천여부</span>
+            <label className="list-group-item">
+              <input
+                id="built-in-onsen"
+                className="form-check-input m-0 mr-1 "
+                type="checkbox"
+                onChange={selectedBuiltInOnsen}
+              />
+              객실 내부에 온천이 있습니까?
+            </label>
+          </div>
+          <RegisterFooter
+            isValild={!(ryokanType && buildingType)}
+            nextHref="/room/register/bedrooms"
+            previousHref={priviousHref}
+          />
+        </div>
       </div>
-    </div>
+    </RegisterRyokanStyle>
   );
 };
 

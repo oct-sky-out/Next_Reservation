@@ -30,7 +30,7 @@ const Header: React.FC = () => {
       <Container
         className={`${
           getModalOpenedState() ? 'filter blur-md' : ''
-        } rounded-b-2xl p-0 flex justify-center`}
+        } p-0 flex justify-center`}
       >
         <Link href="/">
           <a>
