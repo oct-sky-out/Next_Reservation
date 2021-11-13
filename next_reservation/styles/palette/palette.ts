@@ -24,4 +24,5 @@ export default {
   gary_f7: '#f7f7f7',
   darkCyan: '#06757f',
   green: '#88e05c',
+  emerald: '#48cfae',
 };

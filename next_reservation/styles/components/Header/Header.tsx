@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   position: sticky;
+  top: 0;
   width: 100vw;
   height: 120px;
   display: flex;
