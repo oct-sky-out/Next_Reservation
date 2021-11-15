@@ -5,6 +5,8 @@ const RegisterFooterStyle = styled.div`
   .btn {
     background-color: ${palette.emerald};
     border: none;
+    border-radius: 9999px;
+    padding: 1rem 2rem;
   }
 `;
 

@@ -1,11 +1,17 @@
 import styled from 'styled-components';
 
 const RegisterRyokanStyle = styled.div`
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
   .left-side-description {
-    background: linear-gradient(45deg, rgba(219, 39, 119), rgba(255, 200, 0));
+    background: linear-gradient(45deg, rgba(0, 50, 119), rgba(0, 220, 150));
+  }
+  .list-group-item {
+    display: flex;
   }
 `;
 
