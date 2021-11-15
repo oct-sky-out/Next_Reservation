@@ -20,6 +20,7 @@ type mockStoreType = {
     logged: boolean;
   };
   registerRyokan: IRyokanType;
+  registerFormIsValid: { isValid: boolean };
 };
 
 const store = useMockStore;
@@ -64,4 +65,5 @@ export const mockStoreValue: mockStoreType = {
     ryokanType: '',
     isBuiltInOnsen: false,
   },
+  registerFormIsValid: { isValid: false },
 };
