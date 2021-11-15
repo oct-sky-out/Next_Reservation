@@ -9,7 +9,7 @@ const ryokan: NextPage<serverSidePropsType> = (props: serverSidePropsType) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  return { props: { priviousHref: context.req.headers.referer } };
+  return { props: { priviousHref: context.req.headers.referer || '/' } };
 };
 
 export default ryokan;
