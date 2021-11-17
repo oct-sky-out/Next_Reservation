@@ -14,12 +14,12 @@ const RegisterFooter: React.FC<IProps> = ({ nextHref, previousHref }) => {
   return (
     <RegisterFooterStyle className="h-20 w-1/2 p-10 absolute left-1/2 bottom-10 flex items-center justify-between">
       <Link href={previousHref || ''} passHref>
-        <button className="btn btn-primary">
+        <button className="btn btn-primary back-page-btn">
           <a>뒤로</a>
         </button>
       </Link>
       <Link href={nextHref || ''} passHref>
-        <button className="btn btn-primary" disabled={!isValid}>
+        <button className="btn btn-primary next-page-btn" disabled={!isValid}>
           <a>다음</a>
         </button>
       </Link>

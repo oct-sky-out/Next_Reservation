@@ -57,7 +57,7 @@ const RegisterRyokanType = () => {
       <div className="w-1/3">
         <span className="text-black mb-3 inline-block">1. 료칸유형</span>
         <Selector
-          className="mb-5 h-20"
+          className="mb-5 h-20 ryokan-type-selector"
           onChange={(e) => selectedRyokanTypeOrBuildingType(e)(RyokanTypes)}
           value={RyokanTypes[ryokanType] || '료칸유형을 선택해주세요.'}
           disableOption="료칸유형을 선택해주세요."
@@ -67,7 +67,7 @@ const RegisterRyokanType = () => {
       <div className="w-1/3">
         <span className="text-black mb-3 inline-block">2. 건물유형</span>
         <Selector
-          className="mb-5 h-20"
+          className="mb-5 h-20 ryokan-building-type-selector"
           onChange={(e) => selectedRyokanTypeOrBuildingType(e)(BuildingTypes)}
           value={BuildingTypes[buildingType] || '건물유형을 선택해주세요.'}
           disableOption="건물유형을 선택해주세요."
@@ -83,7 +83,7 @@ const RegisterRyokanType = () => {
             <div>
               <input
                 id="built-in-onsen"
-                className="form-check-input mr-3 my-auto inline-block"
+                className="form-check-input mr-3 my-auto inline-block ryokan-built-in-onsen"
                 type="checkbox"
                 onChange={selectedBuiltInOnsen}
               />
