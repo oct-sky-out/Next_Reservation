@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../store/index';
@@ -13,12 +14,13 @@ import Loader from 'react-loader-spinner';
 import nookies from 'nookies';
 
 interface IProps {
-  closeModal: () => void;
+  closeModal?: () => void;
 }
 
 type signInFormProp = 'email' | 'password';
 
 const SignInModal: React.FC<IProps> = ({ closeModal }) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { data, error, logged } = useSelector((store) => {
     return {
@@ -38,7 +40,8 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
             maxAge: 60 * 60,
             secure: true,
           });
-          return closeModal();
+          if (closeModal) return closeModal();
+          router.push('/');
         }
       }
       if (error.type === 'error') {

@@ -53,6 +53,7 @@ const HeaderUserProfile = () => {
 
   const goingRegistRyokan = useCallback(() => {
     router.push('/room/register/ryokan');
+    setIsUserMenuOpened(false);
   }, []);
 
   return (
@@ -91,7 +92,7 @@ const HeaderUserProfile = () => {
               <button
                 onClick={goingRegistRyokan}
                 type="button"
-                className="py-3 px-6 text-black border-b-2 border-emerald"
+                className="py-3 px-6 text-black border-b-2 border-emerald register-ryokan"
               >
                 숙소등록
               </button>
