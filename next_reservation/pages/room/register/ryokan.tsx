@@ -16,6 +16,11 @@ const ryokan: NextPage<serverSidePropsType> = (props: serverSidePropsType) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (!context.req.cookies['access_token']) {
+    return {
+      redirect: { statusCode: 302, destination: '/login' },
+    };
+  }
   return { props: { priviousHref: context.req.headers.referer || '/' } };
 };
 
