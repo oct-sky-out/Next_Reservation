@@ -20,7 +20,7 @@ type mockStoreType = {
     logged: boolean;
   };
   registerRyokan: IRyokanType;
-  registerFormIsValid: { isValid: boolean };
+  registerIsValid: { isValid: boolean };
 };
 
 const store = useMockStore;
@@ -64,6 +64,11 @@ export const mockStoreValue: mockStoreType = {
     buildingType: '',
     ryokanType: '',
     isBuiltInOnsen: false,
+    bedrooms: {
+      bedroomCount: 0,
+      bedroomList: [{ bedType: '', count: 0 }],
+      personnel: 0,
+    },
   },
-  registerFormIsValid: { isValid: false },
+  registerIsValid: { isValid: false },
 };
