@@ -22,7 +22,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       redirect: { statusCode: 302, destination: '/login' },
     };
   }
-  return { props: { priviousHref: context.req.headers.referer || '/' } };
+  return {
+    props: {
+      priviousHref: context.req.headers.referer || '/room/register/ryokan',
+    },
+  };
 };
 
 export default ryokan;
