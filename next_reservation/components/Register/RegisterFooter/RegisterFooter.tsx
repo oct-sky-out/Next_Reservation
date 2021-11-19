@@ -12,7 +12,7 @@ const RegisterFooter: React.FC<IProps> = ({ nextHref, previousHref }) => {
   const isValid = useSelector((selector) => selector.registerIsValid.isValid);
 
   return (
-    <RegisterFooterStyle className="h-20 w-1/2 p-10 absolute left-1/2 bottom-10 flex items-center justify-between">
+    <RegisterFooterStyle className="w-1/2 p-10 fixed left-1/2 bottom-0 flex items-center justify-between">
       <Link href={previousHref || ''} passHref>
         <button className="btn btn-primary back-page-btn">
           <a>뒤로</a>

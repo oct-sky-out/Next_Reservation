@@ -53,9 +53,9 @@ const RegisterRyokanType = () => {
   );
 
   return (
-    <div className="w-full col-start-2 flex flex-col justify-center items-center register-form">
-      <div className="w-1/3">
-        <span className="text-black mb-3 inline-block">1. 료칸유형</span>
+    <div className="w-full col-start-2 register-form animate-fadeInAndUpForm space-y-5 mx-0 my-auto">
+      <div className="w-1/2 my-0 mx-auto">
+        <span className="text-black mb-3 inline-block text-2xl">료칸유형</span>
         <Selector
           className="mb-5 h-20 ryokan-type-selector"
           onChange={(e) => selectedRyokanTypeOrBuildingType(e)(RyokanTypes)}
@@ -64,8 +64,8 @@ const RegisterRyokanType = () => {
           options={Object.values(RyokanTypes)}
         />
       </div>
-      <div className="w-1/3">
-        <span className="text-black mb-3 inline-block">2. 건물유형</span>
+      <div className="w-1/2 my-0 mx-auto">
+        <span className="text-black mb-3 inline-block text-2xl">건물유형</span>
         <Selector
           className="mb-5 h-20 ryokan-building-type-selector"
           onChange={(e) => selectedRyokanTypeOrBuildingType(e)(BuildingTypes)}
@@ -74,13 +74,13 @@ const RegisterRyokanType = () => {
           options={Object.values(BuildingTypes)}
         />
       </div>
-      <div className="w-1/3">
+      <div className="w-1/2 my-0 mx-auto">
         <div className="list-group mb-5 flex justify-center">
-          <span className="text-black mb-3 inline-block">
-            3. 객실 내 온천여부
+          <span className="text-black mb-3 inline-block text-2xl">
+            객실 내 온천여부
           </span>
           <label className="list-group-item h-10 items-center ">
-            <div>
+            <div className="flex items-center">
               <input
                 id="built-in-onsen"
                 className="form-check-input mr-3 my-auto inline-block ryokan-built-in-onsen"

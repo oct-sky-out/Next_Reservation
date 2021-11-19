@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import palette from '../../palette/palette';
 
 const RegisterFooterStyle = styled.div`
+  height: 120px;
   .btn {
     background-color: ${palette.emerald};
     border: none;
