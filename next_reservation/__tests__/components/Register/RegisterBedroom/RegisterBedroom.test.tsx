@@ -11,6 +11,7 @@ import {
 
 //! componet import
 import React, { useCallback, useEffect, useMemo } from 'react';
+import { v4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../../../store';
 import { registerRyokanActions } from '../../../../store/registerRyokan';
@@ -63,19 +64,18 @@ const RegisterRyokanBeedrooms = () => {
     () =>
       bedroomList.map((bedrooms, bedroomNumber) => {
         return (
-          <div>
+          <div key={v4()}>
             <div>
               <span>{bedroomNumber + 1}번 침실</span>
               {bedrooms.map((bedroom) => {
                 return (
-                  <span>
+                  <span key={v4()}>
                     {BedTypes[bedroom.bedType]} {bedroom.count}개
                   </span>
                 );
               })}
               <button>침대 추가 또는 수정하기</button>
             </div>
-            {}
           </div>
         );
       }),
@@ -88,16 +88,16 @@ const RegisterRyokanBeedrooms = () => {
         <span className="text-black mb-3 inline-block">최대 숙박 인원</span>
         <div>
           <button
-            data-testid="personnel-add"
-            value="add"
+            data-testid="personnel-sub"
+            value="sub"
             onClick={personnelAddOrSub}
           >
             -
           </button>
           <span>{personnel}</span>
           <button
-            data-testid="personnel-sub"
-            value="sub"
+            data-testid="personnel-add"
+            value="add"
             onClick={personnelAddOrSub}
           >
             +
@@ -109,8 +109,10 @@ const RegisterRyokanBeedrooms = () => {
           게스트가 사용 가능한 침실개수를 정해주세요.
         </span>
         <Selector
+          data-testid="bedroom-count"
           className="mb-5 h-20 ryokan-bedroom-count-selector"
           disableOption="침실개수를 선택해주세요."
+          value={`침실 ${bedroomCount}개`}
           onChange={selectBedroomCounted}
           options={BedroomCount}
         />
@@ -123,7 +125,7 @@ const RegisterRyokanBeedrooms = () => {
             확인해주세요.
           </span>
           <div className="divide-y-2 border-t-2 border-b-2">
-            {...getBedroomList}
+            {getBedroomList}
           </div>
         </div>
       </div>
@@ -139,10 +141,47 @@ beforeEach(() => {
   useSelectorMock.mockImplementation((selector) => selector(mockStoreValue));
 });
 
-test('', async () => {
+test('숙박인원 추가 시 registerRyokan.bedrooms.personnel의 값이 늘어나는가?', async () => {
   render(
     <Provider store={store}>
       <RegisterRyokanBeedrooms />
     </Provider>
   );
+
+  const personnelAddBtn = await screen.getByTestId<HTMLButtonElement>(
+    'personnel-add'
+  );
+
+  userEvent.click(personnelAddBtn);
+  expect(store.getState().registerRyokan.bedrooms.personnel).toEqual(1);
+});
+
+test('숙박인원 제거 시 registerRyokan.bedrooms.personnel의 값이 줄어드는가?', async () => {
+  render(
+    <Provider store={store}>
+      <RegisterRyokanBeedrooms />
+    </Provider>
+  );
+
+  const personnelSubBtn = await screen.getByTestId<HTMLButtonElement>(
+    'personnel-sub'
+  );
+
+  userEvent.click(personnelSubBtn);
+  expect(store.getState().registerRyokan.bedrooms.personnel).toEqual(-1);
+});
+
+test('침실 개수 셀렉터 값 변경 시 registerRyokan.bedrooms.bedroomCount의 값이 바뀌고 침실리스트의 수가 늘인 값만큼 늘었는가?', async () => {
+  render(
+    <Provider store={store}>
+      <RegisterRyokanBeedrooms />
+    </Provider>
+  );
+
+  const bedroomCountSelector = await screen.getByTestId<HTMLSelectElement>(
+    'bedroom-count'
+  );
+  userEvent.selectOptions(bedroomCountSelector, ['침실 2개']);
+  expect(store.getState().registerRyokan.bedrooms.bedroomCount).toEqual(2);
+  expect(store.getState().registerRyokan.bedrooms.bedroomList).toHaveLength(2);
 });

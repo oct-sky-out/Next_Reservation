@@ -66,7 +66,7 @@ export const mockStoreValue: mockStoreType = {
     isBuiltInOnsen: false,
     bedrooms: {
       bedroomCount: 0,
-      bedroomList: [{ bedType: '', count: 0 }],
+      bedroomList: [[{ bedType: '', count: 0 }]],
       personnel: 0,
     },
   },

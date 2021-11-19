@@ -100,10 +100,7 @@ test('침실의 침대 정보를 수정정했을 때 침실 수, 침실 정보(b
 
   expect(store.getState().registerRyokan.bedrooms.bedroomList).toEqual([
     [{ bedType: 'double-bed', count: 1 }],
-    [
-      { bedType: '', count: 0 },
-      { bedType: '', count: 0 },
-    ],
+    [{ bedType: '', count: 0 }],
     [{ bedType: '', count: 0 }],
     [
       { bedType: 'double-bed', count: 1 },

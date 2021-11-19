@@ -8,6 +8,6 @@ export const BedTypes: { [key: string]: string } = {
   waterbed: '물침대',
 };
 
-export const BedroomCount = [...Array(16)].map(
-  (_, idx) => '침실 ' + idx + '개'
+export const BedroomCount = [...Array(15)].map(
+  (_, idx) => '침실 ' + (idx + 1) + '개'
 );
