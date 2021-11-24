@@ -5,26 +5,18 @@ import { useSelector } from '../../../store';
 import { registerRyokanActions } from '../../../store/registerRyokan';
 import { registerFormValidAction } from '../../../store/registerFormIsValid';
 import Selector from '../../../components/common/Selector';
-import {
-  BedTypes,
-  BedroomCount,
-} from '../../../lib/staticData/RegisterRyokanBedrooms';
+import { BedroomCount } from '../../../lib/staticData/RegisterRyokanBedrooms';
 import useDidMounted from '../../hooks/useDidMounted';
-import { bedroomType } from 'types/reduxActionTypes/ReduxRegiserRyokanType';
-import useModal from '@/components/hooks/useModal';
+import BedroomList from './BedroomList';
 
 const RegisterRyokanBeedrooms = () => {
+  //* Redux
   const dispatch = useDispatch();
-  const { bedroomList, bedroomCount, personnel, isFormValid } = useSelector(
-    (selector) => ({
-      bedroomList: selector.registerRyokan.bedrooms.bedroomList,
-      bedroomCount: selector.registerRyokan.bedrooms.bedroomCount,
-      personnel: selector.registerRyokan.bedrooms.personnel,
-      isFormValid: selector.registerIsValid.isValid,
-    })
-  );
-  //* custom hooks
-  const { ModalPotal, closeModal, openModal } = useModal();
+  const { bedroomList, bedroomCount, personnel } = useSelector((selector) => ({
+    bedroomList: selector.registerRyokan.bedrooms.bedroomList,
+    bedroomCount: selector.registerRyokan.bedrooms.bedroomCount,
+    personnel: selector.registerRyokan.bedrooms.personnel,
+  }));
 
   //* useRef
   const didMounted = useDidMounted();
@@ -70,41 +62,6 @@ const RegisterRyokanBeedrooms = () => {
       }
     },
     [bedroomCount, bedroomList]
-  );
-  //* any Functions
-  const isAvailableBed = useCallback(
-    (bedroom: bedroomType) => {
-      return bedroom.count
-        ? `${BedTypes[bedroom.bedType]} ${bedroom.count}개`
-        : '침대가 비어있습니다.';
-    },
-    [personnel]
-  );
-  //* useMemo
-  const getBedroomList = useMemo(
-    () =>
-      bedroomList.map((bedrooms, bedroomNumber) => {
-        return (
-          <div key={v4()} className="text-black py-5 px-3">
-            <div className="flex flex-col relative">
-              <span className="text-xl inline-block">
-                {bedroomNumber + 1}번 침실
-              </span>
-              {bedrooms.map((bedroom) => {
-                return (
-                  <span className="text-base inline-block" key={v4()}>
-                    {isAvailableBed(bedroom)}
-                  </span>
-                );
-              })}
-              <button className="absolute right-0 top-1/3 btn  btn-outline-success">
-                침대 추가하기
-              </button>
-            </div>
-          </div>
-        );
-      }),
-    [bedroomList, bedroomCount]
   );
 
   return (
@@ -156,13 +113,10 @@ const RegisterRyokanBeedrooms = () => {
               모든 게스트가 편안하게 숙박할 수 있도록 침대가 충분히
               구비되어있는지 확인해주세요.
             </span>
-            <div className="divide-solid divide-y divide-gray-300 border-t border-b border-solid border-gray-300">
-              {getBedroomList}
-            </div>
+            <BedroomList bedroomList={bedroomList} />
           </div>
         </div>
       </div>
-      <ModalPotal>{}</ModalPotal>
     </>
   );
 };
