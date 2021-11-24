@@ -59,40 +59,28 @@ const registerRyokanSlice = createSlice({
         return { payload: bedroomCount };
       },
       reducer: (state, action: PayloadAction<number>) => {
-        const bedroomList =
-          action.payload > state.bedrooms.bedroomList.length
-            ? [...state.bedrooms.bedroomList].concat(
-                [
-                  ...Array(action.payload - state.bedrooms.bedroomList.length),
-                ].fill([{ bedType: '', count: 0 }])
-              )
-            : [...state.bedrooms.bedroomList.slice(0, action.payload)];
-
         return {
           ...state,
           bedrooms: {
             ...state.bedrooms,
             bedroomCount: action.payload,
-            bedroomList,
           },
         };
       },
     },
     setBedroomList: {
-      prepare: (bedrooms: { bedrooms: bedroomType[]; index: number }) => {
+      prepare: (bedrooms: { bedrooms: bedroomType[][] }) => {
         return { payload: bedrooms };
       },
       reducer: (
         state,
-        action: PayloadAction<{ bedrooms: bedroomType[]; index: number }>
+        action: PayloadAction<{ bedrooms: bedroomType[][] }>
       ) => {
-        const bedroomList = [...state.bedrooms.bedroomList];
-        bedroomList[action.payload.index] = action.payload.bedrooms;
         return {
           ...state,
           bedrooms: {
             ...state.bedrooms,
-            bedroomList,
+            bedroomList: action.payload.bedrooms,
           },
         };
       },

@@ -22,7 +22,6 @@ const checkBedroomCountAndPersonnel = ({
       }
     }
   }
-  console.log(personnelCount && isNotBedCountZero);
   if (personnelCount && isNotBedCountZero) return { result: true };
   return { result: false };
 };
