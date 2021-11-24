@@ -33,7 +33,7 @@ const RegisterRyokanBeedrooms = () => {
     return count > bedroomList.length
       ? [...bedroomList].concat(
           [...Array(count - bedroomList.length)].fill([
-            { bedType: '', count: 0 },
+            { bedType: 'single', count: 0 },
           ])
         )
       : [...bedroomList.slice(0, count)];

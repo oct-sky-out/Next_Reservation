@@ -85,6 +85,26 @@ const registerRyokanSlice = createSlice({
         };
       },
     },
+    setBedroom: {
+      prepare: (bedroom: { bedroom: bedroomType[]; roomNumber: number }) => {
+        return { payload: bedroom };
+      },
+      reducer: (
+        state,
+        action: PayloadAction<{ bedroom: bedroomType[]; roomNumber: number }>
+      ) => {
+        const bedroomList = [...state.bedrooms.bedroomList];
+        bedroomList[action.payload.roomNumber] = action.payload.bedroom;
+
+        return {
+          ...state,
+          bedrooms: {
+            ...state.bedrooms,
+            bedroomList,
+          },
+        };
+      },
+    },
   },
 });
 
