@@ -9,8 +9,8 @@ const initialState: IRyokanType = {
   buildingType: '',
   isBuiltInOnsen: false,
   bedrooms: {
-    bedroomList: [[{ bedType: '', count: 0 }], [{ bedType: '', count: 0 }]],
-    bedroomCount: 0,
+    bedroomList: [[{ bedType: 'single', count: 1 }]],
+    bedroomCount: 1,
     personnel: 0,
   },
 };

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../../store';
@@ -9,6 +9,8 @@ import {
   BedTypes,
   BedroomCount,
 } from '../../../lib/staticData/RegisterRyokanBedrooms';
+import useDidMounted from '../../hooks/useDidMounted';
+import { bedroomType } from 'types/reduxActionTypes/ReduxRegiserRyokanType';
 
 const RegisterRyokanBeedrooms = () => {
   const dispatch = useDispatch();
@@ -20,15 +22,15 @@ const RegisterRyokanBeedrooms = () => {
       isFormValid: selector.registerIsValid.isValid,
     })
   );
+  //* useRef
+  const didMounted = useDidMounted();
 
+  // * useEffect
   useEffect(() => {
-    if (bedroomList && bedroomCount && personnel) {
-      !isFormValid && dispatch(registerFormValidAction.setValid(true));
+    if (!didMounted) {
+      dispatch(registerFormValidAction.setValid(false));
     }
-    if (!(bedroomList && bedroomCount && personnel)) {
-      isFormValid && dispatch(registerFormValidAction.setValid(false));
-    }
-  }, [bedroomList, bedroomCount, personnel]);
+  }, [didMounted]);
 
   //* useCallbacks
   const personnelAddOrSub = useCallback(
@@ -47,6 +49,15 @@ const RegisterRyokanBeedrooms = () => {
     },
     [bedroomCount]
   );
+  //* any Functions
+  const isAvailableBed = useCallback(
+    (bedroom: bedroomType) => {
+      return bedroom.count
+        ? `${BedTypes[bedroom.bedType]} ${bedroom.count}개`
+        : '침대가 비어있습니다.';
+    },
+    [personnel]
+  );
   //* useMemo
   const getBedroomList = useMemo(
     () =>
@@ -60,7 +71,7 @@ const RegisterRyokanBeedrooms = () => {
               {bedrooms.map((bedroom) => {
                 return (
                   <span className="text-base inline-block" key={v4()}>
-                    {BedTypes[bedroom.bedType]} {bedroom.count}개
+                    {isAvailableBed(bedroom)}
                   </span>
                 );
               })}
