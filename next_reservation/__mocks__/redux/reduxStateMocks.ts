@@ -1,27 +1,8 @@
-import { useMockStore } from '../../store/index';
+import { RootState, useMockStore } from '../../store/index';
 import * as customSelecor from '../../store/index';
-import {
-  IFirebaseSignInError,
-  IFirebaseSignInResult,
-  IFirebaseSignUpError,
-  IFirebaseSignUpResult,
-  ISignInForm,
-  ISignUpForm,
-} from 'types/reduxActionTypes/ReduxUserActionTypes';
-import { IRyokanType } from '../../types/reduxActionTypes/ReduxRegiserRyokanType';
 import userDefaultProfilePicture from '../../public/static/user/default_user_picture.png';
 
-type mockStoreType = {
-  user: {
-    signUpForm: ISignUpForm;
-    loginForm: ISignInForm;
-    data: IFirebaseSignInResult | IFirebaseSignUpResult;
-    error: IFirebaseSignInError | IFirebaseSignUpError;
-    logged: boolean;
-  };
-  registerRyokan: IRyokanType;
-  registerFormIsValid: { isValid: boolean };
-};
+type mockStoreType = RootState;
 
 const store = useMockStore;
 const dispatchMock = jest.fn(store.dispatch);
@@ -64,6 +45,11 @@ export const mockStoreValue: mockStoreType = {
     buildingType: '',
     ryokanType: '',
     isBuiltInOnsen: false,
+    bedrooms: {
+      bedroomCount: 0,
+      bedroomList: [[{ bedType: '', count: 0 }]],
+      personnel: 0,
+    },
   },
-  registerFormIsValid: { isValid: false },
+  registerIsValid: { isValid: false },
 };

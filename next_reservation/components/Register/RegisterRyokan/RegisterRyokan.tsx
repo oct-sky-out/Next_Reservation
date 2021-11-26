@@ -4,11 +4,13 @@ import RegisterLeftSideInformation from '../RegisterLeftSideProcedureInformation
 import RegisterFooter from '../RegisterFooter/RegisterFooter';
 
 interface IPorps {
+  producerText: string;
   priviousHref: string;
   nextHref: string;
 }
 
 const RegisterRyokan: React.FC<IPorps> = ({
+  producerText,
   priviousHref,
   nextHref,
   children,
@@ -16,7 +18,7 @@ const RegisterRyokan: React.FC<IPorps> = ({
   return (
     <RegisterRyokanStyle>
       <div className="grid grid-cols-2 h-full">
-        <RegisterLeftSideInformation proceduerText="호스팅 할 료칸유형을 선택해주세요." />
+        <RegisterLeftSideInformation proceduerText={producerText} />
         {children}
         <RegisterFooter nextHref={nextHref} previousHref={priviousHref} />
       </div>

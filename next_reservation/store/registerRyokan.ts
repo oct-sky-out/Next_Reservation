@@ -1,10 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IRyokanType } from '../types/reduxActionTypes/ReduxRegiserRyokanType';
+import {
+  IRyokanType,
+  bedroomType,
+} from '../types/reduxActionTypes/ReduxRegiserRyokanType';
 
 const initialState: IRyokanType = {
   ryokanType: '',
   buildingType: '',
   isBuiltInOnsen: false,
+  bedrooms: {
+    bedroomList: [[{ bedType: 'single', count: 0 }]],
+    bedroomCount: 1,
+    personnel: 0,
+  },
 };
 
 const registerRyokanSlice = createSlice({
@@ -33,6 +41,68 @@ const registerRyokanSlice = createSlice({
       },
       reducer: (state, action: PayloadAction<boolean>) => {
         return { ...state, isBuiltInOnsen: action.payload };
+      },
+    },
+    setPersonnel: {
+      prepare: (personnelCount: number) => {
+        return { payload: personnelCount };
+      },
+      reducer: (state, action: PayloadAction<number>) => {
+        return {
+          ...state,
+          bedrooms: { ...state.bedrooms, personnel: action.payload },
+        };
+      },
+    },
+    setBedroomCount: {
+      prepare: (bedroomCount: number) => {
+        return { payload: bedroomCount };
+      },
+      reducer: (state, action: PayloadAction<number>) => {
+        return {
+          ...state,
+          bedrooms: {
+            ...state.bedrooms,
+            bedroomCount: action.payload,
+          },
+        };
+      },
+    },
+    setBedroomList: {
+      prepare: (bedrooms: { bedrooms: bedroomType[][] }) => {
+        return { payload: bedrooms };
+      },
+      reducer: (
+        state,
+        action: PayloadAction<{ bedrooms: bedroomType[][] }>
+      ) => {
+        return {
+          ...state,
+          bedrooms: {
+            ...state.bedrooms,
+            bedroomList: action.payload.bedrooms,
+          },
+        };
+      },
+    },
+    setBedroom: {
+      prepare: (bedroom: { bedroom: bedroomType[]; roomNumber: number }) => {
+        return { payload: bedroom };
+      },
+      reducer: (
+        state,
+        action: PayloadAction<{ bedroom: bedroomType[]; roomNumber: number }>
+      ) => {
+        const bedroomList = [...state.bedrooms.bedroomList];
+        bedroomList[action.payload.roomNumber] = action.payload.bedroom;
+
+        return {
+          ...state,
+          bedrooms: {
+            ...state.bedrooms,
+            bedroomList,
+          },
+        };
       },
     },
   },
