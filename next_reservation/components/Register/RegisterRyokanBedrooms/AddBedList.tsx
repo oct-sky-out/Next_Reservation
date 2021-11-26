@@ -23,7 +23,7 @@ const AddBedeList: React.FC<IProps> = ({
 
   //* useState
   const [bedSelctorValue, setBedSelectorValue] = useState('다른 침대 선택');
-  const [copyBedrooms, setCopyBedroom] = useState<bedroomType[]>(bedrooms);
+  const [copyBedrooms, setCopyBedroom] = useState<bedroomType[]>([...bedrooms]);
 
   //* useCallback
   const changedBedSelectorValue = useCallback(
@@ -85,14 +85,13 @@ const AddBedeList: React.FC<IProps> = ({
   //* useMemo
   const isComplete = useMemo(() => {
     return copyBedrooms.reduce((complete, bed) => {
-      console.log(bed.count);
       if (!bed.count) return true;
       return complete;
     }, false);
   }, [copyBedrooms]);
   return (
     <div className="w-full h-full bg-gray-900 bg-opacity-75 flex justify-center items-center text-black">
-      <div className="w-1/2 h-3/4 relative p-10 bg-white rounded-lg animate-fadeInAndUpForm overflow-scroll">
+      <div className="w-1/2 h-3/4 relative p-10 bg-white rounded-lg animate-fadeInAndUpForm overflow-scroll ">
         <GrClose
           size="24"
           className="absolute top-5 right-5 cursor-pointer"
@@ -105,7 +104,10 @@ const AddBedeList: React.FC<IProps> = ({
         </div>
         {copyBedrooms.map((bed, bedIndex) => {
           return (
-            <div key={v4()} className="flex items-center mb-5">
+            <div
+              key={v4()}
+              className="flex items-center mb-5 bedroom-inside-bed-wrapper"
+            >
               <div className="flex-none w-10 ">
                 <GrClose
                   size="20"
@@ -155,7 +157,7 @@ const AddBedeList: React.FC<IProps> = ({
           <div className="h-20">
             <button
               onClick={bedRegisterOrModifyEnded}
-              className="btn btn-success w-full h-10"
+              className="btn btn-success w-full h-10 bed-register-complete-btn"
               disabled={isComplete}
             >
               완료

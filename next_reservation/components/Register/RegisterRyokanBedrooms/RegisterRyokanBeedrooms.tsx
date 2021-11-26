@@ -71,7 +71,7 @@ const RegisterRyokanBeedrooms = () => {
           <span className="text-black mb-3 inline-block text-2xl">
             최대 숙박 인원
           </span>
-          <div className="text-black mb-5 space-x-3">
+          <div className="text-black mb-5 space-x-3 select-maximum-personnel">
             <button
               className={`w-10 h-10 border-2 ${
                 !personnel ? 'border-gray-500 text-gray-500' : 'border-emerald'

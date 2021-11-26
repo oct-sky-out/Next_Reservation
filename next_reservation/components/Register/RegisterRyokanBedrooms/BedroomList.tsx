@@ -36,7 +36,7 @@ const BedroomList: React.FC<IProps> = ({ bedroomList }) => {
   );
   return (
     <>
-      <div className="divide-solid divide-y divide-gray-300 border-t border-b border-solid border-gray-300">
+      <div className="divide-solid divide-y divide-gray-300 border-t border-b border-solid border-gray-300 bedrooms-list-wrapper">
         {bedroomList.map((bedrooms, bedroomNumber) => {
           return (
             <div key={v4()} className="text-black py-5 px-3">
@@ -52,7 +52,7 @@ const BedroomList: React.FC<IProps> = ({ bedroomList }) => {
                   );
                 })}
                 <button
-                  className="absolute right-0 top-1/3 btn  btn-outline-success"
+                  className="absolute right-0 top-1/3 btn btn-outline-success add-or-modifiy-bed-btn"
                   onClick={() => {
                     AddOrChangingBedroom(bedrooms, bedroomNumber + 1);
                   }}
