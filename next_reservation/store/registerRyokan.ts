@@ -9,7 +9,7 @@ const initialState: IRyokanType = {
   buildingType: '',
   isBuiltInOnsen: false,
   bedrooms: {
-    bedroomList: [[{ bedType: 'single', count: 1 }]],
+    bedroomList: [[{ bedType: 'single', count: 0 }]],
     bedroomCount: 1,
     personnel: 0,
   },

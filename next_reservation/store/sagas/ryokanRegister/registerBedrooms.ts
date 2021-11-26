@@ -40,6 +40,7 @@ function* observationBedroomCountAndPersonnel() {
 export default function* watchBedroomCountAndPersonnel() {
   yield takeLatest(
     [
+      'register/setBedroom',
       'register/setBedroomList',
       'register/setBedroomCount',
       'register/setPersonnel',
