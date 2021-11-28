@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect } from 'react';
-import { v4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../../store';
 import { registerRyokanActions } from '../../../store/registerRyokan';
@@ -24,7 +23,7 @@ const RegisterRyokanBeedrooms = () => {
   // * useEffect
   useEffect(() => {
     if (!didMounted) {
-      dispatch(registerFormValidAction.setValid(false));
+      dispatch(registerRyokanActions.setBedroomCount(bedroomCount));
     }
   }, [didMounted]);
 

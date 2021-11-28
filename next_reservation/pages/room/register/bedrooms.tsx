@@ -7,9 +7,9 @@ import { serverSidePropsType } from 'types/registRyokanServerSidePropType';
 const ryokan: NextPage<serverSidePropsType> = (props: serverSidePropsType) => {
   return (
     <RegisterRyokan
-      producerText="숙소에 얼마나 많은 인원이 숙박할 수 있나요?"
+      producerText="얼마나 많은 인원이 숙박할 수 있나요?"
       priviousHref={props.priviousHref}
-      nextHref="/room/register/restrooms"
+      nextHref="/room/register/bathrooms"
     >
       <RegisterRyokanBeedrooms />
     </RegisterRyokan>
