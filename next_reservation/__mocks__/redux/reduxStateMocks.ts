@@ -50,6 +50,10 @@ export const mockStoreValue: mockStoreType = {
       bedroomList: [[{ bedType: '', count: 0 }]],
       personnel: 0,
     },
+    bathrooms: {
+      bathCount: 0,
+      isShared: false,
+    },
   },
   registerIsValid: { isValid: false },
 };

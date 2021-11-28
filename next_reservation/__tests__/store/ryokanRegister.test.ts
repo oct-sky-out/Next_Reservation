@@ -71,6 +71,16 @@ test('침실의 개수를 바꾸었을 때 bedroomList의 길이가 늘어나거
 test('침실 개수를 정했을 때 침실 수, 침실 정보(bedroomList의 길이가 늘어나거나 줄어드는가)', () => {
   // TODO 침실 수 4개와 침실 배열(bedroomList)의 길이도 4가 되어야한다.
   store.dispatch(registerRyokanActions.setBedroomCount(4));
+  store.dispatch(
+    registerRyokanActions.setBedroomList({
+      bedrooms: [
+        [{ bedType: 'singie', count: 1 }],
+        [{ bedType: 'singie', count: 1 }],
+        [{ bedType: 'singie', count: 1 }],
+        [{ bedType: 'singie', count: 1 }],
+      ],
+    })
+  );
   expect(store.getState().registerRyokan.bedrooms.bedroomCount).toEqual(4);
   expect(store.getState().registerRyokan.bedrooms.bedroomList).toHaveLength(4);
 });
@@ -78,33 +88,59 @@ test('침실 개수를 정했을 때 침실 수, 침실 정보(bedroomList의 �
 test('침실의 침대 정보를 수정정했을 때 침실 수, 침실 정보(bedroomList)가 바뀌는가?', () => {
   // TODO 침실 수 4개와 침실 배열(bedroomList)의 길이도 4가 되어야한다.
   store.dispatch(registerRyokanActions.setBedroomCount(4));
+  store.dispatch(
+    registerRyokanActions.setBedroomList({
+      bedrooms: [
+        [{ bedType: 'singie', count: 1 }],
+        [{ bedType: 'singie', count: 1 }],
+        [{ bedType: 'singie', count: 1 }],
+        [{ bedType: 'singie', count: 1 }],
+      ],
+    })
+  );
   expect(store.getState().registerRyokan.bedrooms.bedroomCount).toEqual(4);
 
   // TODO 1번 침실의 정보를 변경한다.
   store.dispatch(
-    registerRyokanActions.setBedroomList({
-      bedrooms: [{ bedType: 'double-bed', count: 1 }],
-      index: 0,
+    registerRyokanActions.setBedroom({
+      bedroom: [{ bedType: 'double', count: 1 }],
+      roomNumber: 0,
     })
   );
+  expect(store.getState().registerRyokan.bedrooms.bedroomList).toEqual([
+    [{ bedType: 'double', count: 1 }],
+    [{ bedType: 'singie', count: 1 }],
+    [{ bedType: 'singie', count: 1 }],
+    [{ bedType: 'singie', count: 1 }],
+  ]);
+
   // TODO 4번 침실의 정보를 변경한다.
   store.dispatch(
-    registerRyokanActions.setBedroomList({
-      bedrooms: [
+    registerRyokanActions.setBedroom({
+      bedroom: [
         { bedType: 'double-bed', count: 1 },
         { bedType: 'baby-bed', count: 2 },
       ],
-      index: 3,
+      roomNumber: 3,
     })
   );
 
   expect(store.getState().registerRyokan.bedrooms.bedroomList).toEqual([
-    [{ bedType: 'double-bed', count: 1 }],
-    [{ bedType: '', count: 0 }],
-    [{ bedType: '', count: 0 }],
+    [{ bedType: 'double', count: 1 }],
+    [{ bedType: 'singie', count: 1 }],
+    [{ bedType: 'singie', count: 1 }],
     [
       { bedType: 'double-bed', count: 1 },
       { bedType: 'baby-bed', count: 2 },
     ],
   ]);
+});
+test('욕실(화장실) 개수(bathCount)를 변경 했을 때 개수가 변하는가?', () => {
+  store.dispatch(registerRyokanActions.setBathCount(3));
+  expect(store.getState().registerRyokan.bathrooms.bathCount).toEqual(3);
+});
+
+test('공용 욕실 또는 개인 욕실여부(isShared)를 변경 했을 때 욕실 여부가 변하는가?', () => {
+  store.dispatch(registerRyokanActions.setIsBathShared(true));
+  expect(store.getState().registerRyokan.bathrooms.isShared).toEqual(true);
 });
