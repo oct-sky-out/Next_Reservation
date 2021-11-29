@@ -54,7 +54,6 @@ const RegisterRyokanBathrooms = () => {
               className={`w-10 h-10 border-2 ${
                 !bathCount ? 'border-gray-500 text-gray-500' : 'border-emerald'
               }  rounded-full`}
-              data-testid="bathCount-sub"
               value="sub"
               onClick={bathCountAddOrSub}
               disabled={!bathCount}
@@ -63,7 +62,6 @@ const RegisterRyokanBathrooms = () => {
             </button>
             <span>{bathCount}</span>
             <button
-              data-testid="bathCount-add"
               className="w-10 h-10 border-2 rounded-full border-emerald"
               value="add"
               onClick={bathCountAddOrSub}
@@ -80,7 +78,7 @@ const RegisterRyokanBathrooms = () => {
                 <input
                   className="form-radio text-emerald border-2 border-gray-400 w-6 h-6"
                   type="radio"
-                  name="flexRadioDefault"
+                  name="sharedBathroomRadio"
                   onChange={() => {
                     isBathShared(true);
                   }}
@@ -93,7 +91,7 @@ const RegisterRyokanBathrooms = () => {
                 <input
                   className="form-radio text-emerald border-2 border-gray-400 w-6 h-6"
                   type="radio"
-                  name="flexRadioDefault"
+                  name="nonSharedBathroomRadio"
                   onChange={() => {
                     isBathShared(false);
                   }}
