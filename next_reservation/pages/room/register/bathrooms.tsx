@@ -1,17 +1,17 @@
 import React from 'react';
 import { GetServerSideProps, NextPage } from 'next';
 import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
-import RegisterRyokanBeedrooms from '@/components/Register/RegisterRyokanBedrooms/RegisterRyokanBeedrooms';
+import RegisterRyokanBathrooms from '@/components/Register/RegisterBathRooms/RegisterBathRooms';
 import { serverSidePropsType } from 'types/registRyokanServerSidePropType';
 
 const ryokan: NextPage<serverSidePropsType> = (props: serverSidePropsType) => {
   return (
     <RegisterRyokan
-      producerText="얼마나 많은 인원이 숙박할 수 있나요?"
+      producerText="게스트가 이용 할 수 있는 욕실 수를 입력해주세요."
       priviousHref={props.priviousHref}
-      nextHref="/room/register/bathrooms"
+      nextHref="/room/register/location"
     >
-      <RegisterRyokanBeedrooms />
+      <RegisterRyokanBathrooms />
     </RegisterRyokan>
   );
 };
@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
   return {
     props: {
-      priviousHref: context.req.headers.referer || '/room/register/ryokan',
+      priviousHref: context.req.headers.referer || '/room/register/bedrooms',
     },
   };
 };

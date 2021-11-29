@@ -3,6 +3,9 @@ module.exports = {
   darkMode: 'media', // or 'media' or 'class'
   theme: {
     extend: {
+      textColor: {
+        emerald: '#48cfae',
+      },
       borderColor: (theme) => ({
         emerald: '#48cfae',
       }),
@@ -30,5 +33,5 @@ module.exports = {
     Animation: ['fadeInAndUpForm'],
     extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/custom-forms')],
 };

@@ -11,7 +11,7 @@ const RegisterLeftSideProcedureInformation: React.FC<IProps> = ({
   return (
     <LeftSideInformationStyles>
       <div className="h-full col-start-1 flex justify-center items-center left-side-description">
-        <h1 className="text-white text-5xl regist-proceduer-text animate-fadeInAndUpForm">
+        <h1 className="text-white text-5xl p-8 regist-proceduer-text animate-fadeInAndUpForm">
           {proceduerText}
         </h1>
       </div>

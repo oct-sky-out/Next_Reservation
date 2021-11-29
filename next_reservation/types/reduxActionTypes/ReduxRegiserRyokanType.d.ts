@@ -9,4 +9,8 @@ export interface IRyokanType {
     bedroomCount: number;
     personnel: number;
   };
+  bathrooms: {
+    bathCount: number;
+    isShared: boolean;
+  };
 }

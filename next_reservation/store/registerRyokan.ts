@@ -13,6 +13,10 @@ const initialState: IRyokanType = {
     bedroomCount: 1,
     personnel: 0,
   },
+  bathrooms: {
+    bathCount: 0,
+    isShared: false,
+  },
 };
 
 const registerRyokanSlice = createSlice({
@@ -102,6 +106,28 @@ const registerRyokanSlice = createSlice({
             ...state.bedrooms,
             bedroomList,
           },
+        };
+      },
+    },
+    setBathCount: {
+      prepare: (bathCount: number) => {
+        return { payload: bathCount };
+      },
+      reducer: (state, action: PayloadAction<number>) => {
+        return {
+          ...state,
+          bathrooms: { ...state.bathrooms, bathCount: action.payload },
+        };
+      },
+    },
+    setIsBathShared: {
+      prepare: (isShared: boolean) => {
+        return { payload: isShared };
+      },
+      reducer: (state, action: PayloadAction<boolean>) => {
+        return {
+          ...state,
+          bathrooms: { ...state.bathrooms, isShared: action.payload },
         };
       },
     },
