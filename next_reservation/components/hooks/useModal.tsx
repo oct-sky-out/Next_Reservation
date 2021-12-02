@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
-import { modalOpenStateAction } from 'store/modalOpen';
+import { modalOpenStateAction } from '../../store/modalOpen';
 import ModalStyle from '../../styles/components/ModalPotal/Modal';
 
 interface IProps {

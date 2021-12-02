@@ -66,4 +66,5 @@ export const mockStoreValue: mockStoreType = {
     },
   },
   registerIsValid: { isValid: false },
+  modalState: { modalState: false },
 };
