@@ -40,8 +40,8 @@ const RegisterRyokanBathrooms = () => {
   }, []);
 
   return (
-    <div className="w-full col-start-2 register-form animate-fadeInAndUpForm space-y-5 mx-0 my-auto">
-      <div className="w-1/2 my-0 mx-auto text-black">
+    <div className="w-full h-outOfHeader col-start-2 register-form animate-fadeInAndUpForm space-y-5 overflow-auto">
+      <div className="w-1/2 h-full text-black mx-auto my-0 py-5 flex flex-col justify-center">
         <div className="w-full mb-5">
           <span className="mb-3 inline-block text-2xl">욕실 수</span>
           <div className="flex-none w-32 flex justify-around items-center">

@@ -10,7 +10,7 @@ import {
 } from '../../../../__mocks__/redux/reduxStateMocks';
 
 //! componet import
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../../../store';
 import { FaLocationArrow } from 'react-icons/fa';
