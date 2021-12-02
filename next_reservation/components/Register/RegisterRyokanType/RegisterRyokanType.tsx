@@ -83,8 +83,9 @@ const RegisterRyokanType = () => {
             <div className="flex items-center">
               <input
                 id="built-in-onsen"
-                className="form-checkbox rounded text-emerald h-6 w-6 mr-3 my-auto inline-block ryokan-built-in-onsen"
+                className="form-checkbox border-2 border-gray-400 rounded text-emerald h-6 w-6 mr-3 my-auto inline-block ryokan-built-in-onsen"
                 type="checkbox"
+                checked={isBuiltInOnsen}
                 onChange={selectedBuiltInOnsen}
               />
               <span className="my-auto inline-block font-xl">

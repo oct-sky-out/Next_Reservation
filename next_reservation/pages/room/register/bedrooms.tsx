@@ -8,7 +8,7 @@ const ryokan: NextPage<serverSidePropsType> = (props: serverSidePropsType) => {
   return (
     <RegisterRyokan
       producerText="얼마나 많은 인원이 숙박할 수 있나요?"
-      priviousHref={props.priviousHref}
+      priviousHref="/room/register/ryokan"
       nextHref="/room/register/bathrooms"
     >
       <RegisterRyokanBeedrooms />
@@ -22,11 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       redirect: { statusCode: 302, destination: '/login' },
     };
   }
-  return {
-    props: {
-      priviousHref: context.req.headers.referer || '/room/register/ryokan',
-    },
-  };
+  return { props: {} };
 };
 
 export default ryokan;
