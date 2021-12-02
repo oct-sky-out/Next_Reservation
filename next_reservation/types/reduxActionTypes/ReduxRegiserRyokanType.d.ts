@@ -13,4 +13,14 @@ export interface IRyokanType {
     bathCount: number;
     isShared: boolean;
   };
+  location: {
+    contry: string;
+    city: string;
+    district: string;
+    streetAddress: string;
+    detailAddress: string;
+    postCode: string;
+    latitude: number;
+    longitude: number;
+  };
 }

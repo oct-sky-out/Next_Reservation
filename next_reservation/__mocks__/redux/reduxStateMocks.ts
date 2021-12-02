@@ -54,6 +54,16 @@ export const mockStoreValue: mockStoreType = {
       bathCount: 0,
       isShared: false,
     },
+    location: {
+      contry: '',
+      city: '',
+      district: '',
+      streetAddress: '',
+      detailAddress: '',
+      postCode: '',
+      latitude: 0,
+      longitude: 0,
+    },
   },
   registerIsValid: { isValid: false },
 };

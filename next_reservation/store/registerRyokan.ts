@@ -17,6 +17,16 @@ const initialState: IRyokanType = {
     bathCount: 0,
     isShared: false,
   },
+  location: {
+    contry: '',
+    city: '',
+    district: '',
+    streetAddress: '',
+    detailAddress: '',
+    postCode: '',
+    latitude: 0,
+    longitude: 0,
+  },
 };
 
 const registerRyokanSlice = createSlice({
@@ -128,6 +138,94 @@ const registerRyokanSlice = createSlice({
         return {
           ...state,
           bathrooms: { ...state.bathrooms, isShared: action.payload },
+        };
+      },
+    },
+    setContry: {
+      prepare: (contry: string) => {
+        return { payload: contry };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return {
+          ...state,
+          location: { ...state.location, contry: action.payload },
+        };
+      },
+    },
+    setCity: {
+      prepare: (city: string) => {
+        return { payload: city };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return {
+          ...state,
+          location: { ...state.location, city: action.payload },
+        };
+      },
+    },
+    setDistrict: {
+      prepare: (district: string) => {
+        return { payload: district };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return {
+          ...state,
+          location: { ...state.location, district: action.payload },
+        };
+      },
+    },
+    setStreetAddress: {
+      prepare: (streetAddress: string) => {
+        return { payload: streetAddress };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return {
+          ...state,
+          location: { ...state.location, streetAddress: action.payload },
+        };
+      },
+    },
+    setDetailAddress: {
+      prepare: (detailAddress: string) => {
+        return { payload: detailAddress };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return {
+          ...state,
+          location: { ...state.location, detailAddress: action.payload },
+        };
+      },
+    },
+    setPostCode: {
+      prepare: (postCode: string) => {
+        return { payload: postCode };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return {
+          ...state,
+          location: { ...state.location, postCode: action.payload },
+        };
+      },
+    },
+    setLatitude: {
+      prepare: (latitude: number) => {
+        return { payload: latitude };
+      },
+      reducer: (state, action: PayloadAction<number>) => {
+        return {
+          ...state,
+          location: { ...state.location, latitude: action.payload },
+        };
+      },
+    },
+    setLongitude: {
+      prepare: (longitude: number) => {
+        return { payload: longitude };
+      },
+      reducer: (state, action: PayloadAction<number>) => {
+        return {
+          ...state,
+          location: { ...state.location, longitude: action.payload },
         };
       },
     },

@@ -1,10 +1,6 @@
 import { registerRyokanActions } from '../../store/registerRyokan';
 import { useMockStore } from '../../store';
-import {
-  mockStoreValue,
-  useDispatchMock,
-  useSelectorMock,
-} from '../../__mocks__/redux/reduxStateMocks';
+import { useDispatchMock } from '../../__mocks__/redux/reduxStateMocks';
 
 const store = useMockStore;
 
@@ -135,12 +131,44 @@ test('침실의 침대 정보를 수정정했을 때 침실 수, 침실 정보(b
     ],
   ]);
 });
-test('욕실(화장실) 개수(bathCount)를 변경 했을 때 개수가 변하는가?', () => {
+test('욕실 개수(bathCount)를 변경 했을 때 개수가 변하는가?', () => {
+  // TODO 욕실의 개수를 변경.
   store.dispatch(registerRyokanActions.setBathCount(3));
   expect(store.getState().registerRyokan.bathrooms.bathCount).toEqual(3);
 });
 
 test('공용 욕실 또는 개인 욕실여부(isShared)를 변경 했을 때 욕실 여부가 변하는가?', () => {
+  // TODO 욕실이 다른 게스트와 함께 사용할 경우.
   store.dispatch(registerRyokanActions.setIsBathShared(true));
   expect(store.getState().registerRyokan.bathrooms.isShared).toEqual(true);
+});
+
+test('숙소의 위치를 등록, 변경하면 국가, 도시, 시군구, 주소, 상세주소, 우편번호, 경도, 위도의 값이 바뀌는가?', () => {
+  // TODO 숙소의 위치를 가져옴.
+  store.dispatch(registerRyokanActions.setContry('Republic of Korea'));
+  expect(store.getState().registerRyokan.location.contry).toEqual(
+    'Republic of Korea'
+  );
+  store.dispatch(registerRyokanActions.setCity('Seoul'));
+  expect(store.getState().registerRyokan.location.city).toEqual('Seoul');
+  store.dispatch(registerRyokanActions.setDistrict('Yeongdeungpo-gu'));
+  expect(store.getState().registerRyokan.location.district).toEqual(
+    'Yeongdeungpo-gu'
+  );
+  store.dispatch(registerRyokanActions.setStreetAddress('1, Uisadang-daero'));
+  expect(store.getState().registerRyokan.location.streetAddress).toEqual(
+    '1, Uisadang-daero'
+  );
+  store.dispatch(registerRyokanActions.setDetailAddress('Capitol Library'));
+  expect(store.getState().registerRyokan.location.detailAddress).toEqual(
+    'Capitol Library'
+  );
+  store.dispatch(registerRyokanActions.setPostCode('07233'));
+  expect(store.getState().registerRyokan.location.postCode).toEqual('07233');
+  store.dispatch(registerRyokanActions.setLongitude(126.917178));
+  expect(store.getState().registerRyokan.location.longitude).toEqual(
+    126.917178
+  );
+  store.dispatch(registerRyokanActions.setLatitude(37.531129));
+  expect(store.getState().registerRyokan.location.latitude).toEqual(37.531129);
 });
