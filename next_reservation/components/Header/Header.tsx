@@ -10,8 +10,11 @@ import useModal from '../hooks/useModal';
 import HeaderUserProfile from './HeaderUserProfile';
 
 const Header: React.FC = () => {
-  const isLogged = useSelector((selector) => selector.user.logged);
-  const { openModal, ModalPotal, getModalOpenedState, closeModal } = useModal();
+  const { isLogged, modalOpenState } = useSelector((selector) => ({
+    isLogged: selector.user.logged,
+    modalOpenState: selector.modalState.modalState,
+  }));
+  const { openModal, ModalPotal, closeModal } = useModal();
   const [signUpAndInModal, setSignUpAndInModal] = useState({
     signUp: false,
     signIn: false,
@@ -29,7 +32,7 @@ const Header: React.FC = () => {
     <>
       <Container
         className={`${
-          getModalOpenedState() ? 'filter blur-md' : ''
+          modalOpenState ? 'filter blur-md' : ''
         } p-0 flex justify-center`}
       >
         <Link href="/">

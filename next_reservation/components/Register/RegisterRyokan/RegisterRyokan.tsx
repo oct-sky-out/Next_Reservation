@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useSelector } from 'store';
+import { modalOpenStateAction } from 'store/modalOpen';
 import RegisterRyokanStyle from '../../../styles/components/Register/RegisterRyokan';
 import RegisterLeftSideInformation from '../RegisterLeftSideProcedureInformation/RegisterLeftSideInformation';
 import RegisterFooter from '../RegisterFooter/RegisterFooter';
@@ -15,9 +17,12 @@ const RegisterRyokan: React.FC<IPorps> = ({
   nextHref,
   children,
 }) => {
+  const modalState = useSelector((selector) => selector.modalState.modalState);
   return (
     <RegisterRyokanStyle>
-      <div className="grid grid-cols-2 h-full">
+      <div
+        className={`${modalState ? 'filter blur' : ''} grid grid-cols-2 h-full`}
+      >
         <RegisterLeftSideInformation proceduerText={producerText} />
         {children}
         <RegisterFooter nextHref={nextHref} previousHref={priviousHref} />
