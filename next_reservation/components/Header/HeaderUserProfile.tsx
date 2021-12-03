@@ -8,6 +8,9 @@ import { getAuth } from 'firebase/auth';
 import { clientApp } from '../../firebaseClient';
 import nookies from 'nookies';
 import HeaderUserProfileStyle from '../../styles/components/Header/HeaderUserProfile';
+import SignUpModal from '../Auth/SignUpModal';
+import SignInModal from '../Auth/SignInModal';
+import useModal from '../hooks/useModal';
 
 const HeaderUserProfile = () => {
   //*Router
@@ -16,13 +19,29 @@ const HeaderUserProfile = () => {
   const auth = getAuth(clientApp);
   //* redux
   const dispatch = useDispatch();
-  const { userPicture } = useSelector((selector) => {
+  const { userPicture, isLogged } = useSelector((selector) => {
     return {
       userPicture: selector.user.data.userPicture,
+      isLogged: selector.user.logged,
     };
+  });
+
+  const { openModal, ModalPotal, closeModal } = useModal();
+  const [signUpAndInModal, setSignUpAndInModal] = useState({
+    signUp: false,
+    signIn: false,
   });
   //* 유저 프로파일 메뉴 열림 닫힘
   const [isUserMenuOpened, setIsUserMenuOpened] = useState(false);
+
+  const onSignUpClick = useCallback(() => {
+    setSignUpAndInModal({ signIn: false, signUp: true });
+    openModal();
+  }, [signUpAndInModal]);
+  const onSignInClick = useCallback(() => {
+    setSignUpAndInModal({ signIn: true, signUp: false });
+    openModal();
+  }, [signUpAndInModal]);
 
   //* 로그아웃 버튼 누를 시 로그아웃, 쿠키 삭제
   const signOutAndDeleteCookie = useCallback(() => {
@@ -55,6 +74,32 @@ const HeaderUserProfile = () => {
     router.push('/room/register/ryokan');
     setIsUserMenuOpened(false);
   }, []);
+
+  if (!isLogged)
+    return (
+      <>
+        <div className="header-auth-btns flex">
+          <button
+            type="button"
+            className="shadow-xl rounded-full py-3 px-6 header-sign-up-btn"
+            onClick={onSignUpClick}
+          >
+            회원가입
+          </button>
+          <button
+            type="button"
+            className="shadow-xl ml-8 mr-8 rounded-full py-3 px-6 header-sign-in-btn"
+            onClick={onSignInClick}
+          >
+            로그인
+          </button>
+        </div>
+        <ModalPotal>
+          {signUpAndInModal.signUp && <SignUpModal closeModal={closeModal} />}
+          {signUpAndInModal.signIn && <SignInModal closeModal={closeModal} />}
+        </ModalPotal>
+      </>
+    );
 
   return (
     <OutsideClickHandler
