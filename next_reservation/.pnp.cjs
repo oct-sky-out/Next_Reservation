@@ -46,6 +46,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/jest-dom", "npm:5.15.0"],
             ["@testing-library/react", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:12.1.2"],
             ["@testing-library/user-event", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:13.5.0"],
+            ["@types/googlemaps", "npm:3.43.3"],
             ["@types/jest", "npm:27.0.2"],
             ["@types/next-redux-saga", "npm:3.0.2"],
             ["@types/node", "npm:16.11.4"],
@@ -5067,6 +5068,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@types/express-unless", "npm:0.5.2"],
             ["@types/express", "npm:4.17.13"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/googlemaps", [
+        ["npm:3.43.3", {
+          "packageLocation": "./.yarn/cache/@types-googlemaps-npm-3.43.3-939f03d9ce-e08a1fd0c5.zip/node_modules/@types/googlemaps/",
+          "packageDependencies": [
+            ["@types/googlemaps", "npm:3.43.3"]
           ],
           "linkType": "HARD",
         }]
@@ -13111,6 +13121,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/jest-dom", "npm:5.15.0"],
             ["@testing-library/react", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:12.1.2"],
             ["@testing-library/user-event", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:13.5.0"],
+            ["@types/googlemaps", "npm:3.43.3"],
             ["@types/jest", "npm:27.0.2"],
             ["@types/next-redux-saga", "npm:3.0.2"],
             ["@types/node", "npm:16.11.4"],
