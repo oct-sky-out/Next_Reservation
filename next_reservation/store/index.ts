@@ -11,6 +11,7 @@ import registerRyokan from './registerRyokan';
 import registerFormIsValid from './registerFormIsValid';
 import modalOpenStateSlice from './modalOpen';
 import rootSaga from './sagas';
+import loadingSlice from './lodaing';
 
 // 여러개의 리듀서 컴바인
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   registerRyokan: registerRyokan.reducer,
   registerIsValid: registerFormIsValid.reducer,
   modalState: modalOpenStateSlice.reducer,
+  loading: loadingSlice.reducer,
 });
 
 // 스토어 타입

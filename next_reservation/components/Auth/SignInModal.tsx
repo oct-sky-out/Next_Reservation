@@ -3,6 +3,7 @@ import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../store/index';
 import { userSignInAndUpActions } from '../../store/userSignInAndUp';
+import { loadingAction } from '../../store/lodaing';
 import usePasswordType from '../hooks/useTogglePasswordType';
 import { AuthErrorCodes } from 'firebase/auth';
 import { FiMail } from 'react-icons/fi';
@@ -22,18 +23,23 @@ type signInFormProp = 'email' | 'password';
 const SignInModal: React.FC<IProps> = ({ closeModal }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { data, error, logged } = useSelector((store) => {
+  const { data, error, logged, loading } = useSelector((store) => {
     return {
       data: store.user.data,
       error: store.user.error,
       logged: store.user.logged,
+      loading: store.loading,
     };
   });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [signInForm, setSignInform] = useState({ email: '', password: '' });
+  const { getCheckState, isShowing } = usePasswordType();
 
   useEffect(() => {
     try {
       if (data.type === 'success' && logged) {
-        setIsLoading(false);
+        dispatch(loadingAction.setLoading(false));
         if (data.token) {
           nookies.set(null, 'access_token', data.token, {
             path: '/',
@@ -49,7 +55,7 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
           error.code === AuthErrorCodes.INVALID_PASSWORD ||
           error.code === AuthErrorCodes.USER_DELETED
         ) {
-          setIsLoading(false);
+          dispatch(loadingAction.setLoading(false));
           Swal.fire({
             icon: 'error',
             title: '이메일, 비밀번호 확인.',
@@ -73,17 +79,10 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
       }
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
+      dispatch(loadingAction.setLoading(false));
     }
   }, [data, error, logged]);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [signInForm, setSignInform] = useState({ email: '', password: '' });
-  const { getCheckState, isShowing } = usePasswordType();
-
-  const startLoading = useCallback(() => {
-    setIsLoading(true);
-  }, [isLoading]);
   const changedSignInForm = useCallback(
     (propName: signInFormProp, e: React.ChangeEvent<HTMLInputElement>) => {
       setSignInform({ ...signInForm, [propName]: e.target.value });
@@ -93,7 +92,7 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
   const onSignIn = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      startLoading();
+      dispatch(loadingAction.setLoading(true));
       dispatch(
         userSignInAndUpActions.userSignIn({
           email: signInForm.email,
@@ -146,7 +145,7 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
               disabled={!(signInForm.email && signInForm.password)}
             >
               <div className=" w-full h-full flex justify-center items-center ">
-                {isLoading ? (
+                {loading ? (
                   <Loader type="Oval" color="#fff" height="40" width="40" />
                 ) : (
                   '로그인'
