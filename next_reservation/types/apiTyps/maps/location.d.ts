@@ -25,18 +25,18 @@ type plusCodeType = {
   global_code: string;
 };
 
+type resultsType = {
+  address_components: addressComponentsType[];
+  formatted_address: string;
+  geometry: geometryType;
+  place_id: string;
+  plus_code: plusCodeType;
+  types: string[];
+};
+
 type geocodingResult = {
   plus_code: plusCodeType;
-  results: [
-    {
-      address_components: addressComponentsType[];
-      formatted_address: string;
-      geometry: geometryType;
-      place_id: string;
-      plus_code: plusCodeType;
-      types: string[];
-    }
-  ];
+  results: resultsType[];
   status: string;
 };
 
@@ -47,13 +47,11 @@ type geocodingError = {
 };
 
 type locationApiType = {
-  streetAddress: string;
-  district: string;
-  city: string;
   contry: string;
+  address: string;
   postCode: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
 };
 
 export { locationApiType, geocodingResult, geocodingError };

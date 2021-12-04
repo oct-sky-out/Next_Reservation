@@ -5,35 +5,36 @@ import { registerRyokanActions } from 'store/registerRyokan';
 import { registerFormValidAction } from 'store/registerFormIsValid';
 import { FaLocationArrow } from 'react-icons/fa';
 import { AiOutlineExclamation } from 'react-icons/ai';
-import RegisterLocationForm from './RegisterLocationForm';
+import axios from 'lib/api';
 import Swal from 'sweetalert2';
+import RegisterLocationForm from './RegisterLocationForm';
+import {
+  locationApiType,
+  geocodingError,
+} from '../../../types/apiTyps/maps/location';
 
 const RegisterLocation = () => {
   const dispatch = useDispatch();
-  const {
-    contry,
-    city,
-    district,
-    streetAddress,
-    detailAddress,
-    postCode,
-    latitude,
-    longitude,
-    isValud,
-  } = useSelector((selector) => ({
-    contry: selector.registerRyokan.location.contry,
-    city: selector.registerRyokan.location.city,
-    district: selector.registerRyokan.location.district,
-    streetAddress: selector.registerRyokan.location.streetAddress,
-    detailAddress: selector.registerRyokan.location.detailAddress,
-    postCode: selector.registerRyokan.location.postCode,
-    latitude: selector.registerRyokan.location.latitude,
-    longitude: selector.registerRyokan.location.longitude,
+  const { isValud } = useSelector((selector) => ({
     isValud: selector.registerIsValid.isValid,
   }));
 
-  const successfulGetLocation = (myLocation: GeolocationPosition) => {
-    console.log(myLocation.coords);
+  const successfulGetLocation = async (myLocation: GeolocationPosition) => {
+    try {
+      const { data } = await axios.get<locationApiType>('/api/maps/location', {
+        params: {
+          latitude: myLocation.coords.latitude,
+          longitude: myLocation.coords.longitude,
+        },
+      });
+      dispatch(registerRyokanActions.setAutoLocation(data));
+    } catch (error: any | geocodingError) {
+      Swal.fire({
+        icon: 'error',
+        title: '알 수 없는 위치',
+        text: '알 수 없는 위치입니다.',
+      });
+    }
   };
 
   const failureGetLocation = (failError: GeolocationPositionError) => {
@@ -65,7 +66,7 @@ const RegisterLocation = () => {
 
   return (
     <div className="w-full h-outOfHeader col-start-2 animate-fadeInAndUpForm register-form text-black overflow-auto">
-      <div className="w-1/3 flex flex-col justify-center mx-auto my-0 py-5">
+      <div className="w-2/3 flex flex-col justify-center mx-auto my-0 py-5">
         <div className="w-full">
           <span className="mb-3 text-2xl inline-block">
             위치를 선택해주세요.

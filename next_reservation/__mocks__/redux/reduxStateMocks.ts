@@ -56,9 +56,7 @@ export const mockStoreValue: mockStoreType = {
     },
     location: {
       contry: '',
-      city: '',
-      district: '',
-      streetAddress: '',
+      address: '',
       detailAddress: '',
       postCode: '',
       latitude: 0,
@@ -67,4 +65,5 @@ export const mockStoreValue: mockStoreType = {
   },
   registerIsValid: { isValid: false },
   modalState: { modalState: false },
+  loading: false,
 };

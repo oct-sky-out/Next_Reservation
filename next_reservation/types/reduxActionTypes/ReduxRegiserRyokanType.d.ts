@@ -15,9 +15,7 @@ export interface IRyokanType {
   };
   location: {
     contry: string;
-    city: string;
-    district: string;
-    streetAddress: string;
+    address: string;
     detailAddress: string;
     postCode: string;
     latitude: number;

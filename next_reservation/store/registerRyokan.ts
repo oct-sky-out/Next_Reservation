@@ -19,9 +19,7 @@ const initialState: IRyokanType = {
   },
   location: {
     contry: '',
-    city: '',
-    district: '',
-    streetAddress: '',
+    address: '',
     detailAddress: '',
     postCode: '',
     latitude: 0,
@@ -152,36 +150,14 @@ const registerRyokanSlice = createSlice({
         };
       },
     },
-    setCity: {
-      prepare: (city: string) => {
-        return { payload: city };
-      },
-      reducer: (state, action: PayloadAction<string>) => {
-        return {
-          ...state,
-          location: { ...state.location, city: action.payload },
-        };
-      },
-    },
-    setDistrict: {
-      prepare: (district: string) => {
-        return { payload: district };
-      },
-      reducer: (state, action: PayloadAction<string>) => {
-        return {
-          ...state,
-          location: { ...state.location, district: action.payload },
-        };
-      },
-    },
-    setStreetAddress: {
+    setAddress: {
       prepare: (streetAddress: string) => {
         return { payload: streetAddress };
       },
       reducer: (state, action: PayloadAction<string>) => {
         return {
           ...state,
-          location: { ...state.location, streetAddress: action.payload },
+          location: { ...state.location, address: action.payload },
         };
       },
     },
@@ -226,6 +202,39 @@ const registerRyokanSlice = createSlice({
         return {
           ...state,
           location: { ...state.location, longitude: action.payload },
+        };
+      },
+    },
+    setAutoLocation: {
+      prepare: (autoLocaion: {
+        contry: string;
+        address: string;
+        postCode: string;
+        latitude: number;
+        longitude: number;
+      }) => {
+        return { payload: autoLocaion };
+      },
+      reducer: (
+        state,
+        action: PayloadAction<{
+          contry: string;
+          address: string;
+          postCode: string;
+          latitude: number;
+          longitude: number;
+        }>
+      ) => {
+        return {
+          ...state,
+          location: {
+            ...state.location,
+            contry: action.payload.contry,
+            address: action.payload.address,
+            postCode: action.payload.postCode,
+            latitude: action.payload.latitude,
+            longitude: action.payload.longitude,
+          },
         };
       },
     },

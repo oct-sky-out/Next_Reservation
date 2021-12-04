@@ -9,9 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     try {
       const locationData = [
-        'streetAddress',
-        'district',
-        'city',
+        'address',
         'contry',
         'postCode',
         'latitude',
@@ -28,36 +26,27 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       } = await axios.get<geocodingResult>(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=ko&key=${process.env.YASUMI_PUBLIC_GOOGLE_MAP_API_KEY}`
       );
+      console.log(results);
       const { lat, lng } = results[0].geometry.location;
-      const sendData = locationData.reduce((sendObj, currentKey, index) => {
-        if (currentKey === 'latitude' || currentKey === 'longitude') {
-          return currentKey === 'latitude'
-            ? Object.assign(sendObj, { [currentKey]: lat })
-            : Object.assign(sendObj, { [currentKey]: lng });
-        }
-        if (currentKey !== 'latitude' && currentKey !== 'longitude') {
-          if (index === 0) {
-            return Object.assign(sendObj, {
-              [currentKey]: `${results[0].address_components[1].long_name.trim()} ${results[0].address_components[0].long_name.trim()}`,
-            });
-          }
-
-          const ADDRESS_COMPONETS_INDEX = index + 1;
-          if (index !== 0) {
-            return Object.assign(sendObj, {
-              [currentKey]: `${results[0].address_components[
-                ADDRESS_COMPONETS_INDEX
-              ].long_name.trim()}`,
-            });
-          }
-        }
-        return sendObj;
-      }, {});
-
+      const contry = results[0].formatted_address.split(' ')[0];
+      const postCode =
+        results[0].address_components[results[0].address_components.length - 1]
+          .long_name;
+      const address = results[0].formatted_address
+        .split(' ')
+        .filter((_addresses, index) => index !== 0)
+        .join(' ');
+      const sendData = {
+        contry,
+        address,
+        postCode,
+        latitude: lat,
+        longitude: lng,
+      };
       res.status(200).send(sendData);
     } catch (error: any | geocodingError) {
-      res.status(400).send(error.error_message);
+      res.status(400).send(error);
     }
   }
-  req.statusCode = 200;
+  res.status(405).end();
 };
