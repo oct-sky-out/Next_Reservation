@@ -17,8 +17,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         'latitude',
         'longitude',
       ];
+
       const { latitude, longitude } = req.query;
-      console.log(latitude, longitude);
       if (!latitude || !longitude) {
         res.status(400).send('위치 정보를 확인해주세요.');
       }
@@ -26,10 +26,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const {
         data: { results },
       } = await axios.get<geocodingResult>(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=ko&key=AIzaSyAsYSdE9aPX1pNCv58VF0sHj_gNdqyB8Mc`
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=ko&key=${process.env.YASUMI_PUBLIC_GOOGLE_MAP_API_KEY}`
       );
       const { lat, lng } = results[0].geometry.location;
-
       const sendData = locationData.reduce((sendObj, currentKey, index) => {
         if (currentKey === 'latitude' || currentKey === 'longitude') {
           return currentKey === 'latitude'
@@ -54,6 +53,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
         return sendObj;
       }, {});
+
       res.status(200).send(sendData);
     } catch (error: any | geocodingError) {
       res.status(400).send(error.error_message);

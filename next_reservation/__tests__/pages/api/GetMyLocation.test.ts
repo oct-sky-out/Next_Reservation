@@ -16,13 +16,13 @@ test('Firebase 회원가입 테스트', async () => {
       `http://localhost:3000/api/maps/location`,
       { params: { latitude, longitude } }
     );
-    console.log(data.city);
+
     expect(data.contry).toEqual('대한민국');
     expect(data.city).toEqual('서울특별시');
     expect(data.district).toEqual('영등포구');
     expect(data.streetAddress).toEqual('여의도동 １');
-    expect(data.latitude).toEqual(latitude);
-    expect(data.longitude).toEqual(longitude);
+    expect(data.latitude).toEqual('37.53113');
+    expect(data.longitude).toEqual('126.9171782');
   } catch (err: any | geocodingError) {
     console.log(err);
     console.log(err.error_message);
