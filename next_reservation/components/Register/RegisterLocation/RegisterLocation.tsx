@@ -5,17 +5,8 @@ import { registerRyokanActions } from 'store/registerRyokan';
 import { registerFormValidAction } from 'store/registerFormIsValid';
 import { FaLocationArrow } from 'react-icons/fa';
 import { AiOutlineExclamation } from 'react-icons/ai';
-import Selector from '@/components/common/Selector';
-import Input from '@/components/common/Input';
-import selectElementSelector from 'lib/utils/selectElementSelector';
-import { Contry } from 'lib/staticData/Contries';
-
-type actionFunctionName =
-  | 'setCity'
-  | 'setDistrict'
-  | 'setStreetAddress'
-  | 'setDetailAddress'
-  | 'setPostCode';
+import RegisterLocationForm from './RegisterLocationForm';
+import Swal from 'sweetalert2';
 
 const RegisterLocation = () => {
   const dispatch = useDispatch();
@@ -41,17 +32,35 @@ const RegisterLocation = () => {
     isValud: selector.registerIsValid.isValid,
   }));
 
-  const contryKeyFindAfterDispatch = (objKey: string | undefined) => {
-    if (objKey) {
-      if (objKey in Contry) dispatch(registerRyokanActions.setContry(objKey));
-    }
+  const successfulGetLocation = (myLocation: GeolocationPosition) => {
+    console.log(myLocation.coords);
   };
 
-  const locationInputsChanged = (
-    { target: { value } }: React.ChangeEvent<HTMLInputElement>,
-    actionFunctionName: actionFunctionName
-  ) => {
-    dispatch(registerRyokanActions[actionFunctionName](value));
+  const failureGetLocation = (failError: GeolocationPositionError) => {
+    if (failError.PERMISSION_DENIED)
+      Swal.fire({
+        icon: 'error',
+        title: '위치 엑세스 거부.',
+        text: '위치 엑세스가 거부되었습니다. 위치 엑세스를 켜주세요',
+      });
+    if (failError.POSITION_UNAVAILABLE)
+      Swal.fire({
+        icon: 'error',
+        title: '알 수없는 위치.',
+        text: '위치 정보를 알 수 없습니다.',
+      });
+    if (failError.TIMEOUT)
+      Swal.fire({
+        icon: 'error',
+        title: '네트워크 시간 초과.',
+        text: '네트워크 신호가 너무 약합니다.',
+      });
+  };
+  const getMyLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      successfulGetLocation,
+      failureGetLocation
+    );
   };
 
   return (
@@ -65,7 +74,8 @@ const RegisterLocation = () => {
             <button
               data-testid="personnel-sub"
               value="sub"
-              className="w-40 h-10 mb-3 rounded border-2 border-emerald flex justify-around items-center"
+              className="w-40 h-10 mb-3 rounded border-2 border-emerald flex justify-around items-center hover:bg-green-100"
+              onClick={getMyLocation}
             >
               <FaLocationArrow color="#48cfae" />
               현재 위치 사용
@@ -75,71 +85,7 @@ const RegisterLocation = () => {
               있습니다.
             </span>
           </div>
-        </div>
-        <div className="w-full">
-          <Selector
-            data-testid="contry"
-            className="mb-5 h-20 ryokan-bedroom-count-selector"
-            disableOption="국가를 선택하세요."
-            value={`${contry ? Contry[contry] : '국가를 선택하세요.'}`}
-            onChange={(e) =>
-              selectElementSelector(e)(contryKeyFindAfterDispatch, Contry)
-            }
-            options={Object.values(Contry)}
-          />
-        </div>
-        <div className="w-full space-y-5">
-          <div className="w-full">
-            <label className="my-3 text-xl" htmlFor="city">
-              시/도
-            </label>
-            <Input
-              type="text"
-              id="city"
-              placeholder="시/도를 입력해주세요."
-              onChange={(e) => locationInputsChanged(e, 'setCity')}
-            />
-            <label className="my-3 text-xl" htmlFor="district">
-              시/군/구
-            </label>
-            <Input
-              type="text"
-              id="district"
-              placeholder="시/군/구를 입력해주세요"
-              onChange={(e) => locationInputsChanged(e, 'setDistrict')}
-            />
-          </div>
-          <div className="w-full">
-            <label className="my-3 text-xl" htmlFor="streetAddress">
-              도로명주소
-            </label>
-            <Input
-              type="text"
-              id="streetAddress"
-              placeholder="도로명주소를 입력해주세요."
-              onChange={(e) => locationInputsChanged(e, 'setStreetAddress')}
-            />
-          </div>
-          <div className="w-full">
-            <label className="my-3 text-xl" htmlFor="detailAddress">
-              상세주소
-            </label>
-            <Input
-              type="text"
-              id="detailAddress"
-              placeholder="상세주소를 입력해주세요.(선택)"
-              onChange={(e) => locationInputsChanged(e, 'setDetailAddress')}
-            />
-            <label className="my-3 text-xl" htmlFor="postAddress">
-              우편번호
-            </label>
-            <Input
-              type="text"
-              id="postAddress"
-              placeholder="우편번호를 입력해주세요"
-              onChange={(e) => locationInputsChanged(e, 'setPostCode')}
-            />
-          </div>
+          <RegisterLocationForm />
         </div>
       </div>
     </div>
