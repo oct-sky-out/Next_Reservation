@@ -9,7 +9,7 @@ const ryokan: NextPage<serverSidePropsType> = (props: serverSidePropsType) => {
     <RegisterRyokan
       producerText="숙소의 위치는 어디인가요?"
       priviousHref="/room/register/bathrooms"
-      nextHref="/room/register/amenities"
+      nextHref="/room/register/geometry"
     >
       <RegisterLocation />
     </RegisterRyokan>

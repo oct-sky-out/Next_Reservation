@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
 import { registerRyokanActions } from 'store/registerRyokan';
+import { registerFormValidAction } from 'store/registerFormIsValid';
 import Selector from '@/components/common/Selector';
 import Input from '@/components/common/Input';
 import { Contry } from 'lib/staticData/Contries';
@@ -9,17 +10,19 @@ import { Contry } from 'lib/staticData/Contries';
 const RegisterLocationForm = () => {
   //* Redux
   const dispatch = useDispatch();
-  const { contry, address, detailAddress, postCode, isValud } = useSelector(
+  const { contry, address, detailAddress, postCode } = useSelector(
     (selector) => ({
       contry: selector.registerRyokan.location.contry,
       address: selector.registerRyokan.location.address,
       detailAddress: selector.registerRyokan.location.detailAddress,
       postCode: selector.registerRyokan.location.postCode,
-      latitude: selector.registerRyokan.location.latitude,
-      longitude: selector.registerRyokan.location.longitude,
-      isValud: selector.registerIsValid.isValid,
     })
   );
+
+  useEffect(() => {
+    if (contry && address && postCode)
+      dispatch(registerFormValidAction.setValid(true));
+  }, [contry, address, postCode]);
 
   const changeContryState = ({
     target: { value },
