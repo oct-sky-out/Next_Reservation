@@ -32,7 +32,6 @@ const SignInModal: React.FC<IProps> = ({ closeModal }) => {
     };
   });
 
-  const [isLoading, setIsLoading] = useState(false);
   const [signInForm, setSignInform] = useState({ email: '', password: '' });
   const { getCheckState, isShowing } = usePasswordType();
 

@@ -1,5 +1,5 @@
 //! componet import
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
 import { registerRyokanActions } from 'store/registerRyokan';

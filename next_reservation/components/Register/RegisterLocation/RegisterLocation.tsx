@@ -2,7 +2,6 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
 import { registerRyokanActions } from 'store/registerRyokan';
-import { registerFormValidAction } from 'store/registerFormIsValid';
 import { FaLocationArrow } from 'react-icons/fa';
 import { AiOutlineExclamation } from 'react-icons/ai';
 import axios from 'lib/api';
@@ -15,9 +14,6 @@ import {
 
 const RegisterLocation = () => {
   const dispatch = useDispatch();
-  const { isValud } = useSelector((selector) => ({
-    isValud: selector.registerIsValid.isValid,
-  }));
 
   const successfulGetLocation = async (myLocation: GeolocationPosition) => {
     try {
