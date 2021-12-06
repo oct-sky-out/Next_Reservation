@@ -2,9 +2,8 @@ import React from 'react';
 import { GetServerSideProps, NextPage } from 'next';
 import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
 import RegisterRyokanBedrooms from '@/components/Register/RegisterRyokanBedrooms/RegisterRyokanBedrooms';
-import { serverSidePropsType } from 'types/registRyokanServerSidePropType';
 
-const ryokan: NextPage<serverSidePropsType> = (props: serverSidePropsType) => {
+const ryokan: NextPage = () => {
   return (
     <RegisterRyokan
       producerText="얼마나 많은 인원이 숙박할 수 있나요?"
