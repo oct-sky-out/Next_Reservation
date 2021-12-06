@@ -12,6 +12,7 @@ module.exports = {
       backgroundColor: (theme) => ({
         emerald: '#48cfae',
       }),
+      height: { outOfHeader: 'calc(100vh - 240px)' },
       keyframes: {
         fadeInAndUpForm: {
           '0%': {

@@ -11,7 +11,7 @@ const registerFormValidSlice = createSlice({
         return { payload: isValid };
       },
       reducer: (state, action: PayloadAction<boolean>) => {
-        return (state = { ...state, isValid: action.payload });
+        return { ...state, isValid: action.payload };
       },
     },
   },

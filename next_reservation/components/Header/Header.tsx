@@ -1,17 +1,21 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
 import { useSelector } from '../../store/index';
 import Container from '../../styles/components/Header/Header';
 import YasumiCol from '../../public/static/yasumi/yasumi_col.svg';
 import YasumiTxt from '../../public/static/yasumi/yasumi_txt.svg';
+import HeaderUserProfile from './HeaderUserProfile';
 import SignUpModal from '../Auth/SignUpModal';
 import SignInModal from '../Auth/SignInModal';
 import useModal from '../hooks/useModal';
-import HeaderUserProfile from './HeaderUserProfile';
 
 const Header: React.FC = () => {
-  const isLogged = useSelector((selector) => selector.user.logged);
-  const { openModal, ModalPotal, getModalOpenedState, closeModal } = useModal();
+  const { modalOpenState, isLogged } = useSelector((selector) => ({
+    modalOpenState: selector.modalState.modalState,
+    isLogged: selector.user.logged,
+  }));
+
+  const { openModal, ModalPotal, closeModal } = useModal();
   const [signUpAndInModal, setSignUpAndInModal] = useState({
     signUp: false,
     signIn: false,
@@ -25,11 +29,12 @@ const Header: React.FC = () => {
     setSignUpAndInModal({ signIn: true, signUp: false });
     openModal();
   }, [signUpAndInModal]);
+
   return (
     <>
       <Container
         className={`${
-          getModalOpenedState() ? 'filter blur-md' : ''
+          modalOpenState ? 'filter blur-md' : ''
         } p-0 flex justify-center`}
       >
         <Link href="/">
@@ -40,7 +45,6 @@ const Header: React.FC = () => {
             </div>
           </a>
         </Link>
-        {isLogged && <HeaderUserProfile />}
         {!isLogged && (
           <>
             <div className="header-auth-btns flex">
@@ -61,6 +65,7 @@ const Header: React.FC = () => {
             </div>
           </>
         )}
+        {isLogged && <HeaderUserProfile />}
       </Container>
       <ModalPotal>
         {signUpAndInModal.signUp && <SignUpModal closeModal={closeModal} />}

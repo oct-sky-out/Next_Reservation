@@ -3,27 +3,27 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 type ActionType = { type: 'PWD_FIELD' | 'CHECK_PWD_FIELD' };
 
+const initState = {
+  passwordField: 'password',
+  checkPaswordField: 'password',
+};
+
+const reducer = (state: typeof initState, action: ActionType) => {
+  switch (action.type) {
+    case 'PWD_FIELD':
+      if (state.passwordField === 'password')
+        return { ...state, passwordField: 'text' };
+      else return { ...state, passwordField: 'password' };
+    case 'CHECK_PWD_FIELD':
+      if (state.checkPaswordField === 'password')
+        return { ...state, checkPaswordField: 'text' };
+      else return { ...state, checkPaswordField: 'password' };
+    default:
+      return state;
+  }
+};
+
 const usePasswordType = () => {
-  const reducer = (state: typeof initState, action: ActionType) => {
-    switch (action.type) {
-      case 'PWD_FIELD':
-        if (state.passwordField === 'password')
-          return { ...state, passwordField: 'text' };
-        else return { ...state, passwordField: 'password' };
-      case 'CHECK_PWD_FIELD':
-        if (state.checkPaswordField === 'password')
-          return { ...state, checkPaswordField: 'text' };
-        else return { ...state, checkPaswordField: 'password' };
-      default:
-        return state;
-    }
-  };
-
-  const initState = {
-    passwordField: 'password',
-    checkPaswordField: 'password',
-  };
-
   const [checkState, dispatch] = useReducer(reducer, initState);
 
   const getCheckState = () => checkState;

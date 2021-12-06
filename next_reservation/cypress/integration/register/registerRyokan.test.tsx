@@ -26,7 +26,7 @@ describe('/room/register/ryokan URL 컴포넌트 테스팅', () => {
     cy.visit('/room/register/ryokan');
     cy.url().should('eq', 'http://localhost:3000/login');
     cy.get('#email-input').type('kms3335k@naver.com');
-    cy.get('#password-input').type('scx1220@');
+    cy.get('#password-input').type('scx122300@');
     cy.get('.submit-btn').should('not.be.disabled').click();
 
     cy.wait(3000);

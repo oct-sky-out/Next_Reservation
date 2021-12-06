@@ -2084,6 +2084,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@googlemaps/js-api-loader@npm:^1.12.11":
+  version: 1.12.11
+  resolution: "@googlemaps/js-api-loader@npm:1.12.11"
+  dependencies:
+    fast-deep-equal: ^3.1.3
+  checksum: bbcb6e8b2fe6755b58db16fdd8b30294f798751ff6bd685501d9882ff1e0f1cc290edd88fb162ee6d0608f149ba3ceb87703fa496828e2e853f90edaf8c05a82
+  languageName: node
+  linkType: hard
+
 "@grpc/grpc-js@npm:^1.3.2":
   version: 1.4.3
   resolution: "@grpc/grpc-js@npm:1.4.3"
@@ -3045,6 +3054,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/google.maps@npm:^3.47.0":
+  version: 3.47.0
+  resolution: "@types/google.maps@npm:3.47.0"
+  checksum: 95c70ea46423716f6a0a3590b8ef325a9f900fbcd847dc7e692db8f45360591ebacc49b0b3af03622b90119b98a4308f58bb5a1023ed8f1855d864ea97789a5a
+  languageName: node
+  linkType: hard
+
+"@types/googlemaps@npm:^3.43.3":
+  version: 3.43.3
+  resolution: "@types/googlemaps@npm:3.43.3"
+  checksum: e08a1fd0c591812359be79f1f5952758a45e2967e117a444c5494eacb03588231cbfeebec0e349063cb2c1dba99226a26378578a6d7a5ea4dab08169e11be77d
+  languageName: node
+  linkType: hard
+
 "@types/graceful-fs@npm:^4.1.2":
   version: 4.1.5
   resolution: "@types/graceful-fs@npm:4.1.5"
@@ -3103,6 +3126,13 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: e60b153664572116dfea673c5bda7778dbff150498f44f998e34b5886d8afc47f16799280e4b6e241c0472aef1bc36add771c569c68fc5125fc2ae519a3eb9ac
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4.14.177":
+  version: 4.14.177
+  resolution: "@types/lodash@npm:4.14.177"
+  checksum: 00f9eb300ed5219cfbabb3448d4a71744895edad60dcfda9f028c0808a50eb6ad1ca9f673b56a85f85668a4ea54b9870643625468a747039c435643e52253a75
   languageName: node
   linkType: hard
 
@@ -6029,6 +6059,33 @@ __metadata:
     eslint: ^5.16.0 || ^6.8.0 || ^7.2.0
     eslint-plugin-import: ^2.22.1
   checksum: 858bea748a3c8685b52fcf2488e6a0b964022f8387f4ee1e69cb707d4fda2a409f09eb8eea658bcd83fae3519967d10208ba7576dd3d3202b8cf0b9d1a6e21eb
+  languageName: node
+  linkType: hard
+
+"eslint-config-airbnb-base@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "eslint-config-airbnb-base@npm:15.0.0"
+  dependencies:
+    confusing-browser-globals: ^1.0.10
+    object.assign: ^4.1.2
+    object.entries: ^1.1.5
+    semver: ^6.3.0
+  peerDependencies:
+    eslint: ^7.32.0 || ^8.2.0
+    eslint-plugin-import: ^2.25.2
+  checksum: 38626bad2ce2859fccac86b30cd2b86c9b7d8d71d458331860861dc05290a5b198bded2f4fb89efcb9046ec48f8ab4c4fb00365ba8916f27b172671da28b93ea
+  languageName: node
+  linkType: hard
+
+"eslint-config-airbnb-typescript@npm:^16.1.0":
+  version: 16.1.0
+  resolution: "eslint-config-airbnb-typescript@npm:16.1.0"
+  dependencies:
+    eslint-config-airbnb-base: ^15.0.0
+  peerDependencies:
+    "@typescript-eslint/eslint-plugin": ^5.0.0
+    "@typescript-eslint/parser": ^5.0.0
+  checksum: 65bb6763ab825c228d01c884ddb306001f3b5cbb5c138646f6629ac780acc68d388091844b3983aa9f8f138e4e972a2a1d5a23ce95bd7a217b4a917e4e2366dd
   languageName: node
   linkType: hard
 
@@ -9830,6 +9887,7 @@ __metadata:
     "@babel/eslint-parser": ^7.15.8
     "@babel/runtime": ^7.15.4
     "@firebase/app": ^0.7.5
+    "@googlemaps/js-api-loader": ^1.12.11
     "@reduxjs/toolkit": ^1.6.2
     "@svgr/webpack": ^5.5.0
     "@tailwindcss/custom-forms": ^0.2.1
@@ -9837,7 +9895,10 @@ __metadata:
     "@testing-library/jest-dom": ^5.15.0
     "@testing-library/react": ^12.1.2
     "@testing-library/user-event": ^13.5.0
+    "@types/google.maps": ^3.47.0
+    "@types/googlemaps": ^3.43.3
     "@types/jest": ^27.0.2
+    "@types/lodash": ^4.14.177
     "@types/next-redux-saga": ^3.0.2
     "@types/node": ^16.11.4
     "@types/react": 17.0.31
@@ -9857,6 +9918,7 @@ __metadata:
     cypress: ^8.6.0
     eslint: ^8.3.0
     eslint-config-airbnb: ^18.2.1
+    eslint-config-airbnb-typescript: ^16.1.0
     eslint-config-next: 11.1.2
     eslint-config-prettier: ^8.3.0
     eslint-plugin-babel: ^5.3.1
@@ -9871,6 +9933,7 @@ __metadata:
     jest: ^27.3.1
     jest-css-modules: ^2.1.0
     jest-styled-components: ^7.0.5
+    lodash: ^4.17.21
     next: 11.1.2
     next-redux-saga: ^4.1.2
     next-redux-wrapper: 6.0.2
@@ -10240,7 +10303,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object.entries@npm:^1.1.2, object.entries@npm:^1.1.4":
+"object.entries@npm:^1.1.2, object.entries@npm:^1.1.4, object.entries@npm:^1.1.5":
   version: 1.1.5
   resolution: "object.entries@npm:1.1.5"
   dependencies:

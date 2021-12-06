@@ -9,13 +9,17 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import userSignInAndUp from './userSignInAndUp';
 import registerRyokan from './registerRyokan';
 import registerFormIsValid from './registerFormIsValid';
+import modalOpenStateSlice from './modalOpen';
 import rootSaga from './sagas';
+import loadingSlice from './lodaing';
 
 // 여러개의 리듀서 컴바인
 const rootReducer = combineReducers({
   user: userSignInAndUp.reducer,
   registerRyokan: registerRyokan.reducer,
   registerIsValid: registerFormIsValid.reducer,
+  modalState: modalOpenStateSlice.reducer,
+  loading: loadingSlice.reducer,
 });
 
 // 스토어 타입

@@ -8,23 +8,21 @@ import { registerFormValidAction } from 'store/registerFormIsValid';
 const RegisterRyokanBathrooms = () => {
   //* Redux
   const dispatch = useDispatch();
-  const { bathCount, isFormValid } = useSelector((selector) => ({
+  const { bathCount, isShared, isFormValid } = useSelector((selector) => ({
     bathCount: selector.registerRyokan.bathrooms.bathCount,
+    isShared: selector.registerRyokan.bathrooms.isShared,
     isFormValid: selector.registerIsValid.isValid,
   }));
 
-  //* useState
-  const [isShareCheck, setIsShareCheck] = useState(false);
-
   //* useEffect
   useEffect(() => {
-    if (isShareCheck && bathCount) {
+    if (bathCount) {
       dispatch(registerFormValidAction.setValid(true));
     }
-    if (!(isShareCheck && bathCount)) {
+    if (!bathCount) {
       isFormValid && dispatch(registerFormValidAction.setValid(false));
     }
-  }, [isShareCheck, bathCount, isFormValid]);
+  }, [bathCount, isFormValid]);
 
   //* useCallbacks
   const bathCountAddOrSub = useCallback(
@@ -36,17 +34,14 @@ const RegisterRyokanBathrooms = () => {
     },
     [bathCount]
   );
-  const isBathShared = useCallback(
-    (isShared: boolean) => {
-      if (isShared) dispatch(registerRyokanActions.setIsBathShared(true));
-      if (!isShared) dispatch(registerRyokanActions.setIsBathShared(false));
-      !isShareCheck && setIsShareCheck(true);
-    },
-    [isShareCheck]
-  );
+  const isBathShared = useCallback((isShared: boolean) => {
+    if (isShared) dispatch(registerRyokanActions.setIsBathShared(true));
+    if (!isShared) dispatch(registerRyokanActions.setIsBathShared(false));
+  }, []);
+
   return (
-    <div className="w-full col-start-2 register-form animate-fadeInAndUpForm space-y-5 mx-0 my-auto">
-      <div className="w-1/2 my-0 mx-auto text-black">
+    <div className="w-full h-outOfHeader col-start-2 register-form animate-fadeInAndUpForm space-y-5 overflow-auto">
+      <div className="w-1/2 h-full text-black mx-auto my-0 py-5 flex flex-col justify-center">
         <div className="w-full mb-5">
           <span className="mb-3 inline-block text-2xl">욕실 수</span>
           <div className="flex-none w-32 flex justify-around items-center">
@@ -82,6 +77,7 @@ const RegisterRyokanBathrooms = () => {
                   onChange={() => {
                     isBathShared(true);
                   }}
+                  checked={isShared}
                 />
                 <span className="ml-2 font-xl">예, 공용 욕실입니다.</span>
               </label>
@@ -91,10 +87,11 @@ const RegisterRyokanBathrooms = () => {
                 <input
                   className="form-radio text-emerald border-2 border-gray-400 w-6 h-6"
                   type="radio"
-                  name="nonSharedBathroomRadio"
+                  name="sharedBathroomRadio"
                   onChange={() => {
                     isBathShared(false);
                   }}
+                  checked={!isShared}
                 />
                 <span className="ml-2 font-xl">
                   아니요, 게스트가 단독으로 사용합니다.

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useDispatch } from 'react-redux';
+import { modalOpenStateAction } from '../../store/modalOpen';
 import ModalStyle from '../../styles/components/ModalPotal/Modal';
 
 interface IProps {
@@ -8,16 +10,19 @@ interface IProps {
 }
 
 const useModal = () => {
+  const dispatch = useDispatch();
   const [modalOpened, setModalOpened] = useState(false);
 
   const getModalOpenedState = () => modalOpened;
 
   const openModal = () => {
     setModalOpened(true);
+    dispatch(modalOpenStateAction.setOpenState(true));
   };
 
   const closeModal = () => {
     setModalOpened(false);
+    dispatch(modalOpenStateAction.setOpenState(false));
   };
 
   const ModalPotal: React.FC<IProps> = ({ children, additionalFunction }) => {

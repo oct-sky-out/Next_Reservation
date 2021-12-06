@@ -50,7 +50,7 @@ const userSignInSlice = createSlice({
   reducers: {
     userSignUp: {
       reducer: (state, action: PayloadAction<ISignUpForm>) => {
-        return (state = { ...state, signUpForm: action.payload });
+        return { ...state, signUpForm: action.payload };
       },
       prepare: (signUpForm: ISignUpForm) => {
         return { payload: signUpForm };
@@ -58,7 +58,7 @@ const userSignInSlice = createSlice({
     },
     userSignIn: {
       reducer: (state, action: PayloadAction<ISignInForm>) => {
-        return (state = { ...state, loginForm: { ...action.payload } });
+        return { ...state, loginForm: { ...action.payload } };
       },
       prepare: (loginForm: ISignInForm) => {
         return { payload: loginForm };
@@ -69,11 +69,11 @@ const userSignInSlice = createSlice({
         state,
         action: PayloadAction<IFirebaseSignInResult | IFirebaseSignUpResult>
       ) => {
-        return (state = {
+        return {
           ...state,
           loginForm: { ...state.loginForm, password: '' },
           data: action.payload,
-        });
+        };
       },
       prepare: (data: IFirebaseSignInResult) => {
         return { payload: data };
@@ -84,11 +84,11 @@ const userSignInSlice = createSlice({
         state,
         action: PayloadAction<IFirebaseSignInError | IFirebaseSignUpError>
       ) => {
-        return (state = {
+        return {
           ...state,
           loginForm: { ...state.loginForm, password: '' },
           error: action.payload,
-        });
+        };
       },
       prepare: (error: IFirebaseSignInError) => {
         return { payload: error };
@@ -96,10 +96,10 @@ const userSignInSlice = createSlice({
     },
     setLogeed: {
       reducer: (state, action: PayloadAction<boolean>) => {
-        return (state = {
+        return {
           ...state,
           logged: action.payload,
-        });
+        };
       },
       prepare: (islogged: boolean) => {
         return { payload: islogged };

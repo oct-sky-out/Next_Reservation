@@ -36,10 +36,9 @@ app.getInitialProps = async (context: MyAppContext) => {
   const { store } = context.ctx;
   const { logged } = store.getState().user;
   let accessToken = '';
-  ~~cookies.forEach((cookie) => {
+  cookies.forEach((cookie) => {
     if (cookie.key === 'access_token') accessToken = cookie.value;
   });
-
   try {
     if (!logged && accessToken) {
       axios.defaults.headers.common = {

@@ -1,40 +1,19 @@
 export {};
 
-describe('료칸 등록 2단계 침실 등록 테스팅', () => {
+describe('료칸등록 4단계 료칸위치등록', () => {
   it('로그인이 되어있지 않을 시 /login으로 이동한다.', () => {
-    cy.visit('/room/register/bedrooms');
+    cy.visit('/room/register/location');
     cy.url().should('eq', 'http://localhost:3000/login');
   });
-  it('비 로그인 상태에서 리다이렉션 -> 로그인, 료칸 등록페이지 정보 입력 후 -> 침실 등록 페이지 접근', () => {
-    cy.visit('/room/register/ryokan');
-    cy.url().should('eq', 'http://localhost:3000/login');
+
+  it('로그인 후 1,2,3단계 등록 후 4단계 위치등록', () => {
+    cy.visit('/');
+    cy.get('.header-sign-in-btn').click();
     cy.get('#email-input').type('kms3335k@naver.com');
     cy.get('#password-input').type('scx122300@');
     cy.get('.submit-btn').should('not.be.disabled').click();
 
-    cy.url({ timeout: 5000 }).should('eq', 'http://localhost:3000/');
-    cy.get('.header-user-profile').click();
-    cy.get('.register-ryokan').click();
-
-    cy.get('.next-page-btn', { timeout: 30000 }).should('be.disabled');
-    cy.get('.ryokan-type-selector').select('화양실');
-    cy.get('.ryokan-building-type-selector').select('개인실');
-    cy.get('.ryokan-built-in-onsen').check({ force: true });
-    cy.get('.next-page-btn').should('not.be.disabled').click();
-    cy.url({ timeout: 30000 }).should(
-      'eq',
-      'http://localhost:3000/room/register/bedrooms'
-    );
-  });
-  it('침실 등록 페이지 접근 후 입력사랑 모두 입력, 다음버튼을 통해서 /room/register/restrooms 접근', () => {
-    cy.visit('/room/register/ryokan');
-    cy.url().should('eq', 'http://localhost:3000/login');
-    cy.get('#email-input').type('kms3335k@naver.com');
-    cy.get('#password-input').type('scx122300@');
-    cy.get('.submit-btn').should('not.be.disabled').click();
-
-    cy.url({ timeout: 5000 }).should('eq', 'http://localhost:3000/');
-    cy.get('.header-user-profile').click();
+    cy.get('.header-user-profile', { timeout: 10000 }).click();
     cy.get('.register-ryokan').click();
 
     cy.get('.next-page-btn', { timeout: 30000 }).should('be.disabled');
@@ -70,13 +49,45 @@ describe('료칸 등록 2단계 침실 등록 테스팅', () => {
       .eq(2)
       .find('button[value="add"]')
       .click();
-
     cy.get('.bed-register-complete-btn').should('be.enabled').click();
-
     cy.get('.next-page-btn').should('be.enabled').click();
+
+    // 욕실 등록 페이지
     cy.url({ timeout: 30000 }).should(
       'eq',
-      'http://localhost:3000/room/register/restrooms'
+      'http://localhost:3000/room/register/bathrooms'
     );
+
+    cy.get('.next-page-btn').should('be.disabled');
+
+    cy.get('button[value="add"]').click().click();
+    cy.get('[cy-testid="non-share"]').click();
+
+    cy.get('.next-page-btn').should('not.be.disabled').click();
+    cy.url({ timeout: 30000 }).should(
+      'eq',
+      'http://localhost:3000/room/register/location'
+    );
+
+    cy.get('[cy-testid="use-my-location-btn"]').should('be.enabled').click();
+    cy.get('[cy-testid="contry"]', { timeout: 30000 }).should(
+      'have.value',
+      '대한민국'
+    );
+    cy.get('[cy-testid="adress"]').should(
+      'have.value',
+      '경상남도 양산시 물금읍 범어리 1707'
+    );
+    cy.get('[cy-testid="postcode"]').should('have.value', '626-810');
+    cy.get('.next-page-btn').should('not.be.disabled');
+
+    cy.get('[cy-testid="detail-address"]').type('111호');
+    cy.get('.next-page-btn').should('not.be.disabled').click();
+
+    cy.url({ timeout: 30000 }).should(
+      'eq',
+      'http://localhost:3000/room/register/geometry'
+    );
+    cy.get('.next-page-btn').should('not.be.disabled');
   });
 });

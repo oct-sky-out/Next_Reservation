@@ -21,6 +21,7 @@ const HeaderUserProfile = () => {
       userPicture: selector.user.data.userPicture,
     };
   });
+
   //* 유저 프로파일 메뉴 열림 닫힘
   const [isUserMenuOpened, setIsUserMenuOpened] = useState(false);
 

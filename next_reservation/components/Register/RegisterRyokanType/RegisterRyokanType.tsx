@@ -8,6 +8,7 @@ import {
   RyokanType as RyokanTypes,
   BuildingType as BuildingTypes,
 } from '../../../lib/staticData/RegisterRyokanType';
+import selectElementSelector from 'lib/utils/selectElementSelector';
 
 const RegisterRyokanType = () => {
   const dispatch = useDispatch();
@@ -30,21 +31,17 @@ const RegisterRyokanType = () => {
   }, [ryokanType, buildingType]);
 
   //* useCallbacks
-  const selectedRyokanTypeOrBuildingType = useCallback(
-    ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) =>
-      (RyokanTypesOrBuildingTypes: { [key: string]: string }) => {
-        const typeKey = Object.keys(RyokanTypesOrBuildingTypes).find(
-          (key) => RyokanTypesOrBuildingTypes[key] === value
-        );
-        if (typeKey) {
-          if (typeKey in RyokanTypes)
-            dispatch(registerRyokanActions.setRyokanType(typeKey));
-          if (typeKey in BuildingTypes)
-            dispatch(registerRyokanActions.setBuildingType(typeKey));
-        }
-      },
-    [buildingType, ryokanType]
-  );
+  const RyokanTypeOrBuildingTypeKeyFindAfterDispatch = (
+    objKey: string | undefined
+  ) => {
+    if (objKey) {
+      if (objKey in RyokanTypes)
+        dispatch(registerRyokanActions.setRyokanType(objKey));
+      if (objKey in BuildingTypes)
+        dispatch(registerRyokanActions.setBuildingType(objKey));
+    }
+  };
+
   const selectedBuiltInOnsen = useCallback(
     ({ target: { checked } }: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(registerRyokanActions.setIsBuiltInOnsen(checked));
@@ -53,45 +50,62 @@ const RegisterRyokanType = () => {
   );
 
   return (
-    <div className="w-full col-start-2 register-form animate-fadeInAndUpForm space-y-5 mx-0 my-auto">
-      <div className="w-1/2 my-0 mx-auto">
-        <span className="text-black mb-3 inline-block text-2xl">료칸유형</span>
-        <Selector
-          className="mb-5 h-20 ryokan-type-selector"
-          onChange={(e) => selectedRyokanTypeOrBuildingType(e)(RyokanTypes)}
-          value={RyokanTypes[ryokanType] || '료칸유형을 선택해주세요.'}
-          disableOption="료칸유형을 선택해주세요."
-          options={Object.values(RyokanTypes)}
-        />
-      </div>
-      <div className="w-1/2 my-0 mx-auto">
-        <span className="text-black mb-3 inline-block text-2xl">건물유형</span>
-        <Selector
-          className="mb-5 h-20 ryokan-building-type-selector"
-          onChange={(e) => selectedRyokanTypeOrBuildingType(e)(BuildingTypes)}
-          value={BuildingTypes[buildingType] || '건물유형을 선택해주세요.'}
-          disableOption="건물유형을 선택해주세요."
-          options={Object.values(BuildingTypes)}
-        />
-      </div>
-      <div className="w-1/2 my-0 mx-auto">
-        <div className="list-group mb-5 flex justify-center">
+    <div className="w-full h-outOfHeader col-start-2 register-form animate-fadeInAndUpForm space-y-5 mx-0 my-auto overflow-auto">
+      <div className="h-full flex flex-col justify-center py-5">
+        <div className="w-1/2 my-0 mx-auto">
           <span className="text-black mb-3 inline-block text-2xl">
-            객실 내 온천여부
+            료칸유형
           </span>
-          <label className="inline-flex items-center text-black">
-            <div className="flex items-center">
-              <input
-                id="built-in-onsen"
-                className="form-checkbox rounded text-emerald h-6 w-6 mr-3 my-auto inline-block ryokan-built-in-onsen"
-                type="checkbox"
-                onChange={selectedBuiltInOnsen}
-              />
-              <span className="my-auto inline-block font-xl">
-                객실 내부에 온천이 있습니까?
-              </span>
-            </div>
-          </label>
+          <Selector
+            className="mb-5 h-20 ryokan-type-selector"
+            onChange={(e) =>
+              selectElementSelector(e)(
+                RyokanTypeOrBuildingTypeKeyFindAfterDispatch,
+                RyokanTypes
+              )
+            }
+            value={RyokanTypes[ryokanType] || '료칸유형을 선택해주세요.'}
+            disableOption="료칸유형을 선택해주세요."
+            options={Object.values(RyokanTypes)}
+          />
+        </div>
+        <div className="w-1/2 my-0 mx-auto">
+          <span className="text-black mb-3 inline-block text-2xl">
+            건물유형
+          </span>
+          <Selector
+            className="mb-5 h-20 ryokan-building-type-selector"
+            onChange={(e) =>
+              selectElementSelector(e)(
+                RyokanTypeOrBuildingTypeKeyFindAfterDispatch,
+                BuildingTypes
+              )
+            }
+            value={BuildingTypes[buildingType] || '건물유형을 선택해주세요.'}
+            disableOption="건물유형을 선택해주세요."
+            options={Object.values(BuildingTypes)}
+          />
+        </div>
+        <div className="w-1/2 my-0 mx-auto">
+          <div className="list-group mb-5 flex justify-center">
+            <span className="text-black mb-3 inline-block text-2xl">
+              객실 내 온천여부
+            </span>
+            <label className="inline-flex items-center text-black">
+              <div className="flex items-center">
+                <input
+                  id="built-in-onsen"
+                  className="form-checkbox border-2 border-gray-400 rounded text-emerald h-6 w-6 mr-3 my-auto inline-block ryokan-built-in-onsen"
+                  type="checkbox"
+                  checked={isBuiltInOnsen}
+                  onChange={selectedBuiltInOnsen}
+                />
+                <span className="my-auto inline-block font-xl">
+                  객실 내부에 온천이 있습니까?
+                </span>
+              </div>
+            </label>
+          </div>
         </div>
       </div>
     </div>

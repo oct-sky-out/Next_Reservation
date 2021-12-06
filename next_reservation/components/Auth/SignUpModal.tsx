@@ -4,7 +4,8 @@ import usePasswordType from '../hooks/useTogglePasswordType';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../store';
 import { userSignInAndUpActions } from '../../store/userSignInAndUp';
-import { getAuth, signOut, AuthErrorCodes } from 'firebase/auth';
+import { loadingAction } from '../../store/lodaing';
+import { getAuth, AuthErrorCodes } from 'firebase/auth';
 import { clientApp } from '../../firebaseClient';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FiMail } from 'react-icons/fi';
@@ -34,10 +35,11 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
   const router = useRouter();
   //* redux
   const dispatch = useDispatch();
-  const { successData, failureData } = useSelector((selector) => {
+  const { successData, failureData, loading } = useSelector((selector) => {
     return {
       successData: selector.user.data,
       failureData: selector.user.error,
+      loading: selector.loading,
     };
   });
   //* password Type Change CustomHook
@@ -61,8 +63,6 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
     password1: '',
     password2: '',
   });
-  //* Loading status
-  const [isLoading, setIsLoading] = useState(false);
   //* useCallback
   const changeInputValue = useCallback(
     (
@@ -120,7 +120,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
         });
       }
 
-      setIsLoading(true);
+      dispatch(loadingAction.setLoading(true));
 
       const sendValue = {
         email: allInputValue.email,
@@ -134,12 +134,12 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
       };
       dispatch(userSignInAndUpActions.userSignUp(sendValue));
     },
-    [allInputValue, isLoading]
+    [allInputValue]
   );
 
   //* useEffect 회원가입 스토어 감지 후 업데이트, 회원가입 후 자동 로그아웃.
   useEffect(() => {
-    setIsLoading(false);
+    dispatch(loadingAction.setLoading(false));
     if (successData.type === 'success') {
       Swal.fire({
         icon: 'success',
@@ -336,7 +336,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
               }
             >
               <div className=" w-full h-full flex justify-center items-center ">
-                {isLoading ? (
+                {loading ? (
                   <Loader type="Oval" color="#fff" height="40" width="40" />
                 ) : (
                   '가입'

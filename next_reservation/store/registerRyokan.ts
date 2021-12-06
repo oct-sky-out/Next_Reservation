@@ -17,6 +17,14 @@ const initialState: IRyokanType = {
     bathCount: 0,
     isShared: false,
   },
+  location: {
+    contry: '',
+    address: '',
+    detailAddress: '',
+    postCode: '',
+    latitude: 0,
+    longitude: 0,
+  },
 };
 
 const registerRyokanSlice = createSlice({
@@ -128,6 +136,105 @@ const registerRyokanSlice = createSlice({
         return {
           ...state,
           bathrooms: { ...state.bathrooms, isShared: action.payload },
+        };
+      },
+    },
+    setContry: {
+      prepare: (contry: string) => {
+        return { payload: contry };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return {
+          ...state,
+          location: { ...state.location, contry: action.payload },
+        };
+      },
+    },
+    setAddress: {
+      prepare: (streetAddress: string) => {
+        return { payload: streetAddress };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return {
+          ...state,
+          location: { ...state.location, address: action.payload },
+        };
+      },
+    },
+    setDetailAddress: {
+      prepare: (detailAddress: string) => {
+        return { payload: detailAddress };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return {
+          ...state,
+          location: { ...state.location, detailAddress: action.payload },
+        };
+      },
+    },
+    setPostCode: {
+      prepare: (postCode: string) => {
+        return { payload: postCode };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return {
+          ...state,
+          location: { ...state.location, postCode: action.payload },
+        };
+      },
+    },
+    setLatitude: {
+      prepare: (latitude: number) => {
+        return { payload: latitude };
+      },
+      reducer: (state, action: PayloadAction<number>) => {
+        return {
+          ...state,
+          location: { ...state.location, latitude: action.payload },
+        };
+      },
+    },
+    setLongitude: {
+      prepare: (longitude: number) => {
+        return { payload: longitude };
+      },
+      reducer: (state, action: PayloadAction<number>) => {
+        return {
+          ...state,
+          location: { ...state.location, longitude: action.payload },
+        };
+      },
+    },
+    setAutoLocation: {
+      prepare: (autoLocaion: {
+        contry: string;
+        address: string;
+        postCode: string;
+        latitude: number;
+        longitude: number;
+      }) => {
+        return { payload: autoLocaion };
+      },
+      reducer: (
+        state,
+        action: PayloadAction<{
+          contry: string;
+          address: string;
+          postCode: string;
+          latitude: number;
+          longitude: number;
+        }>
+      ) => {
+        return {
+          ...state,
+          location: {
+            ...state.location,
+            contry: action.payload.contry,
+            address: action.payload.address,
+            postCode: action.payload.postCode,
+            latitude: action.payload.latitude,
+            longitude: action.payload.longitude,
+          },
         };
       },
     },

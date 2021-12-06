@@ -10,7 +10,7 @@ describe('욕실 정보 등록 테스트', () => {
     cy.visit('/room/register/ryokan');
     cy.url().should('eq', 'http://localhost:3000/login');
     cy.get('#email-input').type('kms3335k@naver.com');
-    cy.get('#password-input').type('scx1220@');
+    cy.get('#password-input').type('scx122300@');
     cy.get('.submit-btn').should('not.be.disabled').click();
 
     cy.url({ timeout: 5000 }).should('eq', 'http://localhost:3000/');
