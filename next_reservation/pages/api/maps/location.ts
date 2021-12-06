@@ -8,14 +8,6 @@ import {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     try {
-      const locationData = [
-        'address',
-        'contry',
-        'postCode',
-        'latitude',
-        'longitude',
-      ];
-
       const { latitude, longitude } = req.query;
       if (!latitude || !longitude) {
         res.status(400).send('위치 정보를 확인해주세요.');
