@@ -53,7 +53,6 @@ const RegisterLocationForm = () => {
     <>
       <div className="w-full">
         <Selector
-          data-testid="contry"
           className="mb-5 h-20 ryokan-bedroom-count-selector"
           disableOption="국가를 선택하세요."
           value={`${contry ? contry : '국가를 선택하세요.'}`}

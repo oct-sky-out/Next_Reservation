@@ -73,8 +73,6 @@ const RegisterLocation = () => {
           </span>
           <div className="mb-5">
             <button
-              data-testid="personnel-sub"
-              value="sub"
               className="w-40 h-10 mb-3 rounded border-2 border-emerald flex justify-around items-center hover:bg-green-100"
               onClick={getMyLocation}
             >

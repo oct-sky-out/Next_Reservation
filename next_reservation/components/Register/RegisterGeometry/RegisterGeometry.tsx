@@ -54,7 +54,6 @@ const RegisterGeometry = () => {
         });
 
         marker.addListener('click', () => {
-          console.log(marker.getAnimation());
           if (marker.getAnimation() === null)
             marker.setAnimation(google.maps.Animation.BOUNCE);
           else marker.setAnimation(null);

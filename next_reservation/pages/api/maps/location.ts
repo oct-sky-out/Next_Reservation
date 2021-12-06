@@ -26,7 +26,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       } = await axios.get<geocodingResult>(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=ko&key=${process.env.YASUMI_PUBLIC_GOOGLE_MAP_API_KEY}`
       );
-      console.log(results);
       const { lat, lng } = results[0].geometry.location;
       const contry = results[0].formatted_address.split(' ')[0];
       const postCode =
