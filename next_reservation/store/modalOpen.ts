@@ -11,7 +11,7 @@ const modalOpenStateSlice = createSlice({
         return { payload: openState };
       },
       reducer: (state, action: PayloadAction<boolean>) => {
-        return (state = { ...state, modalState: action.payload });
+        return { ...state, modalState: action.payload };
       },
     },
   },

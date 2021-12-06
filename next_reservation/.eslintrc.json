@@ -11,6 +11,7 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "airbnb",
+    "airbnb-typescript",
     "plugin:prettier/recommended",
     "next/core-web-vitals"
   ],

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'store';
-import { modalOpenStateAction } from 'store/modalOpen';
 import RegisterRyokanStyle from '../../../styles/components/Register/RegisterRyokan';
 import RegisterLeftSideInformation from '../RegisterLeftSideProcedureInformation/RegisterLeftSideInformation';
 import RegisterFooter from '../RegisterFooter/RegisterFooter';

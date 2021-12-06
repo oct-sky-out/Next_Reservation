@@ -10,8 +10,8 @@ const loadingSlice = createSlice({
       prepare: (openState: boolean) => {
         return { payload: openState };
       },
-      reducer: (state, action: PayloadAction<boolean>) => {
-        return (state = action.payload);
+      reducer: (_state, action: PayloadAction<boolean>) => {
+        return action.payload;
       },
     },
   },

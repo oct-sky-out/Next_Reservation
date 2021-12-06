@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetServerSideProps, NextPage } from 'next';
 import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
-import RegisterRyokanBeedrooms from '@/components/Register/RegisterRyokanBedrooms/RegisterRyokanBeedrooms';
+import RegisterRyokanBedrooms from '@/components/Register/RegisterRyokanBedrooms/RegisterRyokanBedrooms';
 import { serverSidePropsType } from 'types/registRyokanServerSidePropType';
 
 const ryokan: NextPage<serverSidePropsType> = (props: serverSidePropsType) => {
@@ -11,7 +11,7 @@ const ryokan: NextPage<serverSidePropsType> = (props: serverSidePropsType) => {
       priviousHref="/room/register/ryokan"
       nextHref="/room/register/bathrooms"
     >
-      <RegisterRyokanBeedrooms />
+      <RegisterRyokanBedrooms />
     </RegisterRyokan>
   );
 };
