@@ -3,7 +3,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
 import RegisterRyokanBedrooms from '@/components/Register/RegisterRyokanBedrooms/RegisterRyokanBedrooms';
 
-const ryokan: NextPage = () => {
+const bedrooms: NextPage = () => {
   return (
     <RegisterRyokan
       producerText="얼마나 많은 인원이 숙박할 수 있나요?"
@@ -24,4 +24,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: {} };
 };
 
-export default ryokan;
+export default bedrooms;
