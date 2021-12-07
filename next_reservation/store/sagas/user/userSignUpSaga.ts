@@ -1,15 +1,15 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { userSignInAndUpActions } from '../../userSignInAndUp';
+import { userSignInAndUpActions } from '@/store/userSignInAndUp';
+import { clientApp } from '../../../firebaseClient';
+import { USER_COLLECTION } from '../../../fireStoreDB';
 import {
   AuthError,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   getAuth,
 } from 'firebase/auth';
-import { clientApp } from '../../../firebaseClient';
 import { setDoc, doc, Timestamp, FirestoreError } from 'firebase/firestore';
-import { USER_COLLECTION } from '../../../fireStoreDB';
-import { ISignUpForm } from '../../../types/reduxActionTypes/ReduxUserActionTypes';
+import { ISignUpForm } from '@/types/reduxActionTypes/ReduxUserActionTypes';
 
 const signUpApi = async ({
   email,

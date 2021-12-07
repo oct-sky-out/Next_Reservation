@@ -1,4 +1,5 @@
 export type bedroomType = { bedType: string; count: number };
+
 export type amenitiesType = {
   breakfast: boolean;
   closet: boolean;

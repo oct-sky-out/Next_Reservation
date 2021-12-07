@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
-import { registerRyokanActions } from 'store/registerRyokan';
-import { registerFormValidAction } from 'store/registerFormIsValid';
+import { registerRyokanActions } from '@/store/registerRyokan';
+import { registerFormValidAction } from '@/store/registerFormIsValid';
 import Selector from '@/components/common/Selector';
 import Input from '@/components/common/Input';
-import { Contry } from 'lib/staticData/Contries';
+import { Contry } from '@/lib/staticData/Contries';
 
 const RegisterLocationForm = () => {
   //* Redux

@@ -1,5 +1,5 @@
 import React from 'react';
-import LeftSideInformationStyles from 'styles/components/Register/RegisterLeftSideProcedureInformation';
+import LeftSideInformationStyles from '@/styles/components/Register/RegisterLeftSideProcedureInformation';
 
 interface IProps {
   proceduerText: string;

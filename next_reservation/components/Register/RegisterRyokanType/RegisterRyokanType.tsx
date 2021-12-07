@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from '../../../store';
-import { registerRyokanActions } from '../../../store/registerRyokan';
-import { registerFormValidAction } from '../../../store/registerFormIsValid';
-import Selector from '../../../components/common/Selector';
+import { useSelector } from '@/store/index';
+import { registerRyokanActions } from '@/store/registerRyokan';
+import { registerFormValidAction } from '@/store/registerFormIsValid';
+import Selector from '@/components/common/Selector';
+import CheckBox from '@/components/common/CheckBox';
 import {
   RyokanType as RyokanTypes,
   BuildingType as BuildingTypes,
-} from '../../../lib/staticData/RegisterRyokanType';
-import selectElementSelector from 'lib/utils/selectElementSelector';
-import CheckBox from '@/components/common/CheckBox';
+} from '@/lib/staticData/RegisterRyokanType';
+import selectElementSelector from '@/lib/utils/selectElementSelector';
 
 const RegisterRyokanType = () => {
   const dispatch = useDispatch();

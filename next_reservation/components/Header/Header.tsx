@@ -1,13 +1,13 @@
-import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
-import { useSelector } from '../../store/index';
-import Container from '../../styles/components/Header/Header';
-import YasumiCol from '../../public/static/yasumi/yasumi_col.svg';
-import YasumiTxt from '../../public/static/yasumi/yasumi_txt.svg';
+import React, { useCallback, useState } from 'react';
+import { useSelector } from '@/store/index';
 import HeaderUserProfile from './HeaderUserProfile';
 import SignUpModal from '../Auth/SignUpModal';
 import SignInModal from '../Auth/SignInModal';
 import useModal from '../hooks/useModal';
+import Container from '@/styles/components/Header/Header';
+import YasumiCol from '@/public/static/yasumi/yasumi_col.svg';
+import YasumiTxt from '@/public/static/yasumi/yasumi_txt.svg';
 
 const Header: React.FC = () => {
   const { modalOpenState, isLogged } = useSelector((selector) => ({

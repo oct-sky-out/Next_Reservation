@@ -2,8 +2,8 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
-import { registerRyokanActions } from 'store/registerRyokan';
-import { registerFormValidAction } from 'store/registerFormIsValid';
+import { registerRyokanActions } from '@/store/registerRyokan';
+import { registerFormValidAction } from '@/store/registerFormIsValid';
 
 const RegisterRyokanBathrooms = () => {
   //* Redux

@@ -1,9 +1,8 @@
 import React from 'react';
 import { GetServerSideProps, NextPage } from 'next';
 import SignInModal from '@/components/Auth/SignInModal';
-import { serverSidePropsType } from 'types/registRyokanServerSidePropType';
 
-const ryokan: NextPage<serverSidePropsType> = (props: serverSidePropsType) => {
+const ryokan: NextPage = () => {
   return (
     <div className="mt-48 flex justify-center items-center">
       <SignInModal />

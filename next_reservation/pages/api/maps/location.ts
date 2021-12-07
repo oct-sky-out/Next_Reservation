@@ -1,9 +1,6 @@
 import axios from 'lib/api';
 import { NextApiRequest, NextApiResponse } from 'next';
-import {
-  geocodingResult,
-  geocodingError,
-} from '../../../types/apiTyps/maps/location';
+import { geocodingResult, geocodingError } from '@/types/apiTyps/maps/location';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {

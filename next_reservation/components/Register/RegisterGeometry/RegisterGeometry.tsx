@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
-import { registerRyokanActions } from 'store/registerRyokan';
-import { registerFormValidAction } from 'store/registerFormIsValid';
+import { registerRyokanActions } from '@/store/registerRyokan';
+import { registerFormValidAction } from '@/store/registerFormIsValid';
 import { Loader } from '@googlemaps/js-api-loader';
 import L from 'lodash';
 import useDidMounted from '@/components/hooks/useDidMounted';

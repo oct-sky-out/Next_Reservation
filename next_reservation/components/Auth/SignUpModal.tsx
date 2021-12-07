@@ -1,21 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import usePasswordType from '../hooks/useTogglePasswordType';
 import { useDispatch } from 'react-redux';
-import { useSelector } from '../../store';
-import { userSignInAndUpActions } from '../../store/userSignInAndUp';
-import { loadingAction } from '../../store/lodaing';
+import { useSelector } from '@/store/index';
+import { userSignInAndUpActions } from '@/store/userSignInAndUp';
+import { loadingAction } from '@/store/lodaing';
 import { getAuth, AuthErrorCodes } from 'firebase/auth';
 import { clientApp } from '../../firebaseClient';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FiMail } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import Loader from 'react-loader-spinner';
+import usePasswordType from '../hooks/useTogglePasswordType';
 import Input from '../common/Input';
 import Selector from '../common/Selector';
-import { Years, Months, Days } from '../../lib/staticData/Date';
-import SignUpStyle from '../../styles/components/Auth/SignInAndUpModal';
-import DefaultUserPicture from '../../public/static/user/default_user_picture.png';
+import { Years, Months, Days } from '@/lib/staticData/Date';
+import SignUpStyle from '@/styles/components/Auth/SignInAndUpModal';
+import DefaultUserPicture from '@/public/static/user/default_user_picture.png';
 
 interface IProps {
   closeModal: () => void;

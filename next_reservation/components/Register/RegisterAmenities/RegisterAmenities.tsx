@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'store';
-import { registerRyokanActions } from 'store/registerRyokan';
-import { registerFormValidAction } from 'store/registerFormIsValid';
+import { useSelector } from '@/store/index';
+import { registerRyokanActions } from '@/store/registerRyokan';
+import { registerFormValidAction } from '@/store/registerFormIsValid';
 import { v4 } from 'uuid';
 import useDidMounted from '@/components/hooks/useDidMounted';
 import CheckBox from '@/components/common/CheckBox';
-import Amenities from 'lib/staticData/Amenities';
+import Amenities from '@/lib/staticData/Amenities';
 
 const RegisterAmenities = () => {
   //* Redux

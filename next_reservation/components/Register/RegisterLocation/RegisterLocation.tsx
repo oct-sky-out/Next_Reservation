@@ -1,16 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'store';
-import { registerRyokanActions } from 'store/registerRyokan';
+import { registerRyokanActions } from '@/store/registerRyokan';
 import { FaLocationArrow } from 'react-icons/fa';
 import { AiOutlineExclamation } from 'react-icons/ai';
-import axios from 'lib/api';
 import Swal from 'sweetalert2';
+import axios from '@/lib/api';
 import RegisterLocationForm from './RegisterLocationForm';
-import {
-  locationApiType,
-  geocodingError,
-} from '../../../types/apiTyps/maps/location';
+import { locationApiType, geocodingError } from '@/types/apiTyps/maps/location';
 
 const RegisterLocation = () => {
   const dispatch = useDispatch();

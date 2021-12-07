@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { registerRyokanActions } from 'store/registerRyokan';
+import { registerRyokanActions } from '@/store/registerRyokan';
 import { v4 } from 'uuid';
 import { GrClose } from 'react-icons/gr';
 import Selector from '@/components/common/Selector';
-import { bedroomType } from 'types/reduxActionTypes/ReduxRegiserRyokanType';
-import { BedTypes } from 'lib/staticData/RegisterRyokanBedrooms';
+import { BedTypes } from '@/lib/staticData/RegisterRyokanBedrooms';
+import { bedroomType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 
 interface IProps {
   closeModal: () => void;

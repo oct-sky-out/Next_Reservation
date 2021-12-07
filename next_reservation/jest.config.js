@@ -28,6 +28,12 @@ module.exports = {
     '^__tests__/(.*)$': '<rootDir>/__tests__/$1',
     '^pages/(.*)$': '<rootDir>/pages/$1',
     '^@/components/(.*)$': '<rootDir>/components/$1',
+    '^@/__mocks__/(.*)$': '<rootDir>/__mocks__/$1',
+    '^@/lib/(.*)$': '<rootDir>/lib/$1',
+    '^@/public/(.*)$': '<rootDir>/public/$1',
+    '^@/store/(.*)$': '<rootDir>/store/$1',
+    '^@/types/(.*)$': '<rootDir>/types/$1',
+    '^@/styles/(.*)$': '<rootDir>/styles/$1',
   },
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',

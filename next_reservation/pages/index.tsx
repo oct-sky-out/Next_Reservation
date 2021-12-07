@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { Container } from '../styles/_index/Container';
+import { Container } from '@/styles/_index/Container';
 
 const Home: NextPage = () => {
   return <Container></Container>;

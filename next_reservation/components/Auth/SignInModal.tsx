@@ -1,18 +1,18 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from '../../store/index';
-import { userSignInAndUpActions } from '../../store/userSignInAndUp';
-import { loadingAction } from '../../store/lodaing';
-import usePasswordType from '../hooks/useTogglePasswordType';
+import { useSelector } from '@/store/index';
+import { userSignInAndUpActions } from '@/store/userSignInAndUp';
+import { loadingAction } from '@/store/lodaing';
 import { AuthErrorCodes } from 'firebase/auth';
 import { FiMail } from 'react-icons/fi';
-import Input from '../common/Input';
-import SignInAndUpModal from '../../styles/components/Auth/SignInAndUpModal';
-import YasumiTxt from '../../public/static/yasumi/yasumi_txt.svg';
+import nookies from 'nookies';
 import Swal from 'sweetalert2';
 import Loader from 'react-loader-spinner';
-import nookies from 'nookies';
+import Input from '../common/Input';
+import usePasswordType from '../hooks/useTogglePasswordType';
+import SignInAndUpModal from '@/styles/components/Auth/SignInAndUpModal';
+import YasumiTxt from '@/public/static/yasumi/yasumi_txt.svg';
 
 interface IProps {
   closeModal?: () => void;

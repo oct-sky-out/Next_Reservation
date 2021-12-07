@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
 import { v4 } from 'uuid';
-import { BedTypes } from 'lib/staticData/RegisterRyokanBedrooms';
-import { bedroomType } from 'types/reduxActionTypes/ReduxRegiserRyokanType';
 import useModal from '@/components/hooks/useModal';
 import AddBedList from './AddBedList';
+import { BedTypes } from '@/lib/staticData/RegisterRyokanBedrooms';
+import { bedroomType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 
 interface IProps {
   bedroomList: bedroomType[][];
