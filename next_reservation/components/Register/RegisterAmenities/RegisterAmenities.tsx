@@ -65,6 +65,7 @@ const RegisterAmenities = () => {
                   checked={amenities[amenitiesKeys[index]]}
                   onChange={(e) => checkedAmenity(e, index)}
                   className="justify-self-stretch"
+                  labelClassName={`${index}-${amenity[0]}`}
                   data-testid={`${index}-${amenity[0]}`}
                 />
               ))}

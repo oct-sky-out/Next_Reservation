@@ -78,6 +78,7 @@ const RegisterRyokanBathrooms = () => {
                     isBathShared(true);
                   }}
                   checked={isShared}
+                  cy-testid="share"
                 />
                 <span className="ml-2 font-xl">예, 공용 욕실입니다.</span>
               </label>
@@ -92,6 +93,7 @@ const RegisterRyokanBathrooms = () => {
                     isBathShared(false);
                   }}
                   checked={!isShared}
+                  cy-testid="non-share"
                 />
                 <span className="ml-2 font-xl">
                   아니요, 게스트가 단독으로 사용합니다.

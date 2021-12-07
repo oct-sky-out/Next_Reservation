@@ -58,6 +58,7 @@ const RegisterLocationForm = () => {
           value={`${contry ? contry : '국가를 선택하세요.'}`}
           onChange={changeContryState}
           options={Contry}
+          cy-testid="contry"
         />
       </div>
       <div className="w-full space-y-5">
@@ -71,6 +72,7 @@ const RegisterLocationForm = () => {
             placeholder="도로명주소를 입력해주세요."
             value={address}
             onChange={changeAddressState}
+            cy-testid="adress"
           />
         </div>
         <div className="w-full">
@@ -83,6 +85,7 @@ const RegisterLocationForm = () => {
             placeholder="상세주소를 입력해주세요.(선택)"
             value={detailAddress}
             onChange={changeDetailAddressState}
+            cy-testid="detail-address"
           />
           <label className="my-3 text-xl" htmlFor="postCode">
             우편번호
@@ -93,6 +96,7 @@ const RegisterLocationForm = () => {
             placeholder="우편번호를 입력해주세요"
             value={postCode}
             onChange={changePostCodeState}
+            cy-testid="postcode"
           />
         </div>
       </div>
