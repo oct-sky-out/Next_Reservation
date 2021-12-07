@@ -1,6 +1,6 @@
 import { call, select, put, takeLatest } from 'redux-saga/effects';
-import { registerFormValidAction } from '../../../store/registerFormIsValid';
-import { RootState } from '../../index';
+import { registerFormValidAction } from '@/store/registerFormIsValid';
+import { RootState } from '@/store/index';
 
 const getBedroomListAndPersonnel = (state: RootState) => ({
   bedroomList: state.registerRyokan.bedrooms.bedroomList,

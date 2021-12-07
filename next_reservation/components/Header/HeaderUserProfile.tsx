@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router';
 import React, { useState, useCallback } from 'react';
-import OutsideClickHandler from 'react-outside-click-handler';
-import { useSelector } from '../../store/index';
+import { useSelector } from '@/store/index';
 import { useDispatch } from 'react-redux';
-import { userSignInAndUpActions } from '../../store/userSignInAndUp';
+import { userSignInAndUpActions } from '@/store/userSignInAndUp';
 import { getAuth } from 'firebase/auth';
 import { clientApp } from '../../firebaseClient';
 import nookies from 'nookies';
-import HeaderUserProfileStyle from '../../styles/components/Header/HeaderUserProfile';
+import OutsideClickHandler from 'react-outside-click-handler';
+import HeaderUserProfileStyle from '@/styles/components/Header/HeaderUserProfile';
 
 const HeaderUserProfile = () => {
   //*Router

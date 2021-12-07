@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from '../../../store';
-import { registerRyokanActions } from '../../../store/registerRyokan';
-import Selector from '../../common/Selector';
-import { BedroomCount } from '../../../lib/staticData/RegisterRyokanBedrooms';
-import useDidMounted from '../../hooks/useDidMounted';
+import { useSelector } from '@/store/index';
+import { registerRyokanActions } from '@/store/registerRyokan';
+import Selector from '@/components/common/Selector';
+import useDidMounted from '@/components/hooks/useDidMounted';
 import BedroomList from './BedroomList';
+import { BedroomCount } from '@/lib/staticData/RegisterRyokanBedrooms';
 
 const RegisterRyokanBeedrooms = () => {
   //* Redux

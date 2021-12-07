@@ -15,7 +15,11 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "paths": {
-      "@/components/*": ["components/*"]
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"],
+      "@/store/*": ["store/*"],
+      "@/types/*": ["types/*"],
+      "@/styles/*": ["styles/*"]
     },
     "types": ["jest", "cypress"]
   },

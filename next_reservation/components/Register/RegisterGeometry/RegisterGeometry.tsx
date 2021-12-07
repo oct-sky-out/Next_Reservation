@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
-import { registerRyokanActions } from 'store/registerRyokan';
-import { registerFormValidAction } from 'store/registerFormIsValid';
+import { registerRyokanActions } from '@/store/registerRyokan';
+import { registerFormValidAction } from '@/store/registerFormIsValid';
 import { Loader } from '@googlemaps/js-api-loader';
 import L from 'lodash';
 import useDidMounted from '@/components/hooks/useDidMounted';
@@ -76,8 +76,8 @@ const RegisterGeometry = () => {
   }, [mapRef.current]);
 
   return (
-    <div className="w-full h-outOfHeader text-black">
-      <div className="w-1/2 h-full mx-auto my-0 space-y-10 py-5">
+    <div className="w-full h-outOfHeader text-black col-start-2 animate-fadeInAndUpForm register-form">
+      <div className="w-1/2 h-full mx-auto my-0 space-y-10 py-5 ">
         <h1 className="text-2xl">위치 확인을 해주세요.</h1>
         <span className="text-xl text-red-400">
           이동이 필요할 경우, 지도를 움직여 숙소의 위치에 핀을 정확히

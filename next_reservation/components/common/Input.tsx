@@ -4,6 +4,7 @@ import CommonInputStyle from '../../styles/common/Input';
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: JSX.Element;
 }
+
 const Input: React.FC<IProps> = ({ icon, className, ...props }) => {
   return (
     <CommonInputStyle iconExist={!!icon}>

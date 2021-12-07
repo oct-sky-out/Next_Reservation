@@ -143,32 +143,198 @@ test('공용 욕실 또는 개인 욕실여부(isShared)를 변경 했을 때 �
   expect(store.getState().registerRyokan.bathrooms.isShared).toEqual(true);
 });
 
-test('숙소의 위치를 등록, 변경하면 국가, 도시, 시군구, 주소, 상세주소, 우편번호, 경도, 위도의 값이 바뀌는가?', () => {
-  // TODO 숙소의 위치를 가져옴.
+test('숙소의 위치를 등록, 변경하면 국가, 주소, 상세주소, 우편번호, 경도, 위도의 값이 바뀌는가?', () => {
+  // TODO 숙소의 등록된 위치를 가져옴.
+
+  // 국가
   store.dispatch(registerRyokanActions.setContry('Republic of Korea'));
   expect(store.getState().registerRyokan.location.contry).toEqual(
     'Republic of Korea'
   );
-  store.dispatch(registerRyokanActions.setCity('Seoul'));
-  expect(store.getState().registerRyokan.location.city).toEqual('Seoul');
-  store.dispatch(registerRyokanActions.setDistrict('Yeongdeungpo-gu'));
-  expect(store.getState().registerRyokan.location.district).toEqual(
-    'Yeongdeungpo-gu'
+
+  // 주소
+  store.dispatch(
+    registerRyokanActions.setAddress('1, Uisadang-daero Yeongdeungpo-gu Seoul')
   );
-  store.dispatch(registerRyokanActions.setStreetAddress('1, Uisadang-daero'));
-  expect(store.getState().registerRyokan.location.streetAddress).toEqual(
-    '1, Uisadang-daero'
+  expect(store.getState().registerRyokan.location.address).toEqual(
+    '1, Uisadang-daero Yeongdeungpo-gu Seoul'
   );
+
+  // 상세주소
   store.dispatch(registerRyokanActions.setDetailAddress('Capitol Library'));
   expect(store.getState().registerRyokan.location.detailAddress).toEqual(
     'Capitol Library'
   );
+
+  // 우편번호
   store.dispatch(registerRyokanActions.setPostCode('07233'));
   expect(store.getState().registerRyokan.location.postCode).toEqual('07233');
+
+  // 위도
   store.dispatch(registerRyokanActions.setLongitude(126.917178));
   expect(store.getState().registerRyokan.location.longitude).toEqual(
     126.917178
   );
+
+  // 경도
   store.dispatch(registerRyokanActions.setLatitude(37.531129));
   expect(store.getState().registerRyokan.location.latitude).toEqual(37.531129);
+});
+
+test('숙소 편의시설들의 유무가 바뀌는가?', () => {
+  // TODO 숙소의 편의시설들의 값을 true로 바꿈.
+
+  // 아침식사
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'breakfast',
+      amenityValue: true,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.breakfast).toEqual(true);
+
+  // 옷장
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'closet',
+      amenityValue: true,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.closet).toEqual(true);
+
+  // 냉방설비
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'coolingEquipment',
+      amenityValue: true,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.coolingEquipment).toEqual(
+    true
+  );
+
+  // 난방설비
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'heatingEquipment',
+      amenityValue: true,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.heatingEquipment).toEqual(
+    true
+  );
+
+  // 인터넷
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'internet',
+      amenityValue: true,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.internet).toEqual(true);
+
+  // 세면도구
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'toiletries',
+      amenityValue: true,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.toiletries).toEqual(true);
+
+  // 헤어드라이기
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'hairdryer',
+      amenityValue: true,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.hairdryer).toEqual(true);
+
+  // 티비
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'tv',
+      amenityValue: true,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.tv).toEqual(true);
+
+  // TODO 숙소의 편의시설들의 값을 false로 바꿈.
+
+  // 아침식사 false
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'breakfast',
+      amenityValue: false,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.breakfast).toEqual(false);
+
+  // 옷장 false
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'closet',
+      amenityValue: false,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.closet).toEqual(false);
+
+  // 냉방설비 false
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'coolingEquipment',
+      amenityValue: false,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.coolingEquipment).toEqual(
+    false
+  );
+
+  // 난방설비 false
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'heatingEquipment',
+      amenityValue: false,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.heatingEquipment).toEqual(
+    false
+  );
+
+  // 인터넷 false
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'internet',
+      amenityValue: false,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.internet).toEqual(false);
+
+  // 세면도구 false
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'toiletries',
+      amenityValue: false,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.toiletries).toEqual(false);
+
+  // 헤어드라이기 false
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'hairdryer',
+      amenityValue: false,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.hairdryer).toEqual(false);
+
+  // 티비 false
+  store.dispatch(
+    registerRyokanActions.setAmenities({
+      amenityKey: 'tv',
+      amenityValue: false,
+    })
+  );
+  expect(store.getState().registerRyokan.amenities.tv).toEqual(false);
 });

@@ -1,14 +1,15 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from '../../../store';
-import { registerRyokanActions } from '../../../store/registerRyokan';
-import { registerFormValidAction } from '../../../store/registerFormIsValid';
-import Selector from '../../../components/common/Selector';
+import { useSelector } from '@/store/index';
+import { registerRyokanActions } from '@/store/registerRyokan';
+import { registerFormValidAction } from '@/store/registerFormIsValid';
+import Selector from '@/components/common/Selector';
+import CheckBox from '@/components/common/CheckBox';
 import {
   RyokanType as RyokanTypes,
   BuildingType as BuildingTypes,
-} from '../../../lib/staticData/RegisterRyokanType';
-import selectElementSelector from 'lib/utils/selectElementSelector';
+} from '@/lib/staticData/RegisterRyokanType';
+import selectElementSelector from '@/lib/utils/selectElementSelector';
 
 const RegisterRyokanType = () => {
   const dispatch = useDispatch();
@@ -91,20 +92,14 @@ const RegisterRyokanType = () => {
             <span className="text-black mb-3 inline-block text-2xl">
               객실 내 온천여부
             </span>
-            <label className="inline-flex items-center text-black">
-              <div className="flex items-center">
-                <input
-                  id="built-in-onsen"
-                  className="form-checkbox border-2 border-gray-400 rounded text-emerald h-6 w-6 mr-3 my-auto inline-block ryokan-built-in-onsen"
-                  type="checkbox"
-                  checked={isBuiltInOnsen}
-                  onChange={selectedBuiltInOnsen}
-                />
-                <span className="my-auto inline-block font-xl">
-                  객실 내부에 온천이 있습니까?
-                </span>
-              </div>
-            </label>
+            <CheckBox
+              labelText="객실 내부에 온천이 있습니까?"
+              labelClassName="inline-flex items-center text-black"
+              id="built-in-onsen"
+              className="ryokan-built-in-onsen"
+              checked={isBuiltInOnsen}
+              onChange={selectedBuiltInOnsen}
+            />
           </div>
         </div>
       </div>
