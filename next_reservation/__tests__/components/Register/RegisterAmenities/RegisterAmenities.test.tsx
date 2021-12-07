@@ -69,6 +69,7 @@ const RegisterRyokanAmenities = () => {
             id="amenity"
             key={v4()}
             value={amenity[1]}
+            labelText={amenity[1]}
             onChange={(e) => checkedAmenity(e, index)}
             data-testid={`${index}-${amenity[0]}`}
           />
