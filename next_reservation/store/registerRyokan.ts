@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   IRyokanType,
   bedroomType,
+  amenitiesType,
 } from '../types/reduxActionTypes/ReduxRegiserRyokanType';
 
 const initialState: IRyokanType = {
@@ -24,6 +25,16 @@ const initialState: IRyokanType = {
     postCode: '',
     latitude: 0,
     longitude: 0,
+  },
+  amenities: {
+    breakfast: false,
+    closet: false,
+    coolingEquipment: false,
+    heatingEquipment: false,
+    internet: false,
+    toiletries: false,
+    hairdryer: false,
+    tv: false,
   },
 };
 
@@ -234,6 +245,29 @@ const registerRyokanSlice = createSlice({
             postCode: action.payload.postCode,
             latitude: action.payload.latitude,
             longitude: action.payload.longitude,
+          },
+        };
+      },
+    },
+    setAmenities: {
+      prepare: (amenityProperty: {
+        amenityKey: keyof amenitiesType;
+        amenityValue: boolean;
+      }) => {
+        return { payload: amenityProperty };
+      },
+      reducer: (
+        state,
+        action: PayloadAction<{
+          amenityKey: keyof amenitiesType;
+          amenityValue: boolean;
+        }>
+      ) => {
+        return {
+          ...state,
+          amenities: {
+            ...state.amenities,
+            [action.payload.amenityKey]: action.payload.amenityValue,
           },
         };
       },
