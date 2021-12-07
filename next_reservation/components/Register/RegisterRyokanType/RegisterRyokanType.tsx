@@ -9,6 +9,7 @@ import {
   BuildingType as BuildingTypes,
 } from '../../../lib/staticData/RegisterRyokanType';
 import selectElementSelector from 'lib/utils/selectElementSelector';
+import CheckBox from '@/components/common/CheckBox';
 
 const RegisterRyokanType = () => {
   const dispatch = useDispatch();
@@ -93,10 +94,9 @@ const RegisterRyokanType = () => {
             </span>
             <label className="inline-flex items-center text-black">
               <div className="flex items-center">
-                <input
+                <CheckBox
                   id="built-in-onsen"
-                  className="form-checkbox border-2 border-gray-400 rounded text-emerald h-6 w-6 mr-3 my-auto inline-block ryokan-built-in-onsen"
-                  type="checkbox"
+                  className="ryokan-built-in-onsen"
                   checked={isBuiltInOnsen}
                   onChange={selectedBuiltInOnsen}
                 />
