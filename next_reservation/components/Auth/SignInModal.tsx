@@ -12,7 +12,7 @@ import Loader from 'react-loader-spinner';
 import Input from '../common/Input';
 import usePasswordType from '../hooks/useTogglePasswordType';
 import SignInAndUpModal from '@/styles/components/Auth/SignInAndUpModal';
-import YasumiTxt from '@/public/static/yasumi/yasumi_txt.svg';
+import YasumiTxt from '../../public/static/yasumi/yasumi_txt.svg';
 
 interface IProps {
   closeModal?: () => void;

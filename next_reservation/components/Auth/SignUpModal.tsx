@@ -15,7 +15,7 @@ import Input from '../common/Input';
 import Selector from '../common/Selector';
 import { Years, Months, Days } from '@/lib/staticData/Date';
 import SignUpStyle from '@/styles/components/Auth/SignInAndUpModal';
-import DefaultUserPicture from '@/public/static/user/default_user_picture.png';
+import DefaultUserPicture from '../../public/static/user/default_user_picture.png';
 
 interface IProps {
   closeModal: () => void;

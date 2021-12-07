@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { verifyIdToken } from 'firebaseAdmin';
 import { getDoc, doc } from 'firebase/firestore';
-import { USER_COLLECTION } from '../../../fireStoreDB';
+import { verifyIdToken } from 'firebaseAdmin';
+import { USER_COLLECTION } from 'fireStoreDB';
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
