@@ -92,19 +92,14 @@ const RegisterRyokanType = () => {
             <span className="text-black mb-3 inline-block text-2xl">
               객실 내 온천여부
             </span>
-            <label className="inline-flex items-center text-black">
-              <div className="flex items-center">
-                <CheckBox
-                  id="built-in-onsen"
-                  className="ryokan-built-in-onsen"
-                  checked={isBuiltInOnsen}
-                  onChange={selectedBuiltInOnsen}
-                />
-                <span className="my-auto inline-block font-xl">
-                  객실 내부에 온천이 있습니까?
-                </span>
-              </div>
-            </label>
+            <CheckBox
+              labelText="객실 내부에 온천이 있습니까?"
+              labelClassName="inline-flex items-center text-black"
+              id="built-in-onsen"
+              className="ryokan-built-in-onsen"
+              checked={isBuiltInOnsen}
+              onChange={selectedBuiltInOnsen}
+            />
           </div>
         </div>
       </div>
