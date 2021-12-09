@@ -3,7 +3,7 @@ import {
   IRyokanType,
   bedroomType,
   amenitiesType,
-  convenienceServicesType,
+  convenienceSpacesType,
 } from '../types/reduxActionTypes/ReduxRegiserRyokanType';
 
 const initialState: IRyokanType = {
@@ -37,7 +37,7 @@ const initialState: IRyokanType = {
     hairdryer: false,
     tv: false,
   },
-  convenienceServices: {
+  convenienceSpaces: {
     gym: false,
     jacuzzi: false,
     parkingLot: false,
@@ -259,11 +259,11 @@ const registerRyokanSlice = createSlice({
       },
     },
     setAmenities: {
-      prepare: (amenityProperty: {
+      prepare: (amenity: {
         amenityKey: keyof amenitiesType;
         amenityValue: boolean;
       }) => {
-        return { payload: amenityProperty };
+        return { payload: amenity };
       },
       reducer: (
         state,
@@ -282,24 +282,24 @@ const registerRyokanSlice = createSlice({
       },
     },
     setConvenienceServices: {
-      prepare: (amenityProperty: {
-        serviceKey: keyof convenienceServicesType;
-        serviceValue: boolean;
+      prepare: (convenienceSpace: {
+        spaceKey: keyof convenienceSpacesType;
+        spaceValue: boolean;
       }) => {
-        return { payload: amenityProperty };
+        return { payload: convenienceSpace };
       },
       reducer: (
         state,
         action: PayloadAction<{
-          serviceKey: keyof convenienceServicesType;
-          serviceValue: boolean;
+          spaceKey: keyof convenienceSpacesType;
+          spaceValue: boolean;
         }>
       ) => {
         return {
           ...state,
-          convenienceServices: {
-            ...state.convenienceServices,
-            [action.payload.serviceKey]: action.payload.serviceValue,
+          convenienceSpaces: {
+            ...state.convenienceSpaces,
+            [action.payload.spaceKey]: action.payload.spaceValue,
           },
         };
       },

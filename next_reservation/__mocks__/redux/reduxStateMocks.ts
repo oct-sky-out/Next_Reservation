@@ -72,7 +72,7 @@ export const mockStoreValue: mockStoreType = {
       hairdryer: false,
       tv: false,
     },
-    convenienceServices: {
+    convenienceSpaces: {
       gym: false,
       jacuzzi: false,
       parkingLot: false,
