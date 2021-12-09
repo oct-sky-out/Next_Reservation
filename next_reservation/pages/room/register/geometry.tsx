@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
 import RegisterGeometry from '@/components/Register/RegisterGeometry/RegisterGeometry';
@@ -20,6 +20,15 @@ const geometry: NextPage = () => {
       <RegisterGeometryHOCComponent />
     </RegisterRyokan>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (!context.req.cookies['access_token']) {
+    return {
+      redirect: { statusCode: 302, destination: '/login' },
+    };
+  }
+  return { props: {} };
 };
 
 export default geometry;
