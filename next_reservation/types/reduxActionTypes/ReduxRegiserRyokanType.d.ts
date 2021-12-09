@@ -11,6 +11,15 @@ export type amenitiesType = {
   tv: boolean;
 };
 
+export type convenienceSpacesType = {
+  gym: boolean;
+  jacuzzi: boolean;
+  parkingLot: boolean;
+  swimmingPool: boolean;
+  washingMachine: boolean;
+  garden: boolean;
+};
+
 export interface IRyokanType {
   ryokanType: string;
   buildingType: string;
@@ -33,4 +42,5 @@ export interface IRyokanType {
     longitude: number;
   };
   amenities: amenitiesType;
+  convenienceSpaces: convenienceSpacesType;
 }

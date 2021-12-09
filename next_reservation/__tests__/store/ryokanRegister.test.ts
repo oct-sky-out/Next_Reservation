@@ -338,3 +338,139 @@ test('숙소 편의시설들의 유무가 바뀌는가?', () => {
   );
   expect(store.getState().registerRyokan.amenities.tv).toEqual(false);
 });
+
+test('숙소 편의공간들의 유무가 바뀌는가?', () => {
+  // TODO 숙소의 편의공간 값을 true로 바꿈.
+
+  // 헬스장
+  store.dispatch(
+    registerRyokanActions.setConvenienceServices({
+      serviceKey: 'gym',
+      serviceValue: true,
+    })
+  );
+  expect(store.getState().registerRyokan.convenienceServices.gym).toEqual(true);
+
+  // 자구지
+  store.dispatch(
+    registerRyokanActions.setConvenienceServices({
+      serviceKey: 'jacuzzi',
+      serviceValue: true,
+    })
+  );
+  expect(store.getState().registerRyokan.convenienceServices.jacuzzi).toEqual(
+    true
+  );
+
+  // 주차장
+  store.dispatch(
+    registerRyokanActions.setConvenienceServices({
+      serviceKey: 'parkingLot',
+      serviceValue: true,
+    })
+  );
+  expect(
+    store.getState().registerRyokan.convenienceServices.parkingLot
+  ).toEqual(true);
+
+  // 수영장
+  store.dispatch(
+    registerRyokanActions.setConvenienceServices({
+      serviceKey: 'swimmingPool',
+      serviceValue: true,
+    })
+  );
+  expect(
+    store.getState().registerRyokan.convenienceServices.swimmingPool
+  ).toEqual(true);
+
+  // 세탁기
+  store.dispatch(
+    registerRyokanActions.setConvenienceServices({
+      serviceKey: 'washingMachine',
+      serviceValue: true,
+    })
+  );
+  expect(
+    store.getState().registerRyokan.convenienceServices.washingMachine
+  ).toEqual(true);
+
+  // 정원
+  store.dispatch(
+    registerRyokanActions.setConvenienceServices({
+      serviceKey: 'garden',
+      serviceValue: true,
+    })
+  );
+  expect(store.getState().registerRyokan.convenienceServices.garden).toEqual(
+    true
+  );
+
+  // TODO 숙소의 편의공간들의 값을 false로 바꿈.
+
+  // 헬스장 false
+  store.dispatch(
+    registerRyokanActions.setConvenienceServices({
+      serviceKey: 'gym',
+      serviceValue: false,
+    })
+  );
+  expect(store.getState().registerRyokan.convenienceServices.gym).toEqual(
+    false
+  );
+
+  // 자구지 false
+  store.dispatch(
+    registerRyokanActions.setConvenienceServices({
+      serviceKey: 'jacuzzi',
+      serviceValue: false,
+    })
+  );
+  expect(store.getState().registerRyokan.convenienceServices.jacuzzi).toEqual(
+    false
+  );
+
+  // 주차장 false
+  store.dispatch(
+    registerRyokanActions.setConvenienceServices({
+      serviceKey: 'parkingLot',
+      serviceValue: false,
+    })
+  );
+  expect(
+    store.getState().registerRyokan.convenienceServices.parkingLot
+  ).toEqual(false);
+
+  // 수영장 false
+  store.dispatch(
+    registerRyokanActions.setConvenienceServices({
+      serviceKey: 'swimmingPool',
+      serviceValue: false,
+    })
+  );
+  expect(
+    store.getState().registerRyokan.convenienceServices.swimmingPool
+  ).toEqual(false);
+
+  // 세탁기 false
+  store.dispatch(
+    registerRyokanActions.setConvenienceServices({
+      serviceKey: 'washingMachine',
+      serviceValue: false,
+    })
+  );
+  expect(
+    store.getState().registerRyokan.convenienceServices.washingMachine
+  ).toEqual(false);
+
+  // 정원
+  store.dispatch(
+    registerRyokanActions.setConvenienceServices({
+      serviceKey: 'garden',
+      serviceValue: false,
+    })
+  );
+  expect(store.getState().registerRyokan.convenienceServices.garden).toEqual(
+    false
+  );
+});
