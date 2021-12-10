@@ -45,6 +45,7 @@ const initialState: IRyokanType = {
     washingMachine: false,
     garden: false,
   },
+  photos: [],
 };
 
 const registerRyokanSlice = createSlice({
@@ -281,7 +282,7 @@ const registerRyokanSlice = createSlice({
         };
       },
     },
-    setConvenienceServices: {
+    setConvenienceSpace: {
       prepare: (convenienceSpace: {
         spaceKey: keyof convenienceSpacesType;
         spaceValue: boolean;
@@ -301,6 +302,17 @@ const registerRyokanSlice = createSlice({
             ...state.convenienceSpaces,
             [action.payload.spaceKey]: action.payload.spaceValue,
           },
+        };
+      },
+    },
+    setPhotos: {
+      prepare: (photos: string[]) => {
+        return { payload: photos };
+      },
+      reducer: (state, action: PayloadAction<string[]>) => {
+        return {
+          ...state,
+          photos: action.payload,
         };
       },
     },

@@ -80,6 +80,7 @@ export const mockStoreValue: mockStoreType = {
       washingMachine: false,
       garden: false,
     },
+    photos: [],
   },
   registerIsValid: { isValid: false },
   modalState: { modalState: false },
