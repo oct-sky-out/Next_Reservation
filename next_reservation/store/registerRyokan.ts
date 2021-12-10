@@ -316,6 +316,12 @@ const registerRyokanSlice = createSlice({
         };
       },
     },
+    uploadPhotoStart: {
+      prepare: (formData: FormData) => {
+        return { payload: formData };
+      },
+      reducer: (_state, _action: PayloadAction<FormData>) => {},
+    },
   },
 });
 

@@ -1,16 +1,16 @@
 import React from 'react';
 import { GetServerSideProps, NextPage } from 'next';
 import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
-import RegisterConvenienceSpaces from '@/components/Register/RegisterConvenienceSpaces/RegisterConvenienceSpaces';
+import RegisterRyokanPhotos from '@/components/Register/RegisterRyokanPhotos/RegisterRyokanPhotos';
 
-const convenienceSpaces: NextPage = () => {
+const ryokanPhotos: NextPage = () => {
   return (
     <RegisterRyokan
-      producerText="게스트가 어떤 공간을 사용할 수 있나요?"
-      priviousHref="/room/register/amenities"
-      nextHref="/room/register/ryokanPhotos"
+      producerText="료칸 내/외부 사진을 올려주세요."
+      priviousHref="/room/register/convenienceSpaces"
+      nextHref="/room/register/description"
     >
-      <RegisterConvenienceSpaces />
+      <RegisterRyokanPhotos />
     </RegisterRyokan>
   );
 };
@@ -24,4 +24,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: {} };
 };
 
-export default convenienceSpaces;
+export default ryokanPhotos;

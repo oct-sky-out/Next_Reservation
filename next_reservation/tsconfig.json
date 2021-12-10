@@ -23,6 +23,6 @@
     },
     "types": ["jest", "cypress"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "firebaseClient.ts"],
   "exclude": ["node_modules, .yarn"]
 }
