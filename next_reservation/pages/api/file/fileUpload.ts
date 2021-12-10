@@ -4,6 +4,7 @@ import { bucket } from 'firebaseAdmin';
 import multer from 'multer';
 import fileNameCreater from '@/lib/utils/fileNameCreater';
 import stream from 'stream';
+import { resolve } from 'path/posix';
 
 export const config = {
   api: {
@@ -25,13 +26,23 @@ const upload = multer({ storage: multer.memoryStorage() });
 app.post(upload.single('file'), async (req, res) => {
   const photo = req.file;
   const fileName = fileNameCreater(photo?.originalname || null);
-  await bucket()
-    .file(`registerRyokanPhoto/${fileName}`)
-    .createWriteStream({ metadata: { contentType: photo?.mimetype } })
-    .end(photo?.buffer);
+  const imageUrl = await new Promise<string>((resolve, reject) => {
+    try {
+      bucket()
+        .file(`registerRyokanPhoto/${fileName}`)
+        .createWriteStream({ metadata: { contentType: photo?.mimetype } })
+        .end(photo?.buffer);
+      setTimeout(() => {
+        resolve(
+          `https://firebasestorage.googleapis.com/v0/b/next-reservation.appspot.com/o/registerRyokanPhoto%2F${fileName}?alt=media`
+        );
+      }, 1000);
+    } catch (err: any) {
+      reject(err);
+    }
+  });
 
-  const imageUrl = `https://firebasestorage.googleapis.com/v0/b/next-reservation.appspot.com/o/registerRyokanPhoto%2F${fileName}?alt=media`;
-  res.status(200).send(imageUrl);
+  res.status(200).send({ photoUrl: imageUrl });
 });
 
 export default app;

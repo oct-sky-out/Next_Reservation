@@ -4299,10 +4299,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@napi-rs/triples", [
-        ["npm:1.0.3", {
-          "packageLocation": "./.yarn/cache/@napi-rs-triples-npm-1.0.3-b45eecb594-c83a4cc55f.zip/node_modules/@napi-rs/triples/",
+        ["npm:1.1.0", {
+          "packageLocation": "./.yarn/cache/@napi-rs-triples-npm-1.1.0-b4fbbdd497-8da77d47ec.zip/node_modules/@napi-rs/triples/",
           "packageDependencies": [
-            ["@napi-rs/triples", "npm:1.0.3"]
+            ["@napi-rs/triples", "npm:1.1.0"]
           ],
           "linkType": "HARD",
         }]
@@ -4439,7 +4439,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@node-rs-helper-npm-1.2.1-e25ffdc5ac-c7b96e46df.zip/node_modules/@node-rs/helper/",
           "packageDependencies": [
             ["@node-rs/helper", "npm:1.2.1"],
-            ["@napi-rs/triples", "npm:1.0.3"]
+            ["@napi-rs/triples", "npm:1.1.0"]
           ],
           "linkType": "HARD",
         }]

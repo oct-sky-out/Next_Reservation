@@ -2427,9 +2427,9 @@ __metadata:
   linkType: hard
 
 "@napi-rs/triples@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "@napi-rs/triples@npm:1.0.3"
-  checksum: c83a4cc55f69115bf4ce1d5924efce7f5faf2dc79fd52257385559f668ce91a03c5d7d004df01ebba56028a9b663955eb97f31b65ac0acff7a93c143f0d809af
+  version: 1.1.0
+  resolution: "@napi-rs/triples@npm:1.1.0"
+  checksum: 8da77d47ec15704b1936f5f3995951459fc5d604bf2ed400d9579e3356dc0aeb486b217a503f675dda653221751e1fd5dcaaf8de1bab3c71853e8cfd72309709
   languageName: node
   linkType: hard
 
