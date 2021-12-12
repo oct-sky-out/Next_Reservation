@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
 import { FiPaperclip } from 'react-icons/fi';
 import L from 'lodash';
 import { registerRyokanActions } from '@/store/registerRyokan';
+import { registerFormValidAction } from '@/store/registerFormIsValid';
 import RegisterMultiphotos from './RegisterMultiphotos';
 
 const RegisterRyokanPhotos = () => {
@@ -19,6 +20,11 @@ const RegisterRyokanPhotos = () => {
       dispatch(registerRyokanActions.uploadPhotoStart(formData));
     }
   };
+
+  useEffect(() => {
+    if (L.isEmpty(photos)) dispatch(registerFormValidAction.setValid(false));
+    if (!L.isEmpty(photos)) dispatch(registerFormValidAction.setValid(true));
+  }, [photos]);
 
   return (
     <div className="w-full h-outOfHeader col-start-2 register-form animate-fadeInAndUpForm space-y-5 mx-0 my-auto overflow-auto">
