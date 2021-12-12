@@ -22,6 +22,7 @@ const RegisterMultiphotos: React.FC<IProps> = ({ fileUploaded }) => {
 
   const photoModify = (photoName: string, photoNo: number) => {
     const input = document.createElement('input');
+    input.setAttribute('data-testid', 'test-modify');
     input.type = 'file';
     input.accept = 'image/*';
     input.onchange = async (e) => {
@@ -52,21 +53,24 @@ const RegisterMultiphotos: React.FC<IProps> = ({ fileUploaded }) => {
                   loading="lazy"
                   alt="ryokan-register-photo"
                   className="w-full h-full absolute object-cover"
+                  data-testid="photo-1"
                 />
                 <div className="photo-modify-button w-32 h-16">
                   <button
-                    className="w-16 h-16 border-5 border-emerald rounded-full text-black absolute right-4 bottom-3 flex justify-center items-center"
+                    className="w-16 h-16 bg-white border-5 border-emerald rounded-full text-black absolute right-4 bottom-3 flex justify-center items-center"
                     title="사진 수정"
                     onClick={(e) => {
                       photoModify(photoObj.photoName, index);
                     }}
+                    data-testid="photo-modify"
                   >
                     <MdDriveFileRenameOutline color="#48cfae" size="32" />
                   </button>
                   <button
-                    className="w-16 h-16 border-5 border-emerald rounded-full text-black absolute right-24 bottom-3 flex justify-center items-center"
+                    className="w-16 h-16 bg-white border-5 border-emerald rounded-full text-black absolute right-24 bottom-3 flex justify-center items-center"
                     title="사진 삭제"
                     onClick={() => photoDelete(photoObj.photoName)}
+                    data-testid="photo-delete"
                   >
                     <RiDeleteBinFill color="#48cfae" size="32" />
                   </button>
@@ -89,7 +93,7 @@ const RegisterMultiphotos: React.FC<IProps> = ({ fileUploaded }) => {
                   />
                   <div className="photo-modify-button w-16 h-8">
                     <button
-                      className="w-8 h-8 border-3 border-emerald rounded-full text-black absolute right-4 bottom-3 flex justify-center items-center"
+                      className="w-8 h-8 bg-white border-3 border-emerald rounded-full text-black absolute right-4 bottom-3 flex justify-center items-center"
                       title="사진 수정"
                       onClick={(e) => {
                         photoModify(photoObj.photoName, index);
@@ -98,7 +102,7 @@ const RegisterMultiphotos: React.FC<IProps> = ({ fileUploaded }) => {
                       <MdDriveFileRenameOutline color="#48cfae" size="16" />
                     </button>
                     <button
-                      className="w-8 h-8 border-3 border-emerald rounded-full text-black absolute right-14 bottom-3 flex justify-center items-center"
+                      className="w-8 h-8 bg-white border-3 border-emerald rounded-full text-black absolute right-14 bottom-3 flex justify-center items-center"
                       title="사진 삭제"
                       onClick={() => photoDelete(photoObj.photoName)}
                     >

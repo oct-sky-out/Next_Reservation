@@ -1,4 +1,4 @@
-export {};
+import 'cypress-file-upload';
 
 describe('료칸등록 5단계 료칸 편의 시설등록', () => {
   it('로그인이 되어있지 않을 시 /login으로 이동한다.', () => {
@@ -6,7 +6,7 @@ describe('료칸등록 5단계 료칸 편의 시설등록', () => {
     cy.url().should('eq', 'http://localhost:3000/login');
   });
 
-  it('로그인 후 1,2,3,4,5단계 등록 후 6단계 편의공간등록', () => {
+  it('로그인 후 1,2,3,4,5,6단계 등록 후 7단계 료칸 사진등록', () => {
     cy.visit('/');
     cy.get('.header-sign-in-btn').click();
     cy.get('#email-input').type('kms3335k@naver.com');
@@ -170,5 +170,34 @@ describe('료칸등록 5단계 료칸 편의 시설등록', () => {
     cy.get('[data-testid="5-garden"]').click();
     cy.get('[data-testid="5-garden"]').click();
     cy.get('[data-testid="5-garden"]').should('not.be.checked');
+
+    cy.get('.next-page-btn').should('not.be.disabled').click();
+
+    cy.url({ timeout: 30000 }).should(
+      'eq',
+      'http://localhost:3000/room/register/ryokanPhotos'
+    );
+
+    const runningPhoto = 'mockPhoto.jpg';
+    cy.get('[data-testid="file-input"]').attachFile(runningPhoto);
+
+    cy.get('[data-testid="photo-1"]').should('exist');
+    cy.get('.next-page-btn').should('not.be.disabled');
+
+    //! create-Element를 인식 못함.
+    // cy.get('[data-testid="photo-modify"]')
+    //   .should('exist')
+    //   .click({ force: true })
+    // const catPhoto = 'catPicture.jpg';
+    // cy.get('[data-testid="test-modify"]').attachFile(catPhoto);
+
+    cy.get('[data-testid="photo-delete"]')
+      .should('exist')
+      .click({ force: true });
+    cy.get('[data-testid="select-photo"]', { timeout: 5000 })
+      .should('exist')
+      .should('not.be.disabled');
+
+    cy.get('.next-page-btn').should('be.disabled');
   });
 });

@@ -36,9 +36,13 @@ const RegisterRyokanPhotos = () => {
               accept="image/*"
               className="w-full h-full absolute cursor-pointer opacity-0"
               name="ryokan-photo"
+              data-testid="file-input"
               onChange={fileUploaded}
             />
-            <button className="w-48 h-10 p-2 mb-3 rounded border-2 border-emerald flex justify-around items-center text-emerald">
+            <button
+              className="w-48 h-10 p-2 mb-3 rounded border-2 border-emerald flex justify-around items-center text-emerald"
+              data-testid="select-photo"
+            >
               <FiPaperclip /> 파일을 선택하세요!
             </button>
           </div>

@@ -70,6 +70,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-plugin-styled-components", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:1.13.3"],
             ["bootstrap", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:5.1.3"],
             ["cypress", "npm:8.6.0"],
+            ["cypress-file-upload", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:5.0.8"],
             ["eslint", "npm:8.3.0"],
             ["eslint-config-airbnb", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:18.2.1"],
             ["eslint-config-airbnb-typescript", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:16.1.0"],
@@ -8048,6 +8049,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["cypress-file-upload", [
+        ["npm:5.0.8", {
+          "packageLocation": "./.yarn/cache/cypress-file-upload-npm-5.0.8-7b294a183e-9c70ca7e0b.zip/node_modules/cypress-file-upload/",
+          "packageDependencies": [
+            ["cypress-file-upload", "npm:5.0.8"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:5.0.8", {
+          "packageLocation": "./.yarn/__virtual__/cypress-file-upload-virtual-d87b0e1af7/0/cache/cypress-file-upload-npm-5.0.8-7b294a183e-9c70ca7e0b.zip/node_modules/cypress-file-upload/",
+          "packageDependencies": [
+            ["cypress-file-upload", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:5.0.8"],
+            ["@types/cypress", null],
+            ["cypress", "npm:8.6.0"]
+          ],
+          "packagePeers": [
+            "@types/cypress",
+            "cypress"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["damerau-levenshtein", [
         ["npm:1.0.7", {
           "packageLocation": "./.yarn/cache/damerau-levenshtein-npm-1.0.7-dec33bdde6-ec8161cb38.zip/node_modules/damerau-levenshtein/",
@@ -13397,6 +13420,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-plugin-styled-components", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:1.13.3"],
             ["bootstrap", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:5.1.3"],
             ["cypress", "npm:8.6.0"],
+            ["cypress-file-upload", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:5.0.8"],
             ["eslint", "npm:8.3.0"],
             ["eslint-config-airbnb", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:18.2.1"],
             ["eslint-config-airbnb-typescript", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:16.1.0"],
