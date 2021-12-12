@@ -1,6 +1,7 @@
 import { registerRyokanActions } from '../../store/registerRyokan';
 import { useMockStore } from '../../store';
 import { useDispatchMock } from '../../__mocks__/redux/reduxStateMocks';
+import { photoType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 
 const store = useMockStore;
 
@@ -344,65 +345,65 @@ test('숙소 편의공간들의 유무가 바뀌는가?', () => {
 
   // 헬스장
   store.dispatch(
-    registerRyokanActions.setConvenienceServices({
-      serviceKey: 'gym',
-      serviceValue: true,
+    registerRyokanActions.setConvenienceSpace({
+      spaceKey: 'gym',
+      spaceValue: true,
     })
   );
-  expect(store.getState().registerRyokan.convenienceServices.gym).toEqual(true);
+  expect(store.getState().registerRyokan.convenienceSpaces.gym).toEqual(true);
 
   // 자구지
   store.dispatch(
-    registerRyokanActions.setConvenienceServices({
-      serviceKey: 'jacuzzi',
-      serviceValue: true,
+    registerRyokanActions.setConvenienceSpace({
+      spaceKey: 'jacuzzi',
+      spaceValue: true,
     })
   );
-  expect(store.getState().registerRyokan.convenienceServices.jacuzzi).toEqual(
+  expect(store.getState().registerRyokan.convenienceSpaces.jacuzzi).toEqual(
     true
   );
 
   // 주차장
   store.dispatch(
-    registerRyokanActions.setConvenienceServices({
-      serviceKey: 'parkingLot',
-      serviceValue: true,
+    registerRyokanActions.setConvenienceSpace({
+      spaceKey: 'parkingLot',
+      spaceValue: true,
     })
   );
-  expect(
-    store.getState().registerRyokan.convenienceServices.parkingLot
-  ).toEqual(true);
+  expect(store.getState().registerRyokan.convenienceSpaces.parkingLot).toEqual(
+    true
+  );
 
   // 수영장
   store.dispatch(
-    registerRyokanActions.setConvenienceServices({
-      serviceKey: 'swimmingPool',
-      serviceValue: true,
+    registerRyokanActions.setConvenienceSpace({
+      spaceKey: 'swimmingPool',
+      spaceValue: true,
     })
   );
   expect(
-    store.getState().registerRyokan.convenienceServices.swimmingPool
+    store.getState().registerRyokan.convenienceSpaces.swimmingPool
   ).toEqual(true);
 
   // 세탁기
   store.dispatch(
-    registerRyokanActions.setConvenienceServices({
-      serviceKey: 'washingMachine',
-      serviceValue: true,
+    registerRyokanActions.setConvenienceSpace({
+      spaceKey: 'washingMachine',
+      spaceValue: true,
     })
   );
   expect(
-    store.getState().registerRyokan.convenienceServices.washingMachine
+    store.getState().registerRyokan.convenienceSpaces.washingMachine
   ).toEqual(true);
 
   // 정원
   store.dispatch(
-    registerRyokanActions.setConvenienceServices({
-      serviceKey: 'garden',
-      serviceValue: true,
+    registerRyokanActions.setConvenienceSpace({
+      spaceKey: 'garden',
+      spaceValue: true,
     })
   );
-  expect(store.getState().registerRyokan.convenienceServices.garden).toEqual(
+  expect(store.getState().registerRyokan.convenienceSpaces.garden).toEqual(
     true
   );
 
@@ -410,67 +411,114 @@ test('숙소 편의공간들의 유무가 바뀌는가?', () => {
 
   // 헬스장 false
   store.dispatch(
-    registerRyokanActions.setConvenienceServices({
-      serviceKey: 'gym',
-      serviceValue: false,
+    registerRyokanActions.setConvenienceSpace({
+      spaceKey: 'gym',
+      spaceValue: false,
     })
   );
-  expect(store.getState().registerRyokan.convenienceServices.gym).toEqual(
-    false
-  );
+  expect(store.getState().registerRyokan.convenienceSpaces.gym).toEqual(false);
 
   // 자구지 false
   store.dispatch(
-    registerRyokanActions.setConvenienceServices({
-      serviceKey: 'jacuzzi',
-      serviceValue: false,
+    registerRyokanActions.setConvenienceSpace({
+      spaceKey: 'jacuzzi',
+      spaceValue: false,
     })
   );
-  expect(store.getState().registerRyokan.convenienceServices.jacuzzi).toEqual(
+  expect(store.getState().registerRyokan.convenienceSpaces.jacuzzi).toEqual(
     false
   );
 
   // 주차장 false
   store.dispatch(
-    registerRyokanActions.setConvenienceServices({
-      serviceKey: 'parkingLot',
-      serviceValue: false,
+    registerRyokanActions.setConvenienceSpace({
+      spaceKey: 'parkingLot',
+      spaceValue: false,
     })
   );
-  expect(
-    store.getState().registerRyokan.convenienceServices.parkingLot
-  ).toEqual(false);
+  expect(store.getState().registerRyokan.convenienceSpaces.parkingLot).toEqual(
+    false
+  );
 
   // 수영장 false
   store.dispatch(
-    registerRyokanActions.setConvenienceServices({
-      serviceKey: 'swimmingPool',
-      serviceValue: false,
+    registerRyokanActions.setConvenienceSpace({
+      spaceKey: 'swimmingPool',
+      spaceValue: false,
     })
   );
   expect(
-    store.getState().registerRyokan.convenienceServices.swimmingPool
+    store.getState().registerRyokan.convenienceSpaces.swimmingPool
   ).toEqual(false);
 
   // 세탁기 false
   store.dispatch(
-    registerRyokanActions.setConvenienceServices({
-      serviceKey: 'washingMachine',
-      serviceValue: false,
+    registerRyokanActions.setConvenienceSpace({
+      spaceKey: 'washingMachine',
+      spaceValue: false,
     })
   );
   expect(
-    store.getState().registerRyokan.convenienceServices.washingMachine
+    store.getState().registerRyokan.convenienceSpaces.washingMachine
   ).toEqual(false);
 
   // 정원
   store.dispatch(
-    registerRyokanActions.setConvenienceServices({
-      serviceKey: 'garden',
-      serviceValue: false,
+    registerRyokanActions.setConvenienceSpace({
+      spaceKey: 'garden',
+      spaceValue: false,
     })
   );
-  expect(store.getState().registerRyokan.convenienceServices.garden).toEqual(
+  expect(store.getState().registerRyokan.convenienceSpaces.garden).toEqual(
     false
   );
+});
+
+test('료칸 내부 사진의 링크가 등록, 삭제가 돠는가?', () => {
+  // TODO 료칸 내부 사진의 링크가 등록.
+  const imageLinks: photoType[] = [
+    {
+      photoName: 'examplePhoto1',
+      photoUrl: 'http://www.examplePhotoLink1.com',
+    },
+    {
+      photoName: 'examplePhoto2',
+      photoUrl: 'http://www.examplePhotoLink2.com',
+    },
+    {
+      photoName: 'examplePhoto3',
+      photoUrl: 'http://www.examplePhotoLink3.com',
+    },
+  ];
+
+  store.dispatch(
+    registerRyokanActions.setPhoto({
+      photoName: 'examplePhoto1',
+      photoUrl: 'http://www.examplePhotoLink1.com',
+    })
+  );
+  store.dispatch(
+    registerRyokanActions.setPhoto({
+      photoName: 'examplePhoto2',
+      photoUrl: 'http://www.examplePhotoLink2.com',
+    })
+  );
+  store.dispatch(
+    registerRyokanActions.setPhoto({
+      photoName: 'examplePhoto3',
+      photoUrl: 'http://www.examplePhotoLink3.com',
+    })
+  );
+
+  expect(store.getState().registerRyokan.photos).toEqual(imageLinks);
+
+  // TODO 료칸 내부 사진의 링크 삭제.
+  store.dispatch(
+    registerRyokanActions.setPhotos(imageLinks.filter((link, idx) => idx !== 0))
+  );
+
+  expect(store.getState().registerRyokan.photos).toEqual([
+    'http://www.examplePhotoLink2.com',
+    'http://www.examplePhotoLink3.com',
+  ]);
 });

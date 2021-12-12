@@ -12,6 +12,7 @@ module.exports = {
       backgroundColor: (theme) => ({
         emerald: '#48cfae',
       }),
+      width: { pictureCard: 'calc((100% - 48px)/3)' },
       height: { outOfHeader: 'calc(100vh - 240px)' },
       keyframes: {
         fadeInAndUpForm: {

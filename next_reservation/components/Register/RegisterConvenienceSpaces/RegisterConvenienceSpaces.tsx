@@ -38,7 +38,7 @@ const RegisterConvenienceSpaces = () => {
   const checkedConvenienceSpace = useCallback(
     ({ target }: React.ChangeEvent<HTMLInputElement>, index: number) => {
       dispatch(
-        registerRyokanActions.setConvenienceServices({
+        registerRyokanActions.setConvenienceSpace({
           spaceKey: convenienceSpaceKeys[index],
           spaceValue: target.checked,
         })

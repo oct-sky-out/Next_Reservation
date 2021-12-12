@@ -20,6 +20,11 @@ export type convenienceSpacesType = {
   garden: boolean;
 };
 
+export type photoType = {
+  photoUrl: string;
+  photoName: string;
+};
+
 export interface IRyokanType {
   ryokanType: string;
   buildingType: string;
@@ -43,4 +48,5 @@ export interface IRyokanType {
   };
   amenities: amenitiesType;
   convenienceSpaces: convenienceSpacesType;
+  photos: photoType[];
 }
