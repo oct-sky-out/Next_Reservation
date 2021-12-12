@@ -24,8 +24,12 @@ const app = nextConnect<NextApiRequest, NextApiResponse>({
 const upload = multer({ storage: multer.memoryStorage() });
 
 app.post(upload.single('file'), async (req, res) => {
+  const { photoName } = req.query;
   const photo = req.file;
   const fileName = fileNameCreater(photo?.originalname || null);
+
+  await bucket().file(`registerRyokanPhoto/${photoName}`).delete();
+
   const imageUrl = await new Promise<string>((resolve, reject) => {
     try {
       bucket()
@@ -36,12 +40,11 @@ app.post(upload.single('file'), async (req, res) => {
         resolve(
           `https://firebasestorage.googleapis.com/v0/b/next-reservation.appspot.com/o/registerRyokanPhoto%2F${fileName}?alt=media`
         );
-      }, 1000);
+      }, 2000);
     } catch (err: any) {
       reject(err);
     }
   });
-
   res.status(200).send({ photoUrl: imageUrl, photoName: fileName });
 });
 

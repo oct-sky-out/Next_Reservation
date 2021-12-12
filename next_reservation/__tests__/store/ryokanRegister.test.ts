@@ -1,6 +1,7 @@
 import { registerRyokanActions } from '../../store/registerRyokan';
 import { useMockStore } from '../../store';
 import { useDispatchMock } from '../../__mocks__/redux/reduxStateMocks';
+import { photoType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 
 const store = useMockStore;
 
@@ -475,13 +476,39 @@ test('숙소 편의공간들의 유무가 바뀌는가?', () => {
 
 test('료칸 내부 사진의 링크가 등록, 삭제가 돠는가?', () => {
   // TODO 료칸 내부 사진의 링크가 등록.
-  const imageLinks = [
-    'http://www.examplePhotoLink1.com',
-    'http://www.examplePhotoLink2.com',
-    'http://www.examplePhotoLink3.com',
+  const imageLinks: photoType[] = [
+    {
+      photoName: 'examplePhoto1',
+      photoUrl: 'http://www.examplePhotoLink1.com',
+    },
+    {
+      photoName: 'examplePhoto2',
+      photoUrl: 'http://www.examplePhotoLink2.com',
+    },
+    {
+      photoName: 'examplePhoto3',
+      photoUrl: 'http://www.examplePhotoLink3.com',
+    },
   ];
 
-  store.dispatch(registerRyokanActions.setPhotos(imageLinks));
+  store.dispatch(
+    registerRyokanActions.setPhoto({
+      photoName: 'examplePhoto1',
+      photoUrl: 'http://www.examplePhotoLink1.com',
+    })
+  );
+  store.dispatch(
+    registerRyokanActions.setPhoto({
+      photoName: 'examplePhoto2',
+      photoUrl: 'http://www.examplePhotoLink2.com',
+    })
+  );
+  store.dispatch(
+    registerRyokanActions.setPhoto({
+      photoName: 'examplePhoto3',
+      photoUrl: 'http://www.examplePhotoLink3.com',
+    })
+  );
 
   expect(store.getState().registerRyokan.photos).toEqual(imageLinks);
 

@@ -4,6 +4,7 @@ import {
   bedroomType,
   amenitiesType,
   convenienceSpacesType,
+  photoType,
 } from '../types/reduxActionTypes/ReduxRegiserRyokanType';
 
 const initialState: IRyokanType = {
@@ -305,11 +306,22 @@ const registerRyokanSlice = createSlice({
         };
       },
     },
-    setPhotos: {
-      prepare: (photos: string[]) => {
+    setPhoto: {
+      prepare: (photos: photoType) => {
         return { payload: photos };
       },
-      reducer: (state, action: PayloadAction<string[]>) => {
+      reducer: (state, action: PayloadAction<photoType>) => {
+        return {
+          ...state,
+          photos: [...state.photos, action.payload],
+        };
+      },
+    },
+    setPhotos: {
+      prepare: (photos: photoType[]) => {
+        return { payload: photos };
+      },
+      reducer: (state, action: PayloadAction<photoType[]>) => {
         return {
           ...state,
           photos: action.payload,
@@ -321,6 +333,29 @@ const registerRyokanSlice = createSlice({
         return { payload: formData };
       },
       reducer: (_state, _action: PayloadAction<FormData>) => {},
+    },
+    deletePhoto: {
+      prepare: (photoName: string) => {
+        return { payload: photoName };
+      },
+      reducer: (_state, _action: PayloadAction<string>) => {},
+    },
+    modifyPhoto: {
+      prepare: (modifyPhoto: {
+        formData: FormData;
+        photoName: string;
+        photoNo: number;
+      }) => {
+        return { payload: modifyPhoto };
+      },
+      reducer: (
+        _state,
+        _action: PayloadAction<{
+          formData: FormData;
+          photoName: string;
+          photoNo: number;
+        }>
+      ) => {},
     },
   },
 });
