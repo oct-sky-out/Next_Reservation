@@ -1,12 +1,12 @@
 import 'cypress-file-upload';
 
-describe('료칸등록 7단계 료칸 내부사진등록', () => {
+describe('료칸등록 8단계 료칸 제목과 설명등록', () => {
   it('로그인이 되어있지 않을 시 /login으로 이동한다.', () => {
     cy.visit('/room/register/location');
     cy.url().should('eq', 'http://localhost:3000/login');
   });
 
-  it('로그인 후 1,2,3,4,5,6단계 등록 후 7단계 료칸 사진등록', () => {
+  it('로그인 후 1,2,3,4,5,6,7단계 등록 후 8단계 료칸 제목과 설명', () => {
     cy.visit('/');
     cy.get('.header-sign-in-btn').click();
     cy.get('#email-input').type('kms3335k@naver.com');
@@ -182,22 +182,20 @@ describe('료칸등록 7단계 료칸 내부사진등록', () => {
     cy.get('[data-testid="file-input"]').attachFile(runningPhoto);
 
     cy.get('[data-testid="photo-1"]').should('exist');
+    cy.get('.next-page-btn').should('not.be.disabled').click();
+
+    cy.url({ timeout: 30000 }).should(
+      'eq',
+      'http://localhost:3000/room/register/titleAndDiscription'
+    );
+
+    cy.get('[data-testid="title"]').type(
+      '한적한 강원도 동해바다에서 즐기는 료칸'
+    );
+    cy.get('[data-testid="description"]').type(
+      '동해바다와 7번국도가 보이는 루프탑뷰와 함께 온천을 즐겨보세요!'
+    );
+
     cy.get('.next-page-btn').should('not.be.disabled');
-
-    //! create-Element를 인식 못함.
-    // cy.get('[data-testid="photo-modify"]')
-    //   .should('exist')
-    //   .click({ force: true })
-    // const catPhoto = 'catPicture.jpg';
-    // cy.get('[data-testid="test-modify"]').attachFile(catPhoto);
-
-    cy.get('[data-testid="photo-delete"]')
-      .should('exist')
-      .click({ force: true });
-    cy.get('[data-testid="select-photo"]', { timeout: 5000 })
-      .should('exist')
-      .should('not.be.disabled');
-
-    cy.get('.next-page-btn').should('be.disabled');
   });
 });

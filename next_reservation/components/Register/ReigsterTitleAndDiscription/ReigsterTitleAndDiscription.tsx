@@ -15,10 +15,8 @@ const RegisterTitleAndDescription = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!(L.isEmpty(title) && L.isEmpty(description)))
-      dispatch(registerFormValidAction.setValid(false));
-    if (L.isEmpty(title) && L.isEmpty(description))
-      dispatch(registerFormValidAction.setValid(true));
+    if (L.isEmpty(title)) dispatch(registerFormValidAction.setValid(false));
+    if (!L.isEmpty(title)) dispatch(registerFormValidAction.setValid(true));
   }, [title, description]);
 
   const changeTitle = ({
@@ -39,6 +37,7 @@ const RegisterTitleAndDescription = () => {
           <div className="flex flex-col space-y-5">
             <span className="text-2xl">료칸 제목</span>
             <Input
+              data-testid="title"
               type="text"
               placeholder="고객들이 볼 료칸의 제목을 적어주세요."
               value={title}
@@ -48,6 +47,7 @@ const RegisterTitleAndDescription = () => {
           <div className="flex flex-col space-y-5">
             <span className="text-2xl">료칸 설명</span>
             <textarea
+              data-testid="description"
               className="form-control resize-none"
               name="ryokan-description"
               placeholder="등록하시려는 료칸은 어떤 특징을 가지고있나요??"

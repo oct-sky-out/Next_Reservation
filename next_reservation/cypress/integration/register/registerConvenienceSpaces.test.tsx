@@ -1,6 +1,6 @@
 export {};
 
-describe('료칸등록 5단계 료칸 편의 시설등록', () => {
+describe('료칸등록 6단계 료칸 편의공간등록', () => {
   it('로그인이 되어있지 않을 시 /login으로 이동한다.', () => {
     cy.visit('/room/register/location');
     cy.url().should('eq', 'http://localhost:3000/login');
