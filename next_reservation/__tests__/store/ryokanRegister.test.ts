@@ -518,7 +518,26 @@ test('료칸 내부 사진의 링크가 등록, 삭제가 돠는가?', () => {
   );
 
   expect(store.getState().registerRyokan.photos).toEqual([
-    'http://www.examplePhotoLink2.com',
-    'http://www.examplePhotoLink3.com',
+    {
+      photoName: 'examplePhoto2',
+      photoUrl: 'http://www.examplePhotoLink2.com',
+    },
+    {
+      photoName: 'examplePhoto3',
+      photoUrl: 'http://www.examplePhotoLink3.com',
+    },
   ]);
+});
+
+test('료칸의 제목과 설명을 입력하면 store의 title, description이 바뀌는가?', () => {
+  // TODO 호스팅하는 료칸의 제목, 설명을 입력 가정.
+  const title = '한적한 강원도 동해바다에서 즐기는 료칸';
+  const description =
+    '동해바다와 7번국도가 보이는 루프탑뷰와 함께 온천을 즐겨보세요!';
+
+  store.dispatch(registerRyokanActions.setTitle(title));
+  store.dispatch(registerRyokanActions.setDesctription(description));
+
+  expect(store.getState().registerRyokan.title).toBe(title);
+  expect(store.getState().registerRyokan.description).toBe(description);
 });

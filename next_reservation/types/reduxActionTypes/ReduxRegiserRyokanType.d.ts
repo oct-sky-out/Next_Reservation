@@ -49,4 +49,6 @@ export interface IRyokanType {
   amenities: amenitiesType;
   convenienceSpaces: convenienceSpacesType;
   photos: photoType[];
+  title: string;
+  description: string;
 }

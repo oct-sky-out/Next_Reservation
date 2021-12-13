@@ -47,6 +47,8 @@ const initialState: IRyokanType = {
     garden: false,
   },
   photos: [],
+  title: '',
+  description: '',
 };
 
 const registerRyokanSlice = createSlice({
@@ -356,6 +358,22 @@ const registerRyokanSlice = createSlice({
           photoNo: number;
         }>
       ) => {},
+    },
+    setTitle: {
+      prepare: (title: string) => {
+        return { payload: title };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return { ...state, title: action.payload };
+      },
+    },
+    setDesctription: {
+      prepare: (description: string) => {
+        return { payload: description };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return { ...state, description: action.payload };
+      },
     },
   },
 });
