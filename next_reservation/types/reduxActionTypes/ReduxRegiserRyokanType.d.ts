@@ -51,4 +51,5 @@ export interface IRyokanType {
   photos: photoType[];
   title: string;
   description: string;
+  pricePerDay: string;
 }

@@ -541,3 +541,14 @@ test('료칸의 제목과 설명을 입력하면 store의 title, description이 
   expect(store.getState().registerRyokan.title).toBe(title);
   expect(store.getState().registerRyokan.description).toBe(description);
 });
+
+test('료칸의 하루 숙박 비용을 설정하면 pricePerDay값이 바뀌는가?', () => {
+  // TODO 호스팅하는 료칸의 제목, 설명을 입력 가정.
+
+  const numberPrice = 100000;
+  const locailPrice = numberPrice.toLocaleString();
+
+  store.dispatch(registerRyokanActions.setPricePerDay(locailPrice));
+
+  expect(store.getState().registerRyokan.pricePerDay).toBe(locailPrice);
+});

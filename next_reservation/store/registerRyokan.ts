@@ -49,6 +49,7 @@ const initialState: IRyokanType = {
   photos: [],
   title: '',
   description: '',
+  pricePerDay: '',
 };
 
 const registerRyokanSlice = createSlice({
@@ -373,6 +374,14 @@ const registerRyokanSlice = createSlice({
       },
       reducer: (state, action: PayloadAction<string>) => {
         return { ...state, description: action.payload };
+      },
+    },
+    setPricePerDay: {
+      prepare: (pricePerDay: string) => {
+        return { payload: pricePerDay };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return { ...state, pricePerDay: action.payload };
       },
     },
   },
