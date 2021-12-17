@@ -93,7 +93,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:11.1.2"],
             ["next-connect", "npm:0.11.0"],
             ["next-redux-saga", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:4.1.2"],
-            ["next-redux-wrapper", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:6.0.2"],
+            ["next-redux-wrapper", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:7.0.5"],
             ["node-sass", "npm:6.0.1"],
             ["nookies", "npm:2.5.2"],
             ["postcss", "npm:8.3.11"],
@@ -13351,17 +13351,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["next-redux-wrapper", [
-        ["npm:6.0.2", {
-          "packageLocation": "./.yarn/cache/next-redux-wrapper-npm-6.0.2-4e3aaa3f10-4de366bb86.zip/node_modules/next-redux-wrapper/",
+        ["npm:7.0.5", {
+          "packageLocation": "./.yarn/cache/next-redux-wrapper-npm-7.0.5-841a9df40e-064e3d5629.zip/node_modules/next-redux-wrapper/",
           "packageDependencies": [
-            ["next-redux-wrapper", "npm:6.0.2"]
+            ["next-redux-wrapper", "npm:7.0.5"]
           ],
           "linkType": "SOFT",
         }],
-        ["virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:6.0.2", {
-          "packageLocation": "./.yarn/__virtual__/next-redux-wrapper-virtual-013e685bfe/0/cache/next-redux-wrapper-npm-6.0.2-4e3aaa3f10-4de366bb86.zip/node_modules/next-redux-wrapper/",
+        ["virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:7.0.5", {
+          "packageLocation": "./.yarn/__virtual__/next-redux-wrapper-virtual-401df9b6cd/0/cache/next-redux-wrapper-npm-7.0.5-841a9df40e-064e3d5629.zip/node_modules/next-redux-wrapper/",
           "packageDependencies": [
-            ["next-redux-wrapper", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:6.0.2"],
+            ["next-redux-wrapper", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:7.0.5"],
             ["@types/next", null],
             ["@types/react", "npm:17.0.31"],
             ["@types/react-redux", "npm:7.1.20"],
@@ -13443,7 +13443,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:11.1.2"],
             ["next-connect", "npm:0.11.0"],
             ["next-redux-saga", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:4.1.2"],
-            ["next-redux-wrapper", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:6.0.2"],
+            ["next-redux-wrapper", "virtual:b5127ea0e78d0818d96020a197dbfabb5c51b04402098e3f71db9f8cdb183c2a4b5f4d9b64e361ca795557474f9adcf3fba0e01d5b4424ba7c6646178f537d30#npm:7.0.5"],
             ["node-sass", "npm:6.0.1"],
             ["nookies", "npm:2.5.2"],
             ["postcss", "npm:8.3.11"],

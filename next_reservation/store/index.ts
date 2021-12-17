@@ -1,4 +1,4 @@
-import { AnyAction } from 'redux';
+import { AnyAction, Store } from 'redux';
 import { HYDRATE, createWrapper, MakeStore } from 'next-redux-wrapper';
 import createSagaMiddleware from 'redux-saga';
 import {
@@ -42,7 +42,7 @@ const reducer = (state: any, action: AnyAction) => {
 
 const sagaMiddleware = createSagaMiddleware();
 
-const initStore: MakeStore<any> = () => {
+const initStore: MakeStore<Store<RootState>> = () => {
   const store = configureStore({
     reducer,
     middleware: [sagaMiddleware],
@@ -61,4 +61,4 @@ export const useMockStore = configureStore({
 
 export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
 
-export const wrapper = createWrapper(initStore);
+export const wrapper = createWrapper<Store<RootState>>(initStore);
