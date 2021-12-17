@@ -16,6 +16,7 @@ const geometry: NextPage = () => {
       producerText="숙소의 위치정보가 일치하나요?"
       priviousHref="/room/register/location"
       nextHref="/room/register/amenities"
+      step={4}
     >
       <RegisterGeometryHOCComponent />
     </RegisterRyokan>

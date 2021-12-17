@@ -9,6 +9,7 @@ const amenities: NextPage = () => {
       producerText="어떤 편의시설을 제공하시나요?"
       priviousHref="/room/register/geometry"
       nextHref="/room/register/convenienceSpaces"
+      step={5}
     >
       <RegisterAmenities />
     </RegisterRyokan>

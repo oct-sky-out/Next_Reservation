@@ -9,6 +9,7 @@ const ryokan: NextPage = () => {
       producerText="호스팅 할 료칸유형을 선택해주세요."
       priviousHref="/"
       nextHref="/room/register/bedrooms"
+      step={1}
     >
       <RegisterRyokanType />
     </RegisterRyokan>

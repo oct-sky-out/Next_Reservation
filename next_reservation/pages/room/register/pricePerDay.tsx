@@ -8,6 +8,7 @@ const pricePerDay: NextPage = () => {
       producerText="1박당 가격을 정해주세요."
       priviousHref="/room/register/titleAndDiscription"
       nextHref="/room/register/completion"
+      step={9}
     >
       <RegisterPricePerDay />
     </RegisterRyokan>

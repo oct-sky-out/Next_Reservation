@@ -9,6 +9,7 @@ const ryokanPhotos: NextPage = () => {
       producerText="료칸 내/외부 사진을 올려주세요."
       priviousHref="/room/register/convenienceSpaces"
       nextHref="/room/register/titleAndDiscription"
+      step={7}
     >
       <RegisterRyokanPhotos />
     </RegisterRyokan>
