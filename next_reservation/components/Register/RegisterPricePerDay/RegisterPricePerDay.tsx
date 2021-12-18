@@ -19,8 +19,7 @@ const RegisterPricePerDay = () => {
   const changePrice = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    const locailPrice = +value.replace(/,|₩/g, '');
-    console.log(locailPrice.toLocaleString());
+    const locailPrice = +value.replace(/\D/g, '');
     dispatch(
       registerRyokanActions.setPricePerDay(locailPrice.toLocaleString())
     );
