@@ -14,14 +14,14 @@ const checkBedroomCountAndPersonnel = ({
   personnelCount,
 }: callSagaArgType) => {
   let isNotBedCountZero: boolean = true;
-  for (const bedroom of bedroomList) {
+  Object.values(bedroomList).forEach((bedroom) => {
     for (const bed of bedroom) {
       if (!bed.count) {
         isNotBedCountZero = false;
         break;
       }
     }
-  }
+  });
   if (personnelCount && isNotBedCountZero) return { result: true };
   return { result: false };
 };

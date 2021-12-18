@@ -8,7 +8,7 @@ const titleAndDiscription: NextPage = () => {
     <RegisterRyokan
       producerText="고객들이 볼 제목과 설명을 올려주세요."
       priviousHref="/room/register/ryokanPhotos"
-      nextHref="/room/register/pricePerday"
+      nextHref="/room/register/pricePerDay"
       step={8}
     >
       <RegisterTitleAndDescription />

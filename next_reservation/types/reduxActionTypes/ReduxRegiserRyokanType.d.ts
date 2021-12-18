@@ -30,7 +30,7 @@ export interface IRyokanType {
   buildingType: string;
   isBuiltInOnsen: boolean;
   bedrooms: {
-    bedroomList: bedroomType[][];
+    bedroomList: { [key: string]: bedroomType[] };
     bedroomCount: number;
     personnel: number;
   };
