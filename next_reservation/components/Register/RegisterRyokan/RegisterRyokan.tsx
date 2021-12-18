@@ -8,12 +8,14 @@ interface IPorps {
   producerText: string;
   priviousHref: string;
   nextHref: string;
+  step: number;
 }
 
 const RegisterRyokan: React.FC<IPorps> = ({
   producerText,
   priviousHref,
   nextHref,
+  step,
   children,
 }) => {
   const modalState = useSelector((selector) => selector.modalState.modalState);
@@ -26,7 +28,11 @@ const RegisterRyokan: React.FC<IPorps> = ({
       >
         <RegisterLeftSideInformation proceduerText={producerText} />
         {children}
-        <RegisterFooter nextHref={nextHref} previousHref={priviousHref} />
+        <RegisterFooter
+          nextHref={nextHref}
+          previousHref={priviousHref}
+          step={step}
+        />
       </div>
     </RegisterRyokanStyle>
   );

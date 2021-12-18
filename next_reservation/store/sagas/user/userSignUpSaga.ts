@@ -8,7 +8,7 @@ import {
   sendEmailVerification,
   getAuth,
 } from 'firebase/auth';
-import { setDoc, doc, Timestamp, FirestoreError } from 'firebase/firestore';
+import { setDoc, doc, FirestoreError } from 'firebase/firestore';
 import { ISignUpForm } from '@/types/reduxActionTypes/ReduxUserActionTypes';
 
 const signUpApi = async ({

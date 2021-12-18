@@ -12,7 +12,7 @@ const initialState: IRyokanType = {
   buildingType: '',
   isBuiltInOnsen: false,
   bedrooms: {
-    bedroomList: [[{ bedType: 'single', count: 0 }]],
+    bedroomList: { bedroom0: [{ bedType: 'single', count: 0 }] },
     bedroomCount: 1,
     personnel: 0,
   },
@@ -49,6 +49,7 @@ const initialState: IRyokanType = {
   photos: [],
   title: '',
   description: '',
+  pricePerDay: '',
 };
 
 const registerRyokanSlice = createSlice({
@@ -105,12 +106,12 @@ const registerRyokanSlice = createSlice({
       },
     },
     setBedroomList: {
-      prepare: (bedrooms: { bedrooms: bedroomType[][] }) => {
+      prepare: (bedrooms: { bedrooms: { [key: string]: bedroomType[] } }) => {
         return { payload: bedrooms };
       },
       reducer: (
         state,
-        action: PayloadAction<{ bedrooms: bedroomType[][] }>
+        action: PayloadAction<{ bedrooms: { [key: string]: bedroomType[] } }>
       ) => {
         return {
           ...state,
@@ -129,8 +130,9 @@ const registerRyokanSlice = createSlice({
         state,
         action: PayloadAction<{ bedroom: bedroomType[]; roomNumber: number }>
       ) => {
-        const bedroomList = [...state.bedrooms.bedroomList];
-        bedroomList[action.payload.roomNumber] = action.payload.bedroom;
+        const bedroomList = { ...state.bedrooms.bedroomList };
+        bedroomList['bedroom' + action.payload.roomNumber] =
+          action.payload.bedroom;
 
         return {
           ...state,
@@ -373,6 +375,14 @@ const registerRyokanSlice = createSlice({
       },
       reducer: (state, action: PayloadAction<string>) => {
         return { ...state, description: action.payload };
+      },
+    },
+    setPricePerDay: {
+      prepare: (pricePerDay: string) => {
+        return { payload: pricePerDay };
+      },
+      reducer: (state, action: PayloadAction<string>) => {
+        return { ...state, pricePerDay: action.payload };
       },
     },
   },

@@ -11,12 +11,6 @@ import GlobalStyle from '@/styles/global/globals';
 import 'tailwindcss/tailwind.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import { Store } from 'redux';
-
-interface MyAppContext extends AppContext {
-  ctx: NextPageContext & { store: Store };
-}
-
 const app = ({ Component, pageProps }: AppProps) => {
   return (
     <>
@@ -28,10 +22,9 @@ const app = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-app.getInitialProps = async (context: MyAppContext) => {
+app.getInitialProps = wrapper.getInitialAppProps((store) => async (context) => {
   const appInitialProps = await App.getInitialProps(context);
   const cookies = cookieParseToArray(context.ctx.req?.headers.cookie);
-  const { store } = context.ctx;
   const { logged } = store.getState().user;
   let accessToken = '';
   cookies.forEach((cookie) => {
@@ -50,6 +43,6 @@ app.getInitialProps = async (context: MyAppContext) => {
     console.log(error.message);
   }
   return { ...appInitialProps };
-};
+});
 
 export default wrapper.withRedux(withReduxSaga(app));

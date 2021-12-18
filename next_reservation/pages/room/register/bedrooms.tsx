@@ -9,6 +9,7 @@ const bedrooms: NextPage = () => {
       producerText="얼마나 많은 인원이 숙박할 수 있나요?"
       priviousHref="/room/register/ryokan"
       nextHref="/room/register/bathrooms"
+      step={2}
     >
       <RegisterRyokanBedrooms />
     </RegisterRyokan>

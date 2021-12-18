@@ -9934,14 +9934,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-redux-wrapper@npm:6.0.2":
-  version: 6.0.2
-  resolution: "next-redux-wrapper@npm:6.0.2"
+"next-redux-wrapper@npm:^7.0.5":
+  version: 7.0.5
+  resolution: "next-redux-wrapper@npm:7.0.5"
   peerDependencies:
-    next: ">=9.0.0"
+    next: ">=10.0.3"
     react: "*"
     react-redux: "*"
-  checksum: 4de366bb862e8e4e96739b830f3299ef26b03b53548ffa39c38b8967541a0ef31ede65976451252c7340385a6050193cee113fb5a138dff719d8c6d9f865db5b
+  checksum: 064e3d562954a13128f94fec6420c802f819f763db8157bd57108e2549ef8597db72e77f3e53a36cfb3c661a3d370227578ec86d1aeca1b3ebfa9009db680c69
   languageName: node
   linkType: hard
 
@@ -10093,7 +10093,7 @@ __metadata:
     next: 11.1.2
     next-connect: ^0.11.0
     next-redux-saga: ^4.1.2
-    next-redux-wrapper: 6.0.2
+    next-redux-wrapper: ^7.0.5
     node-sass: ^6.0.1
     nookies: ^2.5.2
     postcss: ^8.3.11

@@ -6,7 +6,7 @@ import { BedTypes } from '@/lib/staticData/RegisterRyokanBedrooms';
 import { bedroomType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 
 interface IProps {
-  bedroomList: bedroomType[][];
+  bedroomList: { [key: string]: bedroomType[] };
 }
 const BedroomList: React.FC<IProps> = ({ bedroomList }) => {
   //* useState
@@ -37,7 +37,7 @@ const BedroomList: React.FC<IProps> = ({ bedroomList }) => {
   return (
     <>
       <div className="divide-solid divide-y divide-gray-300 border-t border-b border-solid border-gray-300 bedrooms-list-wrapper">
-        {bedroomList.map((bedrooms, bedroomNumber) => {
+        {Object.values(bedroomList).map((bedrooms, bedroomNumber) => {
           return (
             <div key={v4()} className="text-black py-5 px-3">
               <div className="flex flex-col relative">

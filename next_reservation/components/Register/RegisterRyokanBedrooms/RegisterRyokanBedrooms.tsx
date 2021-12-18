@@ -28,13 +28,26 @@ const RegisterRyokanBeedrooms = () => {
 
   //* any Functions
   const makingBedList = (count: number) => {
-    return count > bedroomList.length
-      ? [...bedroomList].concat(
-          [...Array(count - bedroomList.length)].fill([
-            { bedType: 'single', count: 0 },
-          ])
-        )
-      : [...bedroomList.slice(0, count)];
+    return count > Object.keys(bedroomList).length
+      ? Array(count)
+          .fill(0)
+          .reduce(
+            (prv, _cur, index) => {
+              if (Object.keys(prv).length - 1 < index) {
+                return Object.assign(
+                  { ...prv },
+                  { ['bedroom' + index]: [{ bedType: 'single', count: 0 }] }
+                );
+              }
+              return { ...prv };
+            },
+            { ...bedroomList }
+          )
+      : Object.entries(bedroomList)
+          .slice(0, count)
+          .reduce((prv, cur) => {
+            return Object.assign(prv, { [cur[0]]: cur[1] });
+          }, {});
   };
 
   //* useCallbacks
