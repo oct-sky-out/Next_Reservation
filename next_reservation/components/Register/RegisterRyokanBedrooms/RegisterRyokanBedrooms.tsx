@@ -33,11 +33,13 @@ const RegisterRyokanBeedrooms = () => {
           .fill(0)
           .reduce(
             (prv, _cur, index) => {
-              console.log(prv);
-              return Object.assign(
-                { ...prv },
-                { ['bedroom' + index]: [{ bedType: 'single', count: 0 }] }
-              );
+              if (Object.keys(prv).length - 1 < index) {
+                return Object.assign(
+                  { ...prv },
+                  { ['bedroom' + index]: [{ bedType: 'single', count: 0 }] }
+                );
+              }
+              return { ...prv };
             },
             { ...bedroomList }
           )

@@ -1,15 +1,18 @@
-import { GetServerSideProps } from 'next';
-import { wrapper } from '@/store/index';
+import { useEffect } from 'react';
+import { useSelector } from '@/store/index';
 import axios from '@/lib/api';
 
 const completion = () => {
+  const registerInfo = useSelector((selector) => selector.registerRyokan);
+  const email = useSelector((selector) => selector.user.data.email);
+  useEffect(() => {
+    (async () =>
+      await axios.post('/api/ryokan/register', {
+        email,
+        registerData: registerInfo,
+      }))();
+  }, []);
   return <div>Enter</div>;
 };
-
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps((store) => async ({ res, req }) => {
-    axios;
-    return { props: {} };
-  });
 
 export default completion;

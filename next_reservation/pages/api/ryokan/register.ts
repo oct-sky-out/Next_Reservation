@@ -13,11 +13,11 @@ const register = nextConnect<NextApiRequest, NextApiResponse>({
 
 register.post(async (req, res) => {
   const { email, registerData } = req.body;
-  console.log(email, registerData);
   await firestroeAdmin()
     .doc(email)
     .collection('RegisterRooms')
-    .add(registerData);
+    .doc(registerData.title)
+    .create(registerData);
 });
 
 export default register;
