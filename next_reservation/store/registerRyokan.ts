@@ -50,6 +50,7 @@ const initialState: IRyokanType = {
   title: '',
   description: '',
   pricePerDay: '',
+  date: { openDate: null, closeDate: null },
 };
 
 const registerRyokanSlice = createSlice({
@@ -383,6 +384,24 @@ const registerRyokanSlice = createSlice({
       },
       reducer: (state, action: PayloadAction<string>) => {
         return { ...state, pricePerDay: action.payload };
+      },
+    },
+    setOpenDate: {
+      prepare: (openDate: Date) => ({ payload: openDate }),
+      reducer: (state, action: PayloadAction<Date>) => {
+        return {
+          ...state,
+          date: { ...state.date, openDate: action.payload },
+        };
+      },
+    },
+    setCloseDate: {
+      prepare: (closeDate: Date) => ({ payload: closeDate }),
+      reducer: (state, action: PayloadAction<Date>) => {
+        return {
+          ...state,
+          date: { ...state.date, closeDate: action.payload },
+        };
       },
     },
   },

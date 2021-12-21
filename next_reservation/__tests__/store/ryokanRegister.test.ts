@@ -70,16 +70,18 @@ test('침실 개수를 정했을 때 침실 수, 침실 정보(bedroomList의 �
   store.dispatch(registerRyokanActions.setBedroomCount(4));
   store.dispatch(
     registerRyokanActions.setBedroomList({
-      bedrooms: [
-        [{ bedType: 'singie', count: 1 }],
-        [{ bedType: 'singie', count: 1 }],
-        [{ bedType: 'singie', count: 1 }],
-        [{ bedType: 'singie', count: 1 }],
-      ],
+      bedrooms: {
+        bedroom0: [{ bedType: 'singie', count: 1 }],
+        bedroom1: [{ bedType: 'singie', count: 1 }],
+        bedroom2: [{ bedType: 'singie', count: 1 }],
+        bedroom3: [{ bedType: 'singie', count: 1 }],
+      },
     })
   );
   expect(store.getState().registerRyokan.bedrooms.bedroomCount).toEqual(4);
-  expect(store.getState().registerRyokan.bedrooms.bedroomList).toHaveLength(4);
+  expect(store.getState().registerRyokan.bedrooms.bedroomList).toHaveProperty(
+    'bedroom3'
+  );
 });
 
 test('침실의 침대 정보를 수정정했을 때 침실 수, 침실 정보(bedroomList)가 바뀌는가?', () => {
@@ -87,12 +89,12 @@ test('침실의 침대 정보를 수정정했을 때 침실 수, 침실 정보(b
   store.dispatch(registerRyokanActions.setBedroomCount(4));
   store.dispatch(
     registerRyokanActions.setBedroomList({
-      bedrooms: [
-        [{ bedType: 'singie', count: 1 }],
-        [{ bedType: 'singie', count: 1 }],
-        [{ bedType: 'singie', count: 1 }],
-        [{ bedType: 'singie', count: 1 }],
-      ],
+      bedrooms: {
+        bedroom0: [{ bedType: 'singie', count: 1 }],
+        bedroom1: [{ bedType: 'singie', count: 1 }],
+        bedroom2: [{ bedType: 'singie', count: 1 }],
+        bedroom3: [{ bedType: 'singie', count: 1 }],
+      },
     })
   );
   expect(store.getState().registerRyokan.bedrooms.bedroomCount).toEqual(4);
@@ -104,12 +106,12 @@ test('침실의 침대 정보를 수정정했을 때 침실 수, 침실 정보(b
       roomNumber: 0,
     })
   );
-  expect(store.getState().registerRyokan.bedrooms.bedroomList).toEqual([
-    [{ bedType: 'double', count: 1 }],
-    [{ bedType: 'singie', count: 1 }],
-    [{ bedType: 'singie', count: 1 }],
-    [{ bedType: 'singie', count: 1 }],
-  ]);
+  expect(store.getState().registerRyokan.bedrooms.bedroomList).toEqual({
+    bedroom0: [{ bedType: 'double', count: 1 }],
+    bedroom1: [{ bedType: 'singie', count: 1 }],
+    bedroom2: [{ bedType: 'singie', count: 1 }],
+    bedroom3: [{ bedType: 'singie', count: 1 }],
+  });
 
   // TODO 4번 침실의 정보를 변경한다.
   store.dispatch(
@@ -122,15 +124,15 @@ test('침실의 침대 정보를 수정정했을 때 침실 수, 침실 정보(b
     })
   );
 
-  expect(store.getState().registerRyokan.bedrooms.bedroomList).toEqual([
-    [{ bedType: 'double', count: 1 }],
-    [{ bedType: 'singie', count: 1 }],
-    [{ bedType: 'singie', count: 1 }],
-    [
+  expect(store.getState().registerRyokan.bedrooms.bedroomList).toEqual({
+    bedroom0: [{ bedType: 'double', count: 1 }],
+    bedroom1: [{ bedType: 'singie', count: 1 }],
+    bedroom2: [{ bedType: 'singie', count: 1 }],
+    bedroom3: [
       { bedType: 'double-bed', count: 1 },
       { bedType: 'baby-bed', count: 2 },
     ],
-  ]);
+  });
 });
 test('욕실 개수(bathCount)를 변경 했을 때 개수가 변하는가?', () => {
   // TODO 욕실의 개수를 변경.
@@ -551,4 +553,26 @@ test('료칸의 하루 숙박 비용을 설정하면 pricePerDay값이 바뀌는
   store.dispatch(registerRyokanActions.setPricePerDay(locailPrice));
 
   expect(store.getState().registerRyokan.pricePerDay).toBe(locailPrice);
+});
+
+test('료칸의 예약 시작일자 등록시 store의 date.openDate값이 바뀌는가?', () => {
+  // TODO 호스팅하는 료칸의 예약 시작일자를 입력가정.
+  const openDate = new Date('2021.12.24');
+
+  store.dispatch(registerRyokanActions.setOpenDate(openDate));
+
+  expect(store.getState().registerRyokan.date.openDate.toDateString()).toBe(
+    'Fri Dec 24 2021'
+  );
+});
+
+test('료칸의 예약 종료일자 등록시 store의 date.closeDate값이 바뀌는가?', () => {
+  // TODO 호스팅하는 료칸의 예약 종료일자를 입력가정.
+  const closeDate = new Date('2021.12.24');
+
+  store.dispatch(registerRyokanActions.setCloseDate(closeDate));
+
+  expect(store.getState().registerRyokan.date.closeDate.toDateString()).toBe(
+    'Fri Dec 24 2021'
+  );
 });
