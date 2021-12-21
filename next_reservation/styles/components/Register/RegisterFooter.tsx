@@ -4,7 +4,12 @@ import palette from '../../palette/palette';
 const RegisterFooterStyle = styled.div<{ step: number }>`
   height: 120px;
   .step-line {
-    width: calc((100% / 10) * ${(props) => props.step});
+    width: calc(
+      (100% / 10) *
+        ${(props) => {
+          return props.step;
+        }}
+    );
     height: 3px;
     position: absolute;
     top: 0;
