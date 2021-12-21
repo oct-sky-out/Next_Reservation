@@ -6,7 +6,7 @@ import { userSignInAndUpActions } from '@/store/userSignInAndUp';
 import { loadingAction } from '@/store/lodaing';
 import { getAuth, AuthErrorCodes } from 'firebase/auth';
 import { clientApp } from '../../firebaseClient';
-import { AiOutlineUser } from 'react-icons/ai';
+import { AiOutlineCheck, AiOutlineClose, AiOutlineUser } from 'react-icons/ai';
 import { FiMail } from 'react-icons/fi';
 import Swal from 'sweetalert2';
 import Loader from 'react-loader-spinner';
@@ -79,9 +79,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
       }
 
       if (prop === 'password1') {
-        const includedNumAndSign = e.target.value.match(
-          /([a-zA-z\d!@#$%^&*_+\-=~])+/gi
-        );
+        const includedNumAndSign = e.target.value.match(/([!@#$%^&*_+=~])+/gi);
         const length8 = e.target.value.length >= 8;
         const includedNameOrEmail = !(
           e.target.value.includes(
@@ -297,6 +295,33 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
                 value={allInputValue.password1}
                 onChange={(e) => changeInputValue('password1', e)}
               />
+              <div className="mt-2">
+                <span className="block flex items-center text-base">
+                  {validation.password1.includedNameOrEmail ? (
+                    <AiOutlineCheck className="mr-1" color="#48cfae" />
+                  ) : (
+                    <AiOutlineClose className="mr-1" color="red" />
+                  )}
+                  아이디나 이름이 포함되어있어야합니다.
+                </span>
+                <span className="block flex items-center text-base">
+                  {validation.password1.includedNumAndSign ? (
+                    <AiOutlineCheck className="mr-1" color="#48cfae" />
+                  ) : (
+                    <AiOutlineClose className="mr-1" color="red" />
+                  )}
+                  특수문자 "!, @, #, $, %, ^, &, *, _, +, =, ~"가
+                  포함되어있어야합니다.
+                </span>
+                <span className="block flex items-center text-base">
+                  {validation.password1.length8 ? (
+                    <AiOutlineCheck className="mr-1" color="#48cfae" />
+                  ) : (
+                    <AiOutlineClose className="mr-1" color="red" />
+                  )}
+                  8자리 이상이어야합니다.
+                </span>
+              </div>
             </div>
             <div className="mb-3">
               <label htmlFor="check-password" className="form-label">

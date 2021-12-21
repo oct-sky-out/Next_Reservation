@@ -13,7 +13,15 @@ interface IProps {
 const RegisterFooter: React.FC<IProps> = ({ nextHref, previousHref, step }) => {
   const router = useRouter();
   const isValid = useSelector((selector) => selector.registerIsValid.isValid);
+  const registerRyokan = useSelector((selector) => selector.registerRyokan);
 
+  const saveRegisterForm = () => {
+    if (router.pathname !== '/room/register/completion')
+      localStorage.setItem(
+        'savedRegisterRyokanData',
+        JSON.stringify(registerRyokan)
+      );
+  };
   return (
     <RegisterFooterStyle
       step={step}
@@ -28,10 +36,12 @@ const RegisterFooter: React.FC<IProps> = ({ nextHref, previousHref, step }) => {
         </button>
       </Link>
       <Link href={nextHref} passHref>
-        <button className="btn btn-primary next-page-btn" disabled={!isValid}>
-          <a>
-            {router.pathname === '/room/register/pricePerDay' ? '등록' : '다음'}
-          </a>
+        <button
+          className="btn btn-primary next-page-btn"
+          disabled={!isValid}
+          onClick={saveRegisterForm}
+        >
+          <a>{router.pathname === '/room/register/date' ? '등록' : '다음'}</a>
         </button>
       </Link>
     </RegisterFooterStyle>
