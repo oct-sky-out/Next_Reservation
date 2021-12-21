@@ -4,7 +4,7 @@ import palette from '../../palette/palette';
 const SignUpModalStyle = styled.div<{ signInOrUp: string }>`
   .sign-${(props) => props.signInOrUp} {
     ${(props) => {
-      return props.signInOrUp === 'in' ? ` height : 430px;` : ` height: 670px;`;
+      return props.signInOrUp === 'in' ? ` height : 430px;` : ` height: 730px;`;
     }}
     width: 600px;
     position: relative;
