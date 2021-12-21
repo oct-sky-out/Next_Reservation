@@ -20,8 +20,13 @@ const RegisterLocationForm = () => {
   );
 
   useEffect(() => {
-    if (contry && address && postCode)
+    dispatch(registerFormValidAction.setValid(false));
+  }, []);
+  useEffect(() => {
+    if (contry && address && postCode) {
+      console.log(contry && address && postCode);
       dispatch(registerFormValidAction.setValid(true));
+    }
   }, [contry, address, postCode]);
 
   const changeContryState = ({

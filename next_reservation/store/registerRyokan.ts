@@ -57,6 +57,10 @@ const registerRyokanSlice = createSlice({
   name: 'register',
   initialState,
   reducers: {
+    setRyokanForm: {
+      prepare: (ryokanForm: IRyokanType) => ({ payload: ryokanForm }),
+      reducer: (_state, action: PayloadAction<IRyokanType>) => action.payload,
+    },
     setRyokanType: {
       prepare: (ryokanType: string) => {
         return { payload: ryokanType };
