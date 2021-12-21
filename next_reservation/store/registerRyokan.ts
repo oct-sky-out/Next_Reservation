@@ -50,7 +50,7 @@ const initialState: IRyokanType = {
   title: '',
   description: '',
   pricePerDay: '',
-  date: { openDate: new Date(Date.now()), closeDate: new Date(Date.now()) },
+  date: { openDate: null, closeDate: null },
 };
 
 const registerRyokanSlice = createSlice({

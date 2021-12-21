@@ -53,7 +53,7 @@ export interface IRyokanType {
   description: string;
   pricePerDay: string;
   date: {
-    openDate: Date;
-    closeDate: Date;
+    openDate: Date | null;
+    closeDate: Date | null;
   };
 }

@@ -29,9 +29,7 @@ const RegisterFooter: React.FC<IProps> = ({ nextHref, previousHref, step }) => {
       </Link>
       <Link href={nextHref} passHref>
         <button className="btn btn-primary next-page-btn" disabled={!isValid}>
-          <a>
-            {router.pathname === '/room/register/pricePerDay' ? '등록' : '다음'}
-          </a>
+          <a>{router.pathname === '/room/register/date' ? '등록' : '다음'}</a>
         </button>
       </Link>
     </RegisterFooterStyle>
