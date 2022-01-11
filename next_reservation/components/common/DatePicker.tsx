@@ -1,6 +1,6 @@
 import ko from 'date-fns/locale/ko';
 import ReactDatePicker from 'react-datepicker';
-// import 'react-datepicker/dist/react-datepicker.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import DatePickerStyle from '@/styles/common/DatePicker';
 import React from 'react';
 
@@ -15,7 +15,6 @@ interface IProps {
   name?: string;
   disabled?: boolean;
   onChange: (date: Date, e: React.ChangeEvent<HTMLInputElement>) => void;
-  data_testid?: string;
 }
 
 const DatePicker: React.FC<IProps> = ({
@@ -29,7 +28,6 @@ const DatePicker: React.FC<IProps> = ({
   className,
   disabled,
   onChange,
-  data_testid,
 }) => {
   return (
     <DatePickerStyle>
@@ -47,7 +45,6 @@ const DatePicker: React.FC<IProps> = ({
         endDate={endDate}
         minDate={minDate}
         disabled={disabled}
-        data-testid={data_testid}
       />
     </DatePickerStyle>
   );

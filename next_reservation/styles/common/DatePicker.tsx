@@ -43,6 +43,7 @@ const DatePickerStyle = styled.div`
   }
   .react-datepicker__day--selected {
     background-color: ${palette.emerald};
+    color: #fff;
   }
   .react-datepicker__day--keyboard-selected {
     border-radius: 50%;
