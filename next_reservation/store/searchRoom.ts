@@ -8,7 +8,7 @@ const initialState: ISearchRoom = {
   checkInDate: null,
   checkOutDate: null,
   adultCount: 0,
-  childerenCount: 0,
+  childrenCount: 0,
   infantsCount: 0,
 };
 
@@ -71,11 +71,11 @@ const searchRoomSlice = createSlice({
         adultCount: action.payload,
       }),
     },
-    setChildernCount: {
-      prepare: (childerenCount: number) => ({ payload: childerenCount }),
+    setChildrenCount: {
+      prepare: (childrenCount: number) => ({ payload: childrenCount }),
       reducer: (state, action: PayloadAction<number>) => ({
         ...state,
-        childerenCount: action.payload,
+        childrenCount: action.payload,
       }),
     },
     setInfantsCount: {

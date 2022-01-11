@@ -5,6 +5,6 @@ export interface ISearchRoom {
   checkInDate: Date | null;
   checkOutDate: Date | null;
   adultCount: number;
-  childerenCount: number;
+  childrenCount: number;
   infantsCount: number;
 }
