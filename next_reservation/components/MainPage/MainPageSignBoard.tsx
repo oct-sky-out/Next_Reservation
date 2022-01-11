@@ -1,8 +1,8 @@
 const MainPageSignBoard = () => {
   return (
-    <div className="bg-black w-full h-1000">
-      <div className="mx-auto w-1/2 h-800 bg-mainImage-camping bg-no-repeat bg-cover bg-center rounded-3xl relative -bottom-32">
-        <div className="absolute w-full bottom-10 left-5">
+    <div className="bg-black w-full h-800">
+      <div className="mx-auto h-full w-1/2 bg-mainImage-camping bg-no-repeat bg-cover bg-center flex items-end p-10">
+        <div className="w-full bottom-10 left-5">
           <span className="inline-block text-emerald text-8xl text-shadow-xl">
             YASUMI
           </span>

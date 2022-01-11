@@ -22,20 +22,20 @@ const RecommendationRegion = () => {
     },
   ];
   return (
-    <div className="w-full text-black p-10">
+    <div className="w-full p-10">
       <div className="flex flex-wrap justify-around items-center">
         {urlsAndRegionName.map((region) => (
           <div
             key={v4()}
-            className="mx-2 border-4 border-solid border-emerald w-1/5 p-2 rounded-xl transition ease-in-out transform translate-y-0 hover:-translate-y-25 hover:scale-110 duration-300 cursor-pointer"
+            className="items-center mx-2 border-4 border-solid border-emerald w-1/5 p-2 rounded-xl transition ease-in-out transform translate-y-0 hover:-translate-y-25 hover:scale-110 duration-300 cursor-pointer"
           >
             <img
-              className="w-500 h-300 rounded-xl object-cover object-center"
+              className="w-full h-300 rounded-xl object-cover object-bottom"
               src={region.url}
               alt={region.region}
             />
-            <div className="w-1/3 h-20 mt-5 ml-2">
-              <span className="text-3xl">{region.region}</span>
+            <div className="w-full py-2">
+              <span className="text-3xl my-auto">{region.region}</span>
             </div>
           </div>
         ))}
