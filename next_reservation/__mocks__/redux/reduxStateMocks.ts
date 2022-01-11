@@ -99,7 +99,7 @@ export const mockStoreValue: mockStoreType = {
     checkInDate: null,
     checkOutDate: null,
     adultCount: 0,
-    childernCount: 0,
+    childerenCount: 0,
     infantsCount: 0,
   },
 };
