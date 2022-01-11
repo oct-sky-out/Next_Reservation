@@ -12,6 +12,7 @@ import registerFormIsValid from './registerFormIsValid';
 import modalOpenStateSlice from './modalOpen';
 import rootSaga from './sagas';
 import loadingSlice from './lodaing';
+import searchRoomSlice from './searchRoom';
 
 // 여러개의 리듀서 컴바인
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   registerIsValid: registerFormIsValid.reducer,
   modalState: modalOpenStateSlice.reducer,
   loading: loadingSlice.reducer,
+  searchRoom: searchRoomSlice.reducer,
 });
 
 // 스토어 타입

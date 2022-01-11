@@ -84,8 +84,22 @@ export const mockStoreValue: mockStoreType = {
     title: '',
     description: '',
     pricePerDay: '',
+    date: {
+      openDate: null,
+      closeDate: null,
+    },
   },
   registerIsValid: { isValid: false },
   modalState: { modalState: false },
   loading: false,
+  searchRoom: {
+    location: '',
+    latitude: 0,
+    longitude: 0,
+    checkInDate: null,
+    checkOutDate: null,
+    adultCount: 0,
+    childernCount: 0,
+    infantsCount: 0,
+  },
 };
