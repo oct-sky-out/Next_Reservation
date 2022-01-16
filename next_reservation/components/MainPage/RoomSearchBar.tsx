@@ -38,8 +38,8 @@ const RoomSearchBar = () => {
           type="text"
           className="form-control h-8 mt-1 p-2 w-full border-0"
           placeholder="위치입력"
-          onChange={({ target: { value } }) => {
-            dispatch(searchRoomActions.setLocation(value));
+          onChange={(e) => {
+            dispatch(searchRoomActions.setLocation(e.target.value));
           }}
         />
       </div>
@@ -79,7 +79,7 @@ const RoomSearchBar = () => {
             type="text"
             className="form-control w-full h-8 border-0 p-2"
             placeholder="인원수 추가"
-            value={`성인 ${adultCount}명, 어린이 : ${childrenCount}명, 영유아 : ${infantsCount}`}
+            defaultValue={`성인 ${adultCount}명, 어린이 : ${childrenCount}명, 영유아 : ${infantsCount}`}
             onClick={() => setIsGuestCountMenuOpend(true)}
           />
         </GuestCountMenu>

@@ -4,7 +4,6 @@ import { useSelector } from 'store';
 import { registerRyokanActions } from '@/store/registerRyokan';
 import { registerFormValidAction } from '@/store/registerFormIsValid';
 import Selector from '@/components/common/Selector';
-import L from 'lodash';
 import Input from '@/components/common/Input';
 import { Contry } from '@/lib/staticData/Contries';
 
@@ -25,7 +24,6 @@ const RegisterLocationForm = () => {
   }, []);
   useEffect(() => {
     if (contry && address && postCode) {
-      console.log(contry && address && postCode);
       dispatch(registerFormValidAction.setValid(true));
     }
   }, [contry, address, postCode]);
@@ -76,7 +74,8 @@ const RegisterLocationForm = () => {
             type="text"
             id="streetAddress"
             placeholder="도로명주소를 입력해주세요."
-            onChange={L.debounce(changeAddressState, 500)}
+            value={address}
+            onChange={changeAddressState}
             cy-testid="adress"
           />
         </div>
@@ -88,7 +87,8 @@ const RegisterLocationForm = () => {
             type="text"
             id="detailAddress"
             placeholder="상세주소를 입력해주세요.(선택)"
-            onChange={L.debounce(changeDetailAddressState, 500)}
+            value={detailAddress}
+            onChange={changeDetailAddressState}
             cy-testid="detail-address"
           />
           <label className="my-3 text-xl" htmlFor="postCode">
@@ -98,7 +98,8 @@ const RegisterLocationForm = () => {
             type="text"
             id="postCode"
             placeholder="우편번호를 입력해주세요"
-            onChange={L.debounce(changePostCodeState, 500)}
+            value={postCode}
+            onChange={changePostCodeState}
             cy-testid="postcode"
           />
         </div>
