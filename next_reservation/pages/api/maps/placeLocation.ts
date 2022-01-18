@@ -9,15 +9,15 @@ const place = nextConnect<NextApiRequest, NextApiResponse>({
 });
 
 place.get(async (req, res) => {
-  const { placeName } = req.query;
-  if (!placeName) res.status(400).send({ message: '장소가 없습니다.' });
+  const { address } = req.query;
+  if (!address) res.status(400).send({ message: '장소가 없습니다.' });
   const { data } = await axios.get<PlacesType>(
-    `https://maps.googleapis.com/maps/api/place/queryautocomplete/json`,
+    `https://maps.googleapis.com/maps/api/geocode/json`,
     {
       params: {
-        key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY,
+        address: address as string,
         language: 'ko',
-        input: placeName as string,
+        key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY,
       },
     }
   );
