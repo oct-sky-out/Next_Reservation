@@ -18,11 +18,7 @@ const RecommendationPlace: React.FC<IProps> = ({
   setOpenRecommenationPalce,
 }) => {
   const dispatch = useDispatch();
-  const { location, latitiude, longitude } = useSelector((state) => ({
-    location: state.searchRoom.location,
-    latitiude: state.searchRoom.latitude,
-    longitude: state.searchRoom.longitude,
-  }));
+  const location = useSelector((state) => state.searchRoom.location);
 
   const initalState: PlacesType = {
     predictions: [],
@@ -47,8 +43,13 @@ const RecommendationPlace: React.FC<IProps> = ({
     }
   }, [searchLocation]);
 
-  const placeClick = (place: string) => {
+  const placeClick = async (place: string) => {
     dispatch(searchRoomActions.setLocation(place));
+    const { data } = await axios.get('/api/maps/placeLocation', {
+      params: { address: place },
+    });
+    dispatch(searchRoomActions.setLatitude(data.lng));
+    dispatch(searchRoomActions.setLongitude(data.lat));
   };
 
   const changeLocation = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +57,7 @@ const RecommendationPlace: React.FC<IProps> = ({
   };
 
   const clickAroundMyPosition = () => {
+    dispatch(searchRoomActions.setLocation('내 주변 검색하기'));
     navigator.geolocation.getCurrentPosition(({ coords }) => {
       dispatch(searchRoomActions.setLatitude(coords.latitude));
       dispatch(searchRoomActions.setLongitude(coords.longitude));

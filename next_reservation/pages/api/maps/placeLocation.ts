@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import axios from 'axios';
-import { PlacesType } from '@/types/apiTyps/maps/place';
 
 const place = nextConnect<NextApiRequest, NextApiResponse>({
   onError: (err, _req, res) => res.status(405).send(err),
@@ -11,7 +10,7 @@ const place = nextConnect<NextApiRequest, NextApiResponse>({
 place.get(async (req, res) => {
   const { address } = req.query;
   if (!address) res.status(400).send({ message: '장소가 없습니다.' });
-  const { data } = await axios.get<PlacesType>(
+  const { data } = await axios.get(
     `https://maps.googleapis.com/maps/api/geocode/json`,
     {
       params: {
@@ -22,7 +21,9 @@ place.get(async (req, res) => {
     }
   );
 
-  res.status(200).send(data);
+  const { lat, lng } = data.results[0].geometry.location;
+
+  res.status(200).send({ lat, lng });
 });
 
 export default place;
