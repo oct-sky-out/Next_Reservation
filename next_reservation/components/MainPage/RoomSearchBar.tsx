@@ -1,25 +1,51 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
 import { searchRoomActions } from '@/store/searchRoom';
 import { AiOutlineSearch } from 'react-icons/ai';
+import Swal from 'sweetalert2';
 import GuestCountMenu from './GuestCountMenu';
 import RecommendationPlace from './RecommendationPlace';
 import DatePicker from '@/components/common/DatePicker';
 
 const RoomSearchBar = () => {
-  const { checkInDate, checkOutDate, adultCount, childrenCount, infantsCount } =
-    useSelector((selector) => ({
-      checkInDate: selector.searchRoom.checkInDate,
-      checkOutDate: selector.searchRoom.checkOutDate,
-      adultCount: selector.searchRoom.adultCount,
-      childrenCount: selector.searchRoom.childrenCount,
-      infantsCount: selector.searchRoom.infantsCount,
-    }));
+  const router = useRouter();
+  const {
+    location,
+    checkInDate,
+    checkOutDate,
+    adultCount,
+    childrenCount,
+    infantsCount,
+  } = useSelector((selector) => ({
+    location: selector.searchRoom.location,
+    checkInDate: selector.searchRoom.checkInDate,
+    checkOutDate: selector.searchRoom.checkOutDate,
+    adultCount: selector.searchRoom.adultCount,
+    childrenCount: selector.searchRoom.childrenCount,
+    infantsCount: selector.searchRoom.infantsCount,
+  }));
   const dispatch = useDispatch();
 
   const [isGuestCountMenuOpend, setIsGuestCountMenuOpend] = useState(false);
   const [openRecommenationPalce, setOpenRecommenationPalce] = useState(false);
+
+  const clickSearchButton = () => {
+    if (
+      location &&
+      checkInDate &&
+      checkOutDate &&
+      (adultCount || childrenCount || infantsCount)
+    )
+      router.push(`/room/search?place=${location}`);
+    else
+      Swal.fire({
+        title: '검색항목이 부족합니다.',
+        text: '검색항목이 부족합니다. 검색항목 중 빠진것이 없는지 확인해주세요!',
+        icon: 'warning',
+      });
+  };
 
   return (
     <div className="w-2/3 bg-white rounded-full mx-auto my-5 text-black flex justify-between">
@@ -71,8 +97,11 @@ const RoomSearchBar = () => {
           />
         </GuestCountMenu>
       </div>
-      <div className="w-20 text-white cursor-pointer flex align-center">
-        <div className="w-20 rounded-full bg-emerald ml-auto mr-1 my-auto py-3 ">
+      <div
+        className="w-20 text-white cursor-pointer flex align-center"
+        onClick={clickSearchButton}
+      >
+        <div className="w-20 rounded-full bg-emerald ml-auto mr-1 my-auto py-3">
           <AiOutlineSearch size="32" className="mx-auto my-0" />
         </div>
       </div>
