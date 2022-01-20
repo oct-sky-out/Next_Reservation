@@ -1,7 +1,7 @@
 import { useSelector } from '@/store/index';
 import { searchRoomActions } from '@/store/searchRoom';
-import OutsideClickHandler from 'react-outside-click-handler';
 import { useDispatch } from 'react-redux';
+import OutsideClickHandler from 'react-outside-click-handler';
 
 interface IProps {
   isGusetCountMenuOpend: boolean;
@@ -45,7 +45,7 @@ const GuestCountMenu: React.FC<IProps> = ({
         {children}
         {isGusetCountMenuOpend && (
           <>
-            <div className="w-60 h-30 p-3 absolute top-12 rounded-lg flex flex-column bg-white ">
+            <div className="w-60 h-30 p-3 absolute top-12 rounded-lg flex flex-column bg-white space-y-3">
               <div className="flex-none flex justify-around items-center">
                 <span>성 인</span>
                 <button
