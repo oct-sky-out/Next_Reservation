@@ -1,4 +1,8 @@
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { searchRoomActions } from '@/store/searchRoom';
 import { v4 } from 'uuid';
+import axios from '@/lib/api';
 
 const RecommendationRegion = () => {
   const urlsAndRegionName = [
@@ -21,6 +25,20 @@ const RecommendationRegion = () => {
       region: '제주',
     },
   ];
+
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const regionCardClick = async (region: string) => {
+    dispatch(searchRoomActions.setLocation(region));
+    const { data } = await axios.get('/api/maps/placeLocation', {
+      params: { address: region },
+    });
+    dispatch(searchRoomActions.setLatitude(data.lng));
+    dispatch(searchRoomActions.setLongitude(data.lat));
+    router.push(`/room/search?place=${region}`);
+  };
+
   return (
     <div className="w-full p-10">
       <div className="flex flex-wrap justify-around items-center">
@@ -28,6 +46,7 @@ const RecommendationRegion = () => {
           <div
             key={v4()}
             className="items-center mx-2 border-4 border-solid border-emerald w-1/5 p-2 rounded-xl transition ease-in-out transform translate-y-0 hover:-translate-y-25 hover:scale-110 duration-300 cursor-pointer"
+            onClick={() => regionCardClick(region.region)}
           >
             <img
               className="w-full h-300 rounded-xl object-cover object-bottom"

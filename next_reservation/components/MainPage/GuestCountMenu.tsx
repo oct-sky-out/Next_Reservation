@@ -45,32 +45,40 @@ const GuestCountMenu: React.FC<IProps> = ({
         {children}
         {isGusetCountMenuOpend && (
           <>
-            <div className="w-60 h-30 p-3 absolute top-12 rounded-lg flex flex-column bg-white space-y-3">
-              <div className="flex-none flex justify-around items-center">
-                <span>성 인</span>
-                <button
-                  className={`w-10 h-10 ml-3 border-2 ${
-                    !adultCount
-                      ? 'border-gray-500 text-gray-500'
-                      : 'border-emerald'
-                  }  rounded-full`}
-                  value="sub"
-                  onClick={() => adultGuestAddSub(adultCount - 1)}
-                  disabled={!adultCount}
-                >
-                  -
-                </button>
-                <span>{adultCount}</span>
-                <button
-                  className="w-10 h-10 border-2 rounded-full border-emerald"
-                  value="add"
-                  onClick={() => adultGuestAddSub(adultCount + 1)}
-                >
-                  +
-                </button>
+            <div className="w-full h-30 p-3 absolute top-12 rounded-lg flex flex-column bg-white space-y-3">
+              <div>
+                <div className="flex-none flex justify-around items-center flex-wrap p-3">
+                  <div className="w-1/2 space-y-3">
+                    <span className="block">성 인</span>
+                    <span className="block text-sm">만 13세 이상</span>
+                  </div>
+                  <button
+                    className={`w-10 h-10 border-2 ${
+                      !adultCount
+                        ? 'border-gray-500 text-gray-500'
+                        : 'border-emerald'
+                    }  rounded-full`}
+                    value="sub"
+                    onClick={() => adultGuestAddSub(adultCount - 1)}
+                    disabled={!adultCount}
+                  >
+                    -
+                  </button>
+                  <span>{adultCount}</span>
+                  <button
+                    className="w-10 h-10 border-2 rounded-full border-emerald"
+                    value="add"
+                    onClick={() => adultGuestAddSub(adultCount + 1)}
+                  >
+                    +
+                  </button>
+                </div>
               </div>
-              <div className="flex-none flex justify-around items-center">
-                <span>어린이</span>
+              <div className="flex-none flex justify-around items-center p-3">
+                <div className="w-1/2 space-y-3">
+                  <span className="block">어린이</span>
+                  <span className="block text-sm">만 2~12세</span>
+                </div>
                 <button
                   className={`w-10 h-10 border-2 ${
                     !childrenCount
@@ -92,8 +100,11 @@ const GuestCountMenu: React.FC<IProps> = ({
                   +
                 </button>
               </div>
-              <div className="flex-none flex justify-around items-center">
-                <span>영유아</span>
+              <div className="flex-none flex justify-around items-center p-3">
+                <div className="w-1/2 space-y-3">
+                  <span className="block">영유아</span>
+                  <span className="block text-sm">만 2세 미만</span>
+                </div>
                 <button
                   className={`w-10 h-10 border-2 ${
                     !infantsCount
