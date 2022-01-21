@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
-import { Container } from '@/styles/_index/Container';
+import MainPage from '@/components/MainPage/MainPage';
 
 const Home: NextPage = () => {
-  return <Container></Container>;
+  return <MainPage />;
 };
 
 export default Home;

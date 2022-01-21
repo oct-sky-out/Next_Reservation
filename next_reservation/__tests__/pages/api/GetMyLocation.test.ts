@@ -8,7 +8,7 @@ import {
   geocodingError,
 } from '../../../types/apiTyps/maps/location';
 
-test('Firebase 회원가입 테스트', async () => {
+test('내위치 주소 조회하기 테스트', async () => {
   try {
     const latitude = 37.531129;
     const longitude = 126.917178;

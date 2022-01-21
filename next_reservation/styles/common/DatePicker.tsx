@@ -8,6 +8,7 @@ const DatePickerStyle = styled.div`
       drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   }
   .react-datepicker__month-container {
+    width: 400px;
     padding: 1rem;
   }
   .react-datepicker__triangle {
@@ -43,6 +44,7 @@ const DatePickerStyle = styled.div`
   }
   .react-datepicker__day--selected {
     background-color: ${palette.emerald};
+    color: #fff;
   }
   .react-datepicker__day--keyboard-selected {
     border-radius: 50%;
@@ -57,10 +59,10 @@ const DatePickerStyle = styled.div`
       border-width: 2px 2px 0 0;
     }
     .react-datepicker__navigation-icon--next:before {
-      left: -5px;
+      left: -15px;
     }
     .react-datepicker__navigation-icon--previous: before {
-      right: -5px;
+      right: -15px;
     }
   }
 `;
