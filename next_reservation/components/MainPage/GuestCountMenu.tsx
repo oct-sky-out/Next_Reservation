@@ -45,7 +45,7 @@ const GuestCountMenu: React.FC<IProps> = ({
         {children}
         {isGusetCountMenuOpend && (
           <>
-            <div className="w-full h-30 p-3 absolute top-12 rounded-lg flex flex-column bg-white space-y-3">
+            <div className="w-400 h-30 p-3 absolute top-12 rounded-lg flex flex-column bg-white space-y-3">
               <div>
                 <div className="flex-none flex justify-around items-center flex-wrap p-3">
                   <div className="w-1/2 space-y-3">
@@ -61,6 +61,7 @@ const GuestCountMenu: React.FC<IProps> = ({
                     value="sub"
                     onClick={() => adultGuestAddSub(adultCount - 1)}
                     disabled={!adultCount}
+                    cy-test="adult-sub"
                   >
                     -
                   </button>
@@ -69,6 +70,7 @@ const GuestCountMenu: React.FC<IProps> = ({
                     className="w-10 h-10 border-2 rounded-full border-emerald"
                     value="add"
                     onClick={() => adultGuestAddSub(adultCount + 1)}
+                    cy-test="adult-add"
                   >
                     +
                   </button>

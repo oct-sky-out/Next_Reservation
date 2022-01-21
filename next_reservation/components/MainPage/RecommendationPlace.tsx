@@ -95,15 +95,15 @@ const RecommendationPlace: React.FC<IProps> = ({
                 <span>내 주변 검색하기</span>
               </div>
             )}
-            {places.predictions.map((place) => (
+            {places.predictions.map((place, index) => (
               <div
                 key={v4()}
-                className="w-full, cursor-pointer"
+                className="w-full cursor-pointer"
                 onClick={() => {
                   placeClick(place.description);
                 }}
               >
-                <span>{place.description}</span>
+                <span className={`place${index}`}>{place.description}</span>
               </div>
             ))}
           </div>

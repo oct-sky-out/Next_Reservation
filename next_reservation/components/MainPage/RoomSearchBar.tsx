@@ -99,6 +99,7 @@ const RoomSearchBar = () => {
       </div>
       <div
         className="w-20 text-white cursor-pointer flex align-center"
+        cy-test="search-btn"
         onClick={clickSearchButton}
       >
         <div className="w-20 rounded-full bg-emerald ml-auto mr-1 my-auto py-3">

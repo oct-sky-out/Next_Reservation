@@ -42,9 +42,10 @@ const RecommendationRegion = () => {
   return (
     <div className="w-full p-10">
       <div className="flex flex-wrap justify-around items-center">
-        {urlsAndRegionName.map((region) => (
+        {urlsAndRegionName.map((region, index) => (
           <div
             key={v4()}
+            cy-test={`recommend-place-${index}`}
             className="items-center mx-2 border-4 border-solid border-emerald w-1/5 p-2 rounded-xl transition ease-in-out transform translate-y-0 hover:-translate-y-25 hover:scale-110 duration-300 cursor-pointer"
             onClick={() => regionCardClick(region.region)}
           >
