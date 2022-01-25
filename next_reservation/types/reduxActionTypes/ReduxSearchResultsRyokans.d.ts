@@ -10,6 +10,7 @@ export type RyokanInformationType = {
   bedrooms: SearchResultRyokanOfBedroomType;
   bathroomCount: number;
   amenities: amenitiesType;
+  convenienceSpaces: convenienceSpacesType;
 };
 
 export interface ISearchResultRyokan {
