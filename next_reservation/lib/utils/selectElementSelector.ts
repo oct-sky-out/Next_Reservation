@@ -1,6 +1,4 @@
-const selectElementSelector = ({
-  target: { value },
-}: React.ChangeEvent<HTMLSelectElement>) => {
+const selectElementSelector = (value: string) => {
   return (
     findKeyAfterDispatch: (objKey: string | undefined) => void,
     selectorType: { [key: string]: string }

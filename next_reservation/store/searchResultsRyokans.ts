@@ -5,9 +5,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const initialState: ISearchResultRyokan = {
   searchResult: [],
   filter: {
-    filterConvenienceSpaces: undefined,
-    filterPricePerDay: undefined,
-    filterRyokanType: undefined,
+    filterConvenienceSpaces: [],
+    filterPricePerDay: { min: null, max: null },
+    filterRyokanType: '',
   },
 };
 
@@ -45,6 +45,6 @@ const searchResultsRoomsSlice = createSlice({
 
 const { actions } = searchResultsRoomsSlice;
 
-export const registerRyokanActions = actions;
+export const searchResultsRoomsActions = actions;
 
 export default searchResultsRoomsSlice;

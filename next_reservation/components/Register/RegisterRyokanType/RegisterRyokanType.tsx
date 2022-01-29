@@ -60,7 +60,7 @@ const RegisterRyokanType = () => {
           <Selector
             className="mb-5 h-20 ryokan-type-selector"
             onChange={(e) =>
-              selectElementSelector(e)(
+              selectElementSelector(e.target.value)(
                 RyokanTypeOrBuildingTypeKeyFindAfterDispatch,
                 RyokanTypes
               )
@@ -77,7 +77,7 @@ const RegisterRyokanType = () => {
           <Selector
             className="mb-5 h-20 ryokan-building-type-selector"
             onChange={(e) =>
-              selectElementSelector(e)(
+              selectElementSelector(e.target.value)(
                 RyokanTypeOrBuildingTypeKeyFindAfterDispatch,
                 BuildingTypes
               )
