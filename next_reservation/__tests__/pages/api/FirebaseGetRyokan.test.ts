@@ -1,9 +1,7 @@
 /**
  * @jest-environment node
  */
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 import { firestroeAdmin } from '../../../firebaseAdmin';
-import { USER_COLLECTION } from '../../../fireStoreDB';
 
 test('모든 유저의 등록된 료칸 가져오기', async () => {
   //* return type = FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>[]

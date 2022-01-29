@@ -61,7 +61,7 @@ search.get(async (req, res) => {
         0 <= new Date(checkOutDate as string).getTime()
       );
     });
-    if (convenienceSpaces != null) {
+    if (convenienceSpaces !== null) {
       searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
         const conveniencesFilter = JSON.parse(
           convenienceSpaces as string
@@ -78,17 +78,17 @@ search.get(async (req, res) => {
         return filterStatus;
       });
     }
-    if (priceMin != null) {
+    if (priceMin !== null) {
       searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
         return +ryokan.pricePerDay >= +priceMin;
       });
     }
-    if (priceMax != null) {
+    if (priceMax !== null) {
       searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
         return +ryokan.pricePerDay <= +priceMax;
       });
     }
-    if (ryokanType != null) {
+    if (ryokanType !== null) {
       searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
         return ryokan.ryokanType === ryokanType;
       });

@@ -5,16 +5,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const initialState: ISearchResultRyokan = {
   searchResult: [],
   filter: {
-    filterConvenienceSpaces: {
-      gym: false,
-      jacuzzi: false,
-      parkingLot: false,
-      swimmingPool: false,
-      washingMachine: false,
-      garden: false,
-    },
-    filterPricePerDay: { min: 0, max: 1000000 },
-    filterRyokanType: '',
+    filterConvenienceSpaces: undefined,
+    filterPricePerDay: undefined,
+    filterRyokanType: undefined,
   },
 };
 
@@ -42,7 +35,7 @@ const searchResultsRoomsSlice = createSlice({
     }),
     setFilterConvenienceSpace: (
       state,
-      action: PayloadAction<convenienceSpacesType>
+      action: PayloadAction<Array<keyof convenienceSpacesType>>
     ) => ({
       ...state,
       filter: { ...state.filter, filterConvenienceSpaces: action.payload },
