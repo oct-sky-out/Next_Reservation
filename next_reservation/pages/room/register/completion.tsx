@@ -1,18 +1,17 @@
-import { useEffect } from 'react';
-import { useSelector } from '@/store/index';
-import axios from '@/lib/api';
+import RegisterCompletion from '@/components/Register/RegisterCompletion/RegisterCompletion';
+import { GetServerSideProps, NextPage } from 'next';
 
-const completion = () => {
-  const registerInfo = useSelector((selector) => selector.registerRyokan);
-  const email = useSelector((selector) => selector.user.data.email);
-  useEffect(() => {
-    (async () =>
-      await axios.post('/api/ryokan/register', {
-        email,
-        registerData: registerInfo,
-      }))();
-  }, []);
-  return <div>Enter</div>;
+const completion: NextPage = () => {
+  return <RegisterCompletion />;
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (!context.req.cookies['access_token']) {
+    return {
+      redirect: { statusCode: 302, destination: '/login' },
+    };
+  }
+  return { props: {} };
 };
 
 export default completion;

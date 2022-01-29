@@ -36,9 +36,6 @@ const RegisterRyokan: React.FC<IPorps> = ({
         )
       );
     }
-
-    if (router.pathname === '/room/register/completion')
-      localStorage.removeItem('savedRegisterRyokanData');
   }, [router.pathname]);
 
   return (
