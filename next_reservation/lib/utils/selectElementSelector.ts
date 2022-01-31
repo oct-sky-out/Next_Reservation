@@ -6,7 +6,7 @@ const selectElementSelector = (value: string) => {
     const objectKey = Object.keys(selectorType).find(
       (key) => selectorType[key] === value
     );
-    typeof objectKey !== 'undefined' && findKeyAfterDispatch(objectKey);
+    findKeyAfterDispatch(objectKey as string);
   };
 };
 

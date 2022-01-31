@@ -69,8 +69,9 @@ const SearchFilter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
 
   //* event callbacks
   const selectRyokanType = (objKey: string) => {
-    typeof objKey === 'string' &&
-      dispatch(searchResultsRoomsActions.setFilterRyokanType(objKey));
+    typeof objKey === 'string'
+      ? dispatch(searchResultsRoomsActions.setFilterRyokanType(objKey))
+      : dispatch(dispatch(searchResultsRoomsActions.setFilterRyokanType('')));
   };
   const clickConvenienceFilter = (convenienceTypeKey: string) => {
     if (
@@ -110,9 +111,9 @@ const SearchFilter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
       <div className="flex justify-center items-center mx-3 space-x-3">
         <span>료칸 유형</span>
         <Selector
-          options={Object.values(RyokanType)}
-          value={RyokanType[filterRyokanType] || '료칸 유형을 선택해주세요'}
-          disableOption="료칸 유형을 선택해주세요."
+          options={['없음', ...Object.values(RyokanType)]}
+          value={RyokanType[filterRyokanType] || '료칸 유형을 선택해주세요.'}
+          disableOption="'료칸 유형을 선택해주세요.'"
           onChange={(e) =>
             selectElementSelector(e.target.value)(selectRyokanType, RyokanType)
           }
@@ -164,7 +165,7 @@ const SearchFilter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
                     index
                   ] as keyof convenienceSpacesType
                 )
-                  ? 'text-black'
+                  ? 'text-emerald'
                   : 'text-gray-400'
               }`}
               onClick={(e) => {
