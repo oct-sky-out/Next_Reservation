@@ -3,10 +3,9 @@ import { ISearchResultRyokan } from '@/types/reduxActionTypes/ReduxSearchResults
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: ISearchResultRyokan = {
-  searchResult: [],
   filter: {
     filterConvenienceSpaces: [],
-    filterPricePerDay: { min: null, max: null },
+    filterPricePerDay: { min: 0, max: 500000 },
     filterRyokanType: '',
   },
 };
@@ -15,19 +14,25 @@ const searchResultsRoomsSlice = createSlice({
   initialState,
   name: 'searchResultsRooms',
   reducers: {
-    setSearchResults: (
-      state,
-      action: PayloadAction<Omit<ISearchResultRyokan, 'filter'>>
-    ) => ({
+    setFilterMinPricePerDay: (state, action: PayloadAction<number>) => ({
       ...state,
-      searchResult: [...state.searchResult, ...action.payload.searchResult],
+      filter: {
+        ...state.filter,
+        filterPricePerDay: {
+          ...state.filter.filterPricePerDay,
+          min: action.payload,
+        },
+      },
     }),
-    setFilterPricePerDay: (
-      state,
-      action: PayloadAction<{ min: number; max: number }>
-    ) => ({
+    setFilterMaxPricePerDay: (state, action: PayloadAction<number>) => ({
       ...state,
-      filter: { ...state.filter, filterPricePerDay: action.payload },
+      filter: {
+        ...state.filter,
+        filterPricePerDay: {
+          ...state.filter.filterPricePerDay,
+          max: action.payload,
+        },
+      },
     }),
     setFilterRyokanType: (state, action: PayloadAction<string>) => ({
       ...state,

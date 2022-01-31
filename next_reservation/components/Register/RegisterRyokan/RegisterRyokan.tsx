@@ -42,7 +42,7 @@ const RegisterRyokan: React.FC<IPorps> = ({
     <RegisterRyokanStyle>
       <div
         className={`${
-          modalState ? 'filter blur' : ''
+          modalState ? 'filter blur-sm' : ''
         } grid grid-cols-2 grid-rows-1 h-full`}
       >
         <RegisterLeftSideInformation proceduerText={producerText} />

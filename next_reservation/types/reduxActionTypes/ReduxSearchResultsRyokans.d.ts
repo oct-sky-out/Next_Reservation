@@ -1,4 +1,8 @@
-import { amenitiesType, convenienceSpacesType } from './ReduxRegiserRyokanType';
+import {
+  amenitiesType,
+  convenienceSpacesType,
+  IRyokanType,
+} from './ReduxRegiserRyokanType';
 
 export type SearchResultRyokanOfBedroomType = {
   people: number;
@@ -14,12 +18,6 @@ export type RyokanInformationType = {
 };
 
 export interface ISearchResultRyokan {
-  searchResult: {
-    imageUrl: string;
-    title: string;
-    ryokanInformation: RyokanInformationType;
-    pricePerDay: number;
-  }[];
   filter: {
     filterConvenienceSpaces: Array<keyof convenienceSpacesType>;
     filterPricePerDay: { min: number | null; max: number | null };

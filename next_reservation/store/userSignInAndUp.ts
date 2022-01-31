@@ -31,7 +31,7 @@ const initialState: {
   data: {
     type: '',
     email: '',
-    brithDay: new Date(),
+    brithDay: null,
     name: '',
     userPicture: { src: '', height: 0, width: 0 },
     token: '',

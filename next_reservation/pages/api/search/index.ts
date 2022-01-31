@@ -2,6 +2,7 @@ import {
   convenienceSpacesType,
   IRyokanType,
 } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { Timestamp } from 'firebase/firestore';
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { firestroeAdmin } from '../../../firebaseAdmin';
@@ -46,22 +47,21 @@ search.get(async (req, res) => {
     ).docs.forEach((doc) =>
       searchDocumentsResults.push(doc.data() as IRyokanType)
     );
+    searchDocumentsResults = searchDocumentsResults.filter(
+      (ryokan) =>
+        ryokan.location.latitude <= +latitude + 0.5 &&
+        ryokan.location.latitude >= +latitude - 0.5 &&
+        ryokan.location.longitude <= +longitude + 0.5 &&
+        ryokan.location.longitude >= +longitude - 0.5 &&
+        ryokan.bedrooms.personnel >=
+          Number(adultCount) + Number(childrenCount) + Number(infantsCount) &&
+        new Date(ryokan.date.openDate as string).getTime() <=
+          new Date(checkInDate as string).getTime() &&
+        new Date(ryokan.date.closeDate as string).getTime() >=
+          new Date(checkOutDate as string).getTime()
+    );
 
-    searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
-      return (
-        (ryokan.location.latitude <= +latitude + 0.5 &&
-          ryokan.location.latitude >= +latitude - 0.5 &&
-          ryokan.location.longitude <= +longitude + 0.5 &&
-          ryokan.location.longitude >= +longitude - 0.5 &&
-          ryokan.bedrooms.personnel <=
-            Number(adultCount) + Number(childrenCount) + Number(infantsCount) &&
-          ryokan.date.openDate?.getTime()) ||
-        (0 >= new Date(checkInDate as string).getTime() &&
-          ryokan.date.closeDate?.getTime()) ||
-        0 <= new Date(checkOutDate as string).getTime()
-      );
-    });
-    if (convenienceSpaces !== null) {
+    if (typeof convenienceSpaces !== 'undefined') {
       searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
         const conveniencesFilter = JSON.parse(
           convenienceSpaces as string
@@ -74,21 +74,22 @@ search.get(async (req, res) => {
           if (ryokan.convenienceSpaces[convenienceSpace] === true)
             filterStatus = true;
         });
-
         return filterStatus;
       });
     }
-    if (priceMin !== null) {
+    if (typeof priceMin !== 'undefined') {
       searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
-        return +ryokan.pricePerDay >= +priceMin;
+        console.log();
+        return +ryokan.pricePerDay.replace(',', '') >= +priceMin;
       });
     }
-    if (priceMax !== null) {
+    console.log(searchDocumentsResults);
+    if (typeof priceMax !== 'undefined') {
       searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
-        return +ryokan.pricePerDay <= +priceMax;
+        return +ryokan.pricePerDay.replace(',', '') <= +priceMax;
       });
     }
-    if (ryokanType !== null) {
+    if (typeof ryokanType !== 'undefined') {
       searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
         return ryokan.ryokanType === ryokanType;
       });

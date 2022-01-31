@@ -34,7 +34,7 @@ const Header: React.FC = () => {
     <>
       <Container
         className={`${
-          modalOpenState ? 'filter blur-md' : ''
+          modalOpenState ? 'filter blur-sm' : ''
         } p-0 flex justify-center`}
       >
         <Link href="/">
