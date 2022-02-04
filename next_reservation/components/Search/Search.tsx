@@ -7,6 +7,7 @@ import SearchItem from './SearchItem';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 import SearchFilter from './SearchFilter';
 import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import SearchReslutLocation from './SearchReslutLocation';
 
 const Search = () => {
   //* redux
@@ -74,45 +75,65 @@ const Search = () => {
   return (
     <div className={`${modalState ? 'filter blur-sm' : ''} `}>
       <div>
-        <SearchFilter className="text-black flex items-center mx-10 my-1 divide-solid divide-x divide-gray-300 " />
+        <SearchFilter className="text-black flex items-center mx-10 my-1 divide-solid divide-x divide-gray-300 boarder-b-2 boarder-solid" />
       </div>
-      <div>
-        <div ref={itemRootRef} className="mt-5">
-          {ryokanList.map(
-            (
-              { amenities, bathrooms, bedrooms, ryokanType, title, photos },
-              index
-            ) =>
-              index === ryokanList.length - 1 ? (
-                <SearchItem
-                  bathroomCount={bathrooms.bathCount}
-                  bedroomCount={bedrooms.bedroomCount}
-                  bedsCount={Object.keys(bedrooms.bedroomList).length}
-                  personnel={bedrooms.personnel}
-                  ryokanAmenities={amenities}
-                  ryokanType={ryokanType}
-                  title={title}
-                  imageUrls={photos}
-                  key={v4()}
-                  ref={itemRef}
-                />
-              ) : (
-                <SearchItem
-                  bathroomCount={bathrooms.bathCount}
-                  bedroomCount={bedrooms.bedroomCount}
-                  bedsCount={Object.keys(bedrooms.bedroomList).length}
-                  personnel={bedrooms.personnel}
-                  ryokanAmenities={amenities}
-                  ryokanType={ryokanType}
-                  imageUrls={photos}
-                  title={title}
-                  key={v4()}
-                />
-              )
-          )}
-          {loadingStatus && <Loader type="Oval" color="#48cfae" />}
+      <div className="w-full flex justify-center space-x-10 mt-5">
+        <div className="w-800">
+          <div ref={itemRootRef} className="px-5 space-y-5">
+            {ryokanList.map(
+              (
+                {
+                  amenities,
+                  bathrooms,
+                  bedrooms,
+                  ryokanType,
+                  title,
+                  photos,
+                  pricePerDay,
+                },
+                index
+              ) =>
+                index === ryokanList.length - 1 ? (
+                  <SearchItem
+                    bathroomCount={bathrooms.bathCount}
+                    bedroomCount={bedrooms.bedroomCount}
+                    bedsCount={Object.keys(bedrooms.bedroomList).length}
+                    personnel={bedrooms.personnel}
+                    ryokanAmenities={amenities}
+                    ryokanType={ryokanType}
+                    title={title}
+                    imageUrls={photos}
+                    key={v4()}
+                    ref={itemRef}
+                  />
+                ) : (
+                  <SearchItem
+                    bathroomCount={bathrooms.bathCount}
+                    bedroomCount={bedrooms.bedroomCount}
+                    bedsCount={Object.keys(bedrooms.bedroomList).length}
+                    personnel={bedrooms.personnel}
+                    ryokanAmenities={amenities}
+                    ryokanType={ryokanType}
+                    imageUrls={photos}
+                    title={title}
+                    key={v4()}
+                  />
+                )
+            )}
+            {loadingStatus && <Loader type="Oval" color="#48cfae" />}
+          </div>
         </div>
-        <div>{/* 지도*/}</div>
+        <div className="w-1/2 h-screen relative">
+          <div className="fixed top-56 w-1000 h-1000">
+            <SearchReslutLocation
+              markerInformations={ryokanList.map((ryokan) => ({
+                pricePerDay: ryokan.pricePerDay,
+                latitude: ryokan.location.latitude,
+                longitude: ryokan.location.longitude,
+              }))}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

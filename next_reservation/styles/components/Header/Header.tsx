@@ -12,7 +12,7 @@ const Container = styled.div`
   background-color: #fff;
   box-shadow: #00000008;
   border-bottom: 2px solid #48cfae;
-  z-index: 1;
+  z-index: 30;
   .header-wrapper {
     display: flex;
     height: 80px;

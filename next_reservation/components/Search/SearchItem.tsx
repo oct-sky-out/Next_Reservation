@@ -55,41 +55,44 @@ const SearchItem = React.forwardRef<any, IProps>(
 
     return (
       <div
-        className="w-1/2 text-black mx-5 p-3 border rounded-2xl flex relative"
+        className="w-full text-black border rounded-2xl flex relative"
         ref={ref}
       >
-        <div className="w-1/3 h-300 relative">
-          <button
-            className="w-10 h-10 absolute top-32 left-3 rounded-full bg-emerald text-white border-emerald border z-2 focus:outline-none"
-            onClick={clickPreviousImageButton}
-          >
-            &lt;
-            <span className="hidden">Previous</span>
-          </button>
-          <button
-            className="w-10 h-10 absolute top-32 right-3 rounded-full bg-emerald text-white border-emerald border z-2 focus:outline-none"
-            onClick={clickNextImageButton}
-          >
-            &gt;
-            <span className="hidden">Next</span>
-          </button>
-        </div>
-        <div className="absolute flex">
+        <div className="w-300 h-300 absolute flex">
           {imageUrls.map((image, index) => (
-            <div className={`${visiableImage === index ? 'block' : 'hidden'}`}>
+            <div
+              key={v4()}
+              className={`w-300 h-300 relative ${
+                visiableImage === index ? 'block' : 'hidden'
+              }`}
+            >
               <Image
                 className="rounded-xl"
                 src={image.photoUrl}
-                width="300px"
-                height="300px"
-                layout="fixed"
+                layout="fill"
                 objectFit="cover"
                 objectPosition="center"
               />
             </div>
           ))}
         </div>
-        <div className="w-3/4 divide-solid divide-y divide-gray-300 flex flex-col justify-center ml-10">
+        <div className="w-400 h-300 relative">
+          <button
+            className="w-10 h-10 absolute top-32 left-3 rounded-full bg-emerald text-white border-emerald border focus:outline-none"
+            onClick={clickPreviousImageButton}
+          >
+            &lt;
+            <span className="hidden">Previous</span>
+          </button>
+          <button
+            className="w-10 h-10 absolute top-32 right-3 rounded-full bg-emerald text-white border-emerald border focus:outline-none"
+            onClick={clickNextImageButton}
+          >
+            &gt;
+            <span className="hidden">Next</span>
+          </button>
+        </div>
+        <div className="w-3/4 divide-solid divide-y divide-gray-300 flex flex-col justify-center px-10">
           <div className="w-full py-3">
             <span className="text-xl">
               료칸 유형 : {RyokanType[ryokanType]}

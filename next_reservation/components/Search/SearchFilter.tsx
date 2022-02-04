@@ -130,7 +130,7 @@ const SearchFilter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
             요금 필터
           </button>
           {priceFilterOpend && (
-            <div className="absolute flex flex-col space-y-5 justify-center items-center w-400 h-200 border rounded-lg mt-3">
+            <div className="absolute flex flex-col space-y-5 justify-center items-center w-400 h-200 border rounded-lg mt-3 z-2 bg-white">
               <span>최소, 최대요금을 조절하여주세요.</span>
               <MultipleRangeInput
                 maxRef={maxPriceRef}
