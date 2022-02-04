@@ -1,13 +1,12 @@
-import { useCallback, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from '@/store/index';
-import { searchResultsRoomsActions } from '@/store/searchResultsRyokans';
 import axios from '@/lib/api';
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
-import SearchItem from './SearchItem';
 import { v4 } from 'uuid';
+import Loader from 'react-loader-spinner';
+import SearchItem from './SearchItem';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 import SearchFilter from './SearchFilter';
+import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 
 const Search = () => {
   //* redux
@@ -45,7 +44,7 @@ const Search = () => {
         convenienceSpaces: searchRoomFilter.filter.filterConvenienceSpaces,
         priceMin: searchRoomFilter.filter.filterPricePerDay.min,
         priceMax: searchRoomFilter.filter.filterPricePerDay.max,
-        ryokanType: searchRoomFilter.filter.filterRyokanType,
+        ryokanType: searchRoomFilter.filter.filterRyokanType || null,
       },
     });
     if (data.length) {
@@ -57,6 +56,9 @@ const Search = () => {
     setLoadingStatus(false);
   }, [searchRoom, searchRoomFilter, documentStart]);
 
+  useEffect(() => {
+    fetchSearchCondition();
+  }, []);
   //* custom hook
   useIntersectionObserver({
     rootElement: itemRootRef.current,
@@ -70,41 +72,49 @@ const Search = () => {
   });
 
   return (
-    <>
-      <div className={`${modalState ? 'filter blur-sm' : ''} `}>
+    <div className={`${modalState ? 'filter blur-sm' : ''} `}>
+      <div>
         <SearchFilter className="text-black flex items-center mx-10 my-1 divide-solid divide-x divide-gray-300 " />
       </div>
-      <div ref={itemRootRef}>
-        {ryokanList.map(
-          ({ amenities, bathrooms, bedrooms, ryokanType, title }, index) =>
-            index === ryokanList.length - 1 ? (
-              <SearchItem
-                bathroomCount={bathrooms.bathCount}
-                bedroomCount={bedrooms.bedroomCount}
-                bedsCount={Object.keys(bedrooms.bedroomList).length}
-                personnel={bedrooms.personnel}
-                ryokanAmenities={amenities}
-                ryokanType={ryokanType}
-                title={title}
-                key={v4()}
-                ref={itemRef}
-              />
-            ) : (
-              <SearchItem
-                bathroomCount={bathrooms.bathCount}
-                bedroomCount={bedrooms.bedroomCount}
-                bedsCount={Object.keys(bedrooms.bedroomList).length}
-                personnel={bedrooms.personnel}
-                ryokanAmenities={amenities}
-                ryokanType={ryokanType}
-                title={title}
-                key={v4()}
-              />
-            )
-        )}
+      <div>
+        <div ref={itemRootRef} className="mt-5">
+          {ryokanList.map(
+            (
+              { amenities, bathrooms, bedrooms, ryokanType, title, photos },
+              index
+            ) =>
+              index === ryokanList.length - 1 ? (
+                <SearchItem
+                  bathroomCount={bathrooms.bathCount}
+                  bedroomCount={bedrooms.bedroomCount}
+                  bedsCount={Object.keys(bedrooms.bedroomList).length}
+                  personnel={bedrooms.personnel}
+                  ryokanAmenities={amenities}
+                  ryokanType={ryokanType}
+                  title={title}
+                  imageUrls={photos}
+                  key={v4()}
+                  ref={itemRef}
+                />
+              ) : (
+                <SearchItem
+                  bathroomCount={bathrooms.bathCount}
+                  bedroomCount={bedrooms.bedroomCount}
+                  bedsCount={Object.keys(bedrooms.bedroomList).length}
+                  personnel={bedrooms.personnel}
+                  ryokanAmenities={amenities}
+                  ryokanType={ryokanType}
+                  imageUrls={photos}
+                  title={title}
+                  key={v4()}
+                />
+              )
+          )}
+          {loadingStatus && <Loader type="Oval" color="#48cfae" />}
+        </div>
+        <div>{/* 지도*/}</div>
       </div>
-      <div>{/* 지도 */}</div>
-    </>
+    </div>
   );
 };
 
