@@ -79,11 +79,9 @@ search.get(async (req, res) => {
     }
     if (typeof priceMin !== 'undefined') {
       searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
-        console.log();
         return +ryokan.pricePerDay.replace(',', '') >= +priceMin;
       });
     }
-    console.log(searchDocumentsResults);
     if (typeof priceMax !== 'undefined') {
       searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
         return +ryokan.pricePerDay.replace(',', '') <= +priceMax;
