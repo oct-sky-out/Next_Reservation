@@ -1,3 +1,5 @@
+import Image from 'next/image';
+import React from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { searchRoomActions } from '@/store/searchRoom';
@@ -43,21 +45,29 @@ const RecommendationRegion = () => {
     <div className="w-full p-10">
       <div className="flex flex-wrap justify-around items-center">
         {urlsAndRegionName.map((region, index) => (
-          <div
-            key={v4()}
-            cy-test={`recommend-place-${index}`}
-            className="items-center mx-2 border-4 border-solid border-emerald w-1/5 p-2 rounded-xl transition ease-in-out transform translate-y-0 hover:-translate-y-25 hover:scale-110 duration-300 cursor-pointer"
-            onClick={() => regionCardClick(region.region)}
-          >
-            <img
-              className="w-full h-300 rounded-xl object-cover object-bottom"
-              src={region.url}
-              alt={region.region}
-            />
-            <div className="w-full py-2">
-              <span className="text-3xl my-auto">{region.region}</span>
+          <React.Fragment key={v4()}>
+            <div className="flex w-1/5 flex-col space-y-5">
+              <div
+                cy-test={`recommend-place-${index}`}
+                className="w-3/4 items-center mx-2 border-4 border-solid border-emerald p-2 rounded-xl transition ease-in-out transform translate-y-0 hover:-translate-y-25 hover:scale-110 duration-300 cursor-pointer"
+                onClick={() => regionCardClick(region.region)}
+              >
+                <div className="w-full h-300 rounded-xl relative">
+                  <Image
+                    className="rounded-xl"
+                    src={region.url}
+                    alt={region.region}
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition="bottom"
+                  />
+                </div>
+              </div>
+              <div className="w-1/4 py-2">
+                <span className="text-3xl my-auto">{region.region}</span>
+              </div>
             </div>
-          </div>
+          </React.Fragment>
         ))}
       </div>
     </div>

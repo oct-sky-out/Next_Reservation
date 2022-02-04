@@ -73,7 +73,12 @@ const HeaderUserProfile = () => {
             setIsUserMenuOpened(!isUserMenuOpened);
           }}
         >
-          <img src={userPicture.src} className="header-user-profile-image" />
+          <img
+            src={userPicture.src}
+            width="50%"
+            height="50%"
+            className="header-user-profile-image"
+          />
         </button>
         {isUserMenuOpened && (
           <>
