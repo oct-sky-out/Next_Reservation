@@ -18,9 +18,10 @@ export type RyokanInformationType = {
 };
 
 export interface ISearchResultRyokan {
+  searchResult: IRyokanType[];
   filter: {
-    filterConvenienceSpaces: Array<keyof convenienceSpacesType>;
-    filterPricePerDay: { min: number | null; max: number | null };
+    filterConvenienceSpaces: convenienceSpacesType;
+    filterPricePerDay: { min: number; max: number };
     filterRyokanType: string; // * 료칸타입은 3가지 Japanese | Western Western | Japanese-Western
   };
 }

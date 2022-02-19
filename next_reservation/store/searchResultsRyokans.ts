@@ -1,10 +1,21 @@
-import { convenienceSpacesType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import {
+  convenienceSpacesType,
+  IRyokanType,
+} from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 import { ISearchResultRyokan } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: ISearchResultRyokan = {
+  searchResult: [],
   filter: {
-    filterConvenienceSpaces: [],
+    filterConvenienceSpaces: {
+      gym: false,
+      garden: false,
+      jacuzzi: false,
+      swimmingPool: false,
+      parkingLot: false,
+      washingMachine: false,
+    },
     filterPricePerDay: { min: 0, max: 500000 },
     filterRyokanType: '',
   },
@@ -14,6 +25,25 @@ const searchResultsRoomsSlice = createSlice({
   initialState,
   name: 'searchResultsRooms',
   reducers: {
+    initFilter: (state, _action: PayloadAction<void>) => ({
+      ...state,
+      filter: {
+        filterConvenienceSpaces: {
+          gym: false,
+          garden: false,
+          jacuzzi: false,
+          swimmingPool: false,
+          parkingLot: false,
+          washingMachine: false,
+        },
+        filterPricePerDay: { min: 0, max: 500000 },
+        filterRyokanType: '',
+      },
+    }),
+    setSearchResult: (state, action: PayloadAction<IRyokanType[]>) => ({
+      ...state,
+      searchResult: action.payload,
+    }),
     setFilterMinPricePerDay: (state, action: PayloadAction<number>) => ({
       ...state,
       filter: {
@@ -40,7 +70,7 @@ const searchResultsRoomsSlice = createSlice({
     }),
     setFilterConvenienceSpace: (
       state,
-      action: PayloadAction<Array<keyof convenienceSpacesType>>
+      action: PayloadAction<convenienceSpacesType>
     ) => ({
       ...state,
       filter: { ...state.filter, filterConvenienceSpaces: action.payload },
