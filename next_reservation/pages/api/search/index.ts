@@ -30,7 +30,6 @@ search.get(async (req, res) => {
     } = req.query;
     let searchDocumentsResults: IRyokanType[] = [];
     const ryokanCollection = firestroeAdmin().collection('RegisterRyokans');
-
     await (
       await ryokanCollection
         .orderBy('title')
@@ -48,10 +47,12 @@ search.get(async (req, res) => {
         ryokan.location.longitude >= +longitude - 0.5 &&
         ryokan.bedrooms.personnel >=
           Number(adultCount) + Number(childrenCount) + Number(infantsCount) &&
-        new Date(ryokan.date.openDate as string).getTime() <=
-          new Date(checkInDate as string).getTime() &&
-        new Date(ryokan.date.closeDate as string).getTime() >=
-          new Date(checkOutDate as string).getTime()
+        new Date(
+          ryokan.date.openDate?.toLocaleString('ko-KR') || ''
+        ).getTime() <= new Date(checkInDate as string).getTime() &&
+        new Date(
+          ryokan.date.closeDate?.toLocaleString('ko-KR') || ''
+        ).getTime() >= new Date(checkOutDate as string).getTime()
     );
     res.status(200).send(searchDocumentsResults);
   } catch {

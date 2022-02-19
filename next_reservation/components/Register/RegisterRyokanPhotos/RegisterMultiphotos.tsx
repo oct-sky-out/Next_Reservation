@@ -49,13 +49,11 @@ const RegisterMultiphotos: React.FC<IProps> = ({ fileUploaded }) => {
                 key={v4()}
                 className="photo-wrapper w-full h-1/2 mb-3 relative basis-full border-solid border-5 border-emerald rounded-lg"
               >
-                <Image
+                <img
                   src={photoObj.photoUrl}
                   loading="lazy"
-                  layout="fill"
                   alt="ryokan-register-photo"
-                  className="absolute"
-                  objectFit="cover"
+                  className="w-full h-full absolute object-cover object-center rounded"
                   data-testid="photo-1"
                 />
                 <div className="photo-modify-button w-32 h-16">
@@ -88,12 +86,11 @@ const RegisterMultiphotos: React.FC<IProps> = ({ fileUploaded }) => {
                   key={v4()}
                   className="w-pictureCard mx-2 h-1/3 relative bottom-5 border-solid border-5 border-emerald rounded-lg photo-wrapper"
                 >
-                  <Image
+                  <img
                     src={photoObj.photoUrl}
                     loading="lazy"
-                    layout="fill"
                     alt="ryokan-register-photo"
-                    className="w-full h-full absolute object-cover "
+                    className="w-full h-full absolute object-cover object-center  rounded"
                   />
                   <div className="photo-modify-button w-16 h-8">
                     <button
