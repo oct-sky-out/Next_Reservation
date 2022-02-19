@@ -1,3 +1,5 @@
+import { Timestamp } from '@firebase/firestore';
+
 export type bedroomType = { bedType: string; count: number };
 
 export type amenitiesType = {
@@ -53,7 +55,7 @@ export interface IRyokanType {
   description: string;
   pricePerDay: string;
   date: {
-    openDate: Date | null;
-    closeDate: Date | null;
+    openDate: Date | string | null;
+    closeDate: Date | string | null;
   };
 }

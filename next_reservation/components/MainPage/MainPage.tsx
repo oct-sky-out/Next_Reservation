@@ -11,7 +11,7 @@ const MainPage = () => {
   return (
     <div
       className={`h-full grid grid-cols-1 ${
-        modalOpenState ? 'filter blur-md' : ''
+        modalOpenState ? 'filter blur-sm' : ''
       } bg-black`}
     >
       <RoomSearchBar />

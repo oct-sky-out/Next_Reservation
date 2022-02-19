@@ -34,7 +34,7 @@ const Header: React.FC = () => {
     <>
       <Container
         className={`${
-          modalOpenState ? 'filter blur-md' : ''
+          modalOpenState ? 'filter blur-sm' : ''
         } p-0 flex justify-center`}
       >
         <Link href="/">
@@ -47,17 +47,17 @@ const Header: React.FC = () => {
         </Link>
         {!isLogged && (
           <>
-            <div className="header-auth-btns flex">
+            <div className="header-auth-btns flex space-x-3 mr-8">
               <button
                 type="button"
-                className="shadow-xl rounded-full py-3 px-6 header-sign-up-btn"
+                className=" rounded-full py-3 px-3 header-sign-up-btn"
                 onClick={onSignUpClick}
               >
                 회원가입
               </button>
               <button
                 type="button"
-                className="shadow-xl ml-8 mr-8 rounded-full py-3 px-6 header-sign-in-btn"
+                className="mr-8 rounded-full py-3 px-3 header-sign-in-btn"
                 onClick={onSignInClick}
               >
                 로그인

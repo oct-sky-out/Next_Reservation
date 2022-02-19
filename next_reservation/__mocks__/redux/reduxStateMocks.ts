@@ -102,4 +102,19 @@ export const mockStoreValue: mockStoreType = {
     childrenCount: 0,
     infantsCount: 0,
   },
+  searchResultRyokan: {
+    searchResult: [],
+    filter: {
+      filterConvenienceSpaces: {
+        gym: false,
+        garden: false,
+        jacuzzi: false,
+        swimmingPool: false,
+        parkingLot: false,
+        washingMachine: false,
+      },
+      filterPricePerDay: { min: 0, max: 500000 },
+      filterRyokanType: '',
+    },
+  },
 };

@@ -413,5 +413,6 @@ const registerRyokanSlice = createSlice({
 
 const { actions } = registerRyokanSlice;
 
+export const ryokanInitialData = initialState;
 export const registerRyokanActions = actions;
 export default registerRyokanSlice;

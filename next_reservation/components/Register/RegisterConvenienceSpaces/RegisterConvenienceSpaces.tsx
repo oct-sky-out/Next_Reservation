@@ -27,11 +27,11 @@ const RegisterConvenienceSpaces = () => {
 
   const convenienceSpaceKeys = [
     'gym',
-    'jacuzzi',
-    'parkingLot',
-    'swimmingPool',
-    'washingMachine',
     'garden',
+    'jacuzzi',
+    'swimmingPool',
+    'parkingLot',
+    'washingMachine',
   ] as const;
 
   //* useCallback

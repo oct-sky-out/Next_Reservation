@@ -6,6 +6,8 @@ import Document, {
   DocumentContext,
 } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+// @ts-ignore
+import bundleCss from '!raw-loader!../styles/tailwindSSR.css';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -25,6 +27,10 @@ export default class MyDocument extends Document {
         styles: (
           <>
             {initialProps.styles}
+            <style
+              key="custom"
+              dangerouslySetInnerHTML={{ __html: bundleCss }}
+            />
             {sheet.getStyleElement()}
           </>
         ),

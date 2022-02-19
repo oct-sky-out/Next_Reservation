@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import Image from 'next/image';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
 import { registerRyokanActions } from '@/store/registerRyokan';
@@ -48,11 +49,13 @@ const RegisterMultiphotos: React.FC<IProps> = ({ fileUploaded }) => {
                 key={v4()}
                 className="photo-wrapper w-full h-1/2 mb-3 relative basis-full border-solid border-5 border-emerald rounded-lg"
               >
-                <img
+                <Image
                   src={photoObj.photoUrl}
                   loading="lazy"
+                  layout="fill"
                   alt="ryokan-register-photo"
-                  className="w-full h-full absolute object-cover"
+                  className="absolute"
+                  objectFit="cover"
                   data-testid="photo-1"
                 />
                 <div className="photo-modify-button w-32 h-16">
@@ -85,9 +88,10 @@ const RegisterMultiphotos: React.FC<IProps> = ({ fileUploaded }) => {
                   key={v4()}
                   className="w-pictureCard mx-2 h-1/3 relative bottom-5 border-solid border-5 border-emerald rounded-lg photo-wrapper"
                 >
-                  <img
+                  <Image
                     src={photoObj.photoUrl}
                     loading="lazy"
+                    layout="fill"
                     alt="ryokan-register-photo"
                     className="w-full h-full absolute object-cover "
                   />

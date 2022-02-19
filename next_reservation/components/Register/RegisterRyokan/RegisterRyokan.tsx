@@ -36,16 +36,13 @@ const RegisterRyokan: React.FC<IPorps> = ({
         )
       );
     }
-
-    if (router.pathname === '/room/register/completion')
-      localStorage.removeItem('savedRegisterRyokanData');
   }, [router.pathname]);
 
   return (
     <RegisterRyokanStyle>
       <div
         className={`${
-          modalState ? 'filter blur' : ''
+          modalState ? 'filter blur-sm' : ''
         } grid grid-cols-2 grid-rows-1 h-full`}
       >
         <RegisterLeftSideInformation proceduerText={producerText} />
