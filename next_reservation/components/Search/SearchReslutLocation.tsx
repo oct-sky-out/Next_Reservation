@@ -50,7 +50,7 @@ const SearchReslutLocation: React.FC<IProps> = ({ markerInformations }) => {
 
           google.maps.event.addListener(marker, 'click', () => {
             const priceText = document.createElement('span');
-            priceText.innerText = markerInformation.pricePerDay + '₩';
+            priceText.innerText = '₩' + markerInformation.pricePerDay;
             priceText.classList.add('text-black', 'text-xl');
 
             infowindow.setContent(priceText);

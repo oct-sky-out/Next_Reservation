@@ -18,6 +18,7 @@ const search = nextConnect<NextApiRequest, NextApiResponse>({
 
 search.get(async (req, res) => {
   try {
+    const RESULT_LIMIT = 10;
     //*쿼리에는 조건이 들어와야함
     //! documentStart는 문서 검색 시작번호 20개씩 조회
     //! filters는 필터링 조건이다.
@@ -30,19 +31,16 @@ search.get(async (req, res) => {
       adultCount,
       childrenCount,
       infantsCount,
-      convenienceSpaces,
-      priceMin,
-      priceMax,
-      ryokanType,
     } = req.query;
     let searchDocumentsResults: IRyokanType[] = [];
 
     const ryokanCollection = firestroeAdmin().collection('RegisterRyokans');
+    console.log(documentStart);
     await (
       await ryokanCollection
         .orderBy('title')
-        .startAt(documentStart)
-        .limit(20)
+        .offset(+documentStart)
+        .limit(RESULT_LIMIT)
         .get()
     ).docs.forEach((doc) =>
       searchDocumentsResults.push(doc.data() as IRyokanType)
@@ -60,38 +58,7 @@ search.get(async (req, res) => {
         new Date(ryokan.date.closeDate as string).getTime() >=
           new Date(checkOutDate as string).getTime()
     );
-
-    if (typeof convenienceSpaces !== 'undefined') {
-      searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
-        const conveniencesFilter = JSON.parse(
-          convenienceSpaces as string
-        ) as Array<keyof convenienceSpacesType>;
-        let filterStatus = false;
-
-        conveniencesFilter.forEach((convenienceSpace) => {
-          if (ryokan.convenienceSpaces[convenienceSpace] === false)
-            return (filterStatus = false);
-          if (ryokan.convenienceSpaces[convenienceSpace] === true)
-            filterStatus = true;
-        });
-        return filterStatus;
-      });
-    }
-    if (typeof priceMin !== 'undefined') {
-      searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
-        return +ryokan.pricePerDay.replace(',', '') >= +priceMin;
-      });
-    }
-    if (typeof priceMax !== 'undefined') {
-      searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
-        return +ryokan.pricePerDay.replace(',', '') <= +priceMax;
-      });
-    }
-    if (typeof ryokanType !== 'undefined') {
-      searchDocumentsResults = searchDocumentsResults.filter((ryokan) => {
-        return ryokan.ryokanType === ryokanType;
-      });
-    }
+    console.log(searchDocumentsResults.length);
     res.status(200).send(searchDocumentsResults);
   } catch {
     res.status(500).send('서버오류');

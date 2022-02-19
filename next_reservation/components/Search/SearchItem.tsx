@@ -17,6 +17,7 @@ interface IProps {
   bedsCount: number;
   bathroomCount: number;
   ryokanAmenities: amenitiesType;
+  pricePerDay: string;
 }
 
 const SearchItem = React.forwardRef<any, IProps>(
@@ -30,6 +31,7 @@ const SearchItem = React.forwardRef<any, IProps>(
       bedsCount,
       bathroomCount,
       ryokanAmenities,
+      pricePerDay,
     },
     ref
   ) => {
@@ -76,7 +78,7 @@ const SearchItem = React.forwardRef<any, IProps>(
             </div>
           ))}
         </div>
-        <div className="w-400 h-300 relative">
+        <div className="w-300 h-300 relative">
           <button
             className="w-10 h-10 absolute top-32 left-3 rounded-full bg-emerald text-white border-emerald border focus:outline-none"
             onClick={clickPreviousImageButton}
@@ -92,7 +94,7 @@ const SearchItem = React.forwardRef<any, IProps>(
             <span className="hidden">Next</span>
           </button>
         </div>
-        <div className="w-3/4 divide-solid divide-y divide-gray-300 flex flex-col justify-center px-10">
+        <div className="w-400 divide-solid divide-y divide-gray-300 flex flex-col justify-center px-10">
           <div className="w-full py-3">
             <span className="text-xl">
               료칸 유형 : {RyokanType[ryokanType]}
@@ -112,6 +114,9 @@ const SearchItem = React.forwardRef<any, IProps>(
           <div className="w-full py-3">
             <span data-testid="ryokan-amenities">
               {getTruthyAmenities(ryokanAmenities).join(', ')}
+            </span>
+            <span className="block text-right text-xl text-green-600">
+              ₩{pricePerDay} / 1박
             </span>
           </div>
         </div>

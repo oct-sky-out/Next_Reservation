@@ -1,40 +1,48 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
+import { searchResultsRoomsActions } from '@/store/searchResultsRyokans';
 import axios from '@/lib/api';
 import { v4 } from 'uuid';
 import Loader from 'react-loader-spinner';
 import SearchItem from './SearchItem';
-import useIntersectionObserver from '../hooks/useIntersectionObserver';
 import SearchFilter from './SearchFilter';
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 import SearchReslutLocation from './SearchReslutLocation';
+import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import useSearchFilter from '../hooks/useSearchFilter';
 
 const Search = () => {
   //* redux
-  const { modalState, searchRoom, searchRoomFilter } = useSelector((state) => ({
-    modalState: state.modalState.modalState,
-    searchRoom: state.searchRoom,
-    searchRoomFilter: state.searchResultRyokan,
-  }));
+  const { modalState, searchRoom, searchRoomFilter, searchResult } =
+    useSelector((state) => ({
+      modalState: state.modalState.modalState,
+      searchRoom: state.searchRoom,
+      searchRoomFilter: state.searchResultRyokan.filter,
+      searchResult: state.searchResultRyokan.searchResult,
+    }));
+  const dispatch = useDispatch();
 
   //* useStates
-  const [documentStart, setDocumentStart] = useState(0);
   const [loadingStatus, setLoadingStatus] = useState(false);
-  const [ryokanList, setRyokanList] = useState<IRyokanType[]>([]);
+  const [filterMode, setFilterMode] = useState(false);
+  const [isMaxLoaded, setIsMaxLoaded] = useState(false);
+  const [offset, setOffset] = useState(0);
+  const [filterRyokanList, setFilterRyokanList] = useState<IRyokanType[]>([]);
+  const searchFilter = useSearchFilter(searchResult, searchRoomFilter);
 
   //* useRefs
   const itemRootRef = useRef<HTMLDivElement>(null);
   const itemRef = useRef<HTMLDivElement>(null);
 
   //* constant varialble
-  const NEXT_DOCUMENT_PAGING_LIMIT = 20;
+  const NEXT_DOCUMENT_PAGING_LIMIT = 10;
 
   //*useCallback
-  const fetchSearchCondition = useCallback(async () => {
+  const fetchSearch = useCallback(async () => {
     setLoadingStatus(true);
     const { data } = await axios.get<IRyokanType[]>('/api/search', {
       params: {
-        documentStart,
+        documentStart: offset,
         latitude: searchRoom.latitude,
         longitude: searchRoom.longitude,
         checkInDate: searchRoom.checkInDate,
@@ -42,35 +50,50 @@ const Search = () => {
         adultCount: searchRoom.adultCount,
         childrenCount: searchRoom.childrenCount,
         infantsCount: searchRoom.infantsCount,
-        convenienceSpaces: searchRoomFilter.filter.filterConvenienceSpaces,
-        priceMin: searchRoomFilter.filter.filterPricePerDay.min,
-        priceMax: searchRoomFilter.filter.filterPricePerDay.max,
-        ryokanType: searchRoomFilter.filter.filterRyokanType || null,
       },
     });
-    if (data.length) {
-      setDocumentStart(
-        (previousStart) => previousStart + NEXT_DOCUMENT_PAGING_LIMIT
+    if (data.length)
+      dispatch(
+        searchResultsRoomsActions.setSearchResult([...searchResult, ...data])
       );
-      setRyokanList((previousList) => [...previousList, ...data]);
-    }
+    if (!data.length) setIsMaxLoaded(true);
     setLoadingStatus(false);
-  }, [searchRoom, searchRoomFilter, documentStart]);
+  }, [searchRoom, offset]);
+
+  const observerNextPage = useCallback(() => {
+    if (!itemRef.current) return;
+    const observer = new IntersectionObserver(
+      ([{ isIntersecting }]) => {
+        if (isIntersecting && !loadingStatus && !isMaxLoaded) {
+          setOffset(
+            (prevoiusOffset) => prevoiusOffset + NEXT_DOCUMENT_PAGING_LIMIT
+          );
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(itemRef.current);
+  }, [itemRef.current, loadingStatus, isMaxLoaded]);
 
   useEffect(() => {
-    fetchSearchCondition();
-  }, []);
-  //* custom hook
-  useIntersectionObserver({
-    rootElement: itemRootRef.current,
-    targetElement: itemRef.current,
-    onIntersection: ([{ isIntersecting }]) => {
-      if (isIntersecting && !loadingStatus) {
-        fetchSearchCondition();
-      }
-    },
-    threshold: 0.5,
-  });
+    if (
+      Object.values(searchRoomFilter.filterConvenienceSpaces).includes(true) ||
+      searchRoomFilter.filterPricePerDay.min !== 0 ||
+      searchRoomFilter.filterPricePerDay.max !== 500000 ||
+      searchRoomFilter.filterRyokanType
+    ) {
+      setFilterMode(true);
+      searchFilter().then((filterResult) => setFilterRyokanList(filterResult));
+    } else setFilterMode(false);
+  }, [searchRoomFilter, searchResult]);
+
+  useEffect(() => {
+    fetchSearch();
+  }, [fetchSearch]);
+
+  useEffect(() => {
+    observerNextPage();
+  }, [observerNextPage]);
 
   return (
     <div className={`${modalState ? 'filter blur-sm' : ''} `}>
@@ -80,7 +103,7 @@ const Search = () => {
       <div className="w-full flex justify-center space-x-10 mt-5">
         <div className="w-800">
           <div ref={itemRootRef} className="px-5 space-y-5">
-            {ryokanList.map(
+            {(filterMode ? filterRyokanList : searchResult).map(
               (
                 {
                   amenities,
@@ -93,7 +116,7 @@ const Search = () => {
                 },
                 index
               ) =>
-                index === ryokanList.length - 1 ? (
+                index === searchResult.length - 1 ? (
                   <SearchItem
                     bathroomCount={bathrooms.bathCount}
                     bedroomCount={bedrooms.bedroomCount}
@@ -101,8 +124,9 @@ const Search = () => {
                     personnel={bedrooms.personnel}
                     ryokanAmenities={amenities}
                     ryokanType={ryokanType}
-                    title={title}
                     imageUrls={photos}
+                    title={title}
+                    pricePerDay={pricePerDay}
                     key={v4()}
                     ref={itemRef}
                   />
@@ -116,17 +140,25 @@ const Search = () => {
                     ryokanType={ryokanType}
                     imageUrls={photos}
                     title={title}
+                    pricePerDay={pricePerDay}
                     key={v4()}
                   />
                 )
             )}
-            {loadingStatus && <Loader type="Oval" color="#48cfae" />}
+            {loadingStatus && (
+              <div className="flex justify-center">
+                <Loader type="Oval" color="#48cfae" />
+              </div>
+            )}
           </div>
         </div>
         <div className="w-1/2 h-screen relative">
           <div className="fixed top-56 w-1000 h-1000">
             <SearchReslutLocation
-              markerInformations={ryokanList.map((ryokan) => ({
+              markerInformations={(filterMode
+                ? filterRyokanList
+                : searchResult
+              ).map((ryokan) => ({
                 pricePerDay: ryokan.pricePerDay,
                 latitude: ryokan.location.latitude,
                 longitude: ryokan.location.longitude,

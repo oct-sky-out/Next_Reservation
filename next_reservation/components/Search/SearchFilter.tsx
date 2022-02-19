@@ -73,28 +73,14 @@ const SearchFilter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
       ? dispatch(searchResultsRoomsActions.setFilterRyokanType(objKey))
       : dispatch(dispatch(searchResultsRoomsActions.setFilterRyokanType('')));
   };
-  const clickConvenienceFilter = (convenienceTypeKey: string) => {
-    if (
-      !filterConvenienceSpaces.includes(
-        convenienceTypeKey as keyof convenienceSpacesType
-      )
-    ) {
-      dispatch(
-        searchResultsRoomsActions.setFilterConvenienceSpace([
-          ...filterConvenienceSpaces,
-          convenienceTypeKey as keyof convenienceSpacesType,
-        ])
-      );
-      return;
-    }
+  const clickConvenienceFilter = (
+    convenienceTypeKey: keyof convenienceSpacesType
+  ) => {
     dispatch(
-      searchResultsRoomsActions.setFilterConvenienceSpace(
-        filterConvenienceSpaces.filter(
-          (convenienceSpace) =>
-            convenienceSpace !==
-            (convenienceTypeKey as keyof convenienceSpacesType)
-        )
-      )
+      searchResultsRoomsActions.setFilterConvenienceSpace({
+        ...filterConvenienceSpaces,
+        [convenienceTypeKey]: !filterConvenienceSpaces[convenienceTypeKey],
+      })
     );
   };
   const fiterMinPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -160,18 +146,19 @@ const SearchFilter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
           >
             <button
               className={`${
-                filterConvenienceSpaces.includes(
-                  Object.keys(ConvenienceSpaces)[
+                filterConvenienceSpaces[
+                  Object.keys(filterConvenienceSpaces)[
                     index
                   ] as keyof convenienceSpacesType
-                )
+                ]
                   ? 'text-emerald'
                   : 'text-gray-400'
               }`}
-              onClick={(e) => {
-                selectElementSelector(e.currentTarget.innerHTML)(
-                  clickConvenienceFilter,
-                  ConvenienceSpaces
+              onClick={() => {
+                clickConvenienceFilter(
+                  Object.keys(filterConvenienceSpaces)[
+                    index
+                  ] as keyof convenienceSpacesType
                 );
               }}
             >
