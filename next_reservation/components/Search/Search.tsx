@@ -24,7 +24,6 @@ const Search = () => {
 
   //* useStates
   const [loadingStatus, setLoadingStatus] = useState(false);
-  const [filterMode, setFilterMode] = useState(false);
   const [isMaxLoaded, setIsMaxLoaded] = useState(false);
   const [offset, setOffset] = useState(0);
   const [filterRyokanList, setFilterRyokanList] = useState<IRyokanType[]>([]);
@@ -36,6 +35,11 @@ const Search = () => {
 
   //* constant varialble
   const NEXT_DOCUMENT_PAGING_LIMIT = 10;
+  const isFilter =
+    searchRoomFilter.filterRyokanType ||
+    searchRoomFilter.filterPricePerDay.min !== 0 ||
+    searchRoomFilter.filterPricePerDay.max !== 500000 ||
+    Object.values(searchRoomFilter.filterConvenienceSpaces).includes(true);
 
   //*useCallback
   const fetchSearch = useCallback(async () => {
@@ -76,15 +80,8 @@ const Search = () => {
   }, [itemRef.current, loadingStatus, isMaxLoaded]);
 
   useEffect(() => {
-    if (
-      Object.values(searchRoomFilter.filterConvenienceSpaces).includes(true) ||
-      searchRoomFilter.filterPricePerDay.min !== 0 ||
-      searchRoomFilter.filterPricePerDay.max !== 500000 ||
-      searchRoomFilter.filterRyokanType
-    ) {
-      setFilterMode(true);
+    if (isFilter)
       searchFilter().then((filterResult) => setFilterRyokanList(filterResult));
-    } else setFilterMode(false);
   }, [searchRoomFilter, searchResult]);
 
   useEffect(() => {
@@ -103,7 +100,7 @@ const Search = () => {
       <div className="w-full flex justify-center space-x-10 mt-5">
         <div className="w-800">
           <div ref={itemRootRef} className="px-5 space-y-5">
-            {(filterMode ? filterRyokanList : searchResult).map(
+            {(isFilter ? filterRyokanList : searchResult).map(
               (
                 {
                   amenities,
@@ -155,7 +152,7 @@ const Search = () => {
         <div className="w-1/2 h-screen relative">
           <div className="fixed top-56 w-1000 h-1000">
             <SearchReslutLocation
-              markerInformations={(filterMode
+              markerInformations={(isFilter
                 ? filterRyokanList
                 : searchResult
               ).map((ryokan) => ({

@@ -1,8 +1,4 @@
-import {
-  convenienceSpacesType,
-  IRyokanType,
-} from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
-import { Timestamp } from 'firebase/firestore';
+import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { firestroeAdmin } from '../../../firebaseAdmin';
@@ -33,9 +29,8 @@ search.get(async (req, res) => {
       infantsCount,
     } = req.query;
     let searchDocumentsResults: IRyokanType[] = [];
-
     const ryokanCollection = firestroeAdmin().collection('RegisterRyokans');
-    console.log(documentStart);
+
     await (
       await ryokanCollection
         .orderBy('title')
@@ -58,7 +53,6 @@ search.get(async (req, res) => {
         new Date(ryokan.date.closeDate as string).getTime() >=
           new Date(checkOutDate as string).getTime()
     );
-    console.log(searchDocumentsResults.length);
     res.status(200).send(searchDocumentsResults);
   } catch {
     res.status(500).send('서버오류');
