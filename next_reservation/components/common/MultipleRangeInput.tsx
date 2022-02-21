@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import SliderInput from '../../styles/common/SliderInput';
 
 interface IProps {
@@ -37,28 +37,36 @@ const MultipleRangeInput: React.FC<IProps> = ({
     const max = +e.currentTarget.max;
 
     if (targetDirection === 'left') {
-      console.log(maxRef.current?.value);
+      const percent = ((+e.currentTarget.value - min) / (max - min)) * 100;
       maxRef.current &&
         (e.currentTarget.value =
           '' + Math.min(+e.currentTarget.value, +maxRef.current.value - 3));
-
-      const percent = ((+e.currentTarget.value - min) / (max - min)) * 100;
-      console.log(percent);
       minThumbRef.current && (minThumbRef.current.style.left = percent + '%');
       rangeRef.current && (rangeRef.current.style.left = percent + '%');
     }
 
     if (targetDirection === 'right') {
+      const percent = ((+e.currentTarget.value - min) / (max - min)) * 100;
       minRef.current &&
         (e.currentTarget.value =
           '' + Math.max(+e.currentTarget.value, +minRef.current.value + 3));
-
-      const percent = ((+e.currentTarget.value - min) / (max - min)) * 100;
       maxThumbRef.current &&
         (maxThumbRef.current.style.right = 100 - percent + '%');
       rangeRef.current && (rangeRef.current.style.right = 100 - percent + '%');
     }
   };
+
+  useEffect(() => {
+    const MAX = 100;
+    if (maxThumbRef.current && maxRef.current)
+      maxThumbRef.current.style.right = MAX - +maxRef.current.value + '%';
+    if (minThumbRef.current && minRef.current)
+      minThumbRef.current.style.left = minRef.current.value + '%';
+    if (rangeRef.current) {
+      rangeRef.current.style.left = minThumbRef.current?.style.left || '0%';
+      rangeRef.current.style.right = maxThumbRef.current?.style.right || '0%';
+    }
+  }, []);
 
   return (
     <div className={`${className} relative`}>
