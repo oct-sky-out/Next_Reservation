@@ -1,5 +1,6 @@
-import { useSelector } from '@/store/index';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { useSelector } from '@/store/index';
 
 const RyokanDetailImage = () => {
   const photos = useSelector((state) => state.ryokanDetail.photos);
@@ -27,34 +28,50 @@ const RyokanDetailImage = () => {
   }, [photoOrder]);
 
   return (
-    <div>
-      <div>
+    <>
+      <div className="w-full h-4/5 relative">
         {selectedPhoto ? (
-          <img src={selectedPhoto} />
+          <div className="w-full h-full relative">
+            <Image
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+              src={selectedPhoto}
+            />
+          </div>
         ) : (
           <div>
             <h1>등록된 사진이 없습니다.</h1>
           </div>
         )}
-        <div>
+        <div className="absolute left-10 bottom-1/2">
           <button
+            className="text-5xl text-green-500"
             onClick={clickPreviousOrder}
             disabled={setButtonDisabledState()}
           >
             &lt;
           </button>
         </div>
-        <div>
-          <button onClick={clickNextOrder} disabled={setButtonDisabledState()}>
-            &lgt;
+        <div className="absolute right-10 bottom-1/2">
+          <button
+            className="text-5xl text-green-500"
+            onClick={clickNextOrder}
+            disabled={setButtonDisabledState()}
+          >
+            &gt;
           </button>
         </div>
       </div>
-      <div>
+      <div className="flex w-full h-200 space-x-3 mt-3">
         {photos.length ? (
           photos.map((photo) => (
-            <div>
-              <img src={photo.photoUrl} alt={photo.photoName} />
+            <div className="w-200">
+              <img
+                className="w-full h-full"
+                src={photo.photoUrl}
+                alt={photo.photoName}
+              />
             </div>
           ))
         ) : (
@@ -63,7 +80,7 @@ const RyokanDetailImage = () => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
