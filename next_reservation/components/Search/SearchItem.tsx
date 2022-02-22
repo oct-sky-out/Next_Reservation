@@ -1,57 +1,49 @@
 import Image from 'next/image';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { v4 } from 'uuid';
 import {
   amenitiesType,
-  photoType,
+  IRyokanType,
 } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 import Amenities from '@/lib/staticData/Amenities';
 import { RyokanType } from '@/lib/staticData/RegisterRyokanType';
 
 interface IProps {
-  ryokanType: string;
-  title: string;
-  imageUrls: photoType[];
-  personnel: number;
-  bedroomCount: number;
-  bedsCount: number;
-  bathroomCount: number;
-  ryokanAmenities: amenitiesType;
-  pricePerDay: string;
+  ryokanDetail: IRyokanType;
 }
 
 const SearchItem = React.forwardRef<any, IProps>(
   (
     {
-      ryokanType,
-      title,
-      imageUrls,
-      personnel,
-      bedroomCount,
-      bedsCount,
-      bathroomCount,
-      ryokanAmenities,
-      pricePerDay,
+      ryokanDetail: {
+        ryokanType,
+        title,
+        photos,
+        bedrooms,
+        bathrooms,
+        amenities,
+        pricePerDay,
+      },
     },
     ref
   ) => {
     const [visiableImage, setVisiableImage] = useState(0);
 
     const clickPreviousImageButton = useCallback(() => {
-      if (visiableImage === 0) setVisiableImage(imageUrls.length - 1);
+      if (visiableImage === 0) setVisiableImage(photos.length - 1);
       if (visiableImage !== 0)
         setVisiableImage((previousImageNumber) => --previousImageNumber);
     }, [visiableImage]);
     const clickNextImageButton = useCallback(() => {
-      if (visiableImage === imageUrls.length - 1) setVisiableImage(0);
-      if (visiableImage !== imageUrls.length - 1)
+      if (visiableImage === photos.length - 1) setVisiableImage(0);
+      if (visiableImage !== photos.length - 1)
         setVisiableImage((previousImageNumber) => ++previousImageNumber);
     }, [visiableImage]);
 
-    const getTruthyAmenities = (amenities: amenitiesType) =>
+    const getTruthyAmenities = () =>
       (Object.keys(amenities) as Array<keyof amenitiesType>)
         .map((amenityKey) => {
-          if (ryokanAmenities[amenityKey]) return Amenities[amenityKey];
+          if (amenities[amenityKey]) return Amenities[amenityKey];
         })
         .filter((result) => result !== undefined);
 
@@ -61,7 +53,7 @@ const SearchItem = React.forwardRef<any, IProps>(
         ref={ref}
       >
         <div className="w-300 h-300 absolute flex">
-          {imageUrls.map((image, index) => (
+          {photos.map((image, index) => (
             <div
               key={v4()}
               className={`w-300 h-300 relative ${
@@ -106,14 +98,16 @@ const SearchItem = React.forwardRef<any, IProps>(
             </span>
           </div>
           <div className="w-full space-x-2 py-3">
-            <span>최대인원 {personnel}명</span>
-            <span>침실수 {bedroomCount}개</span>
-            <span>침대/침구 수 {bedsCount}개</span>
-            <span>욕실 {bathroomCount}개</span>
+            <span>최대인원 {bedrooms.personnel}명</span>
+            <span>침실수 {bedrooms.bedroomCount}개</span>
+            <span>
+              침대/침구 수 {Object.keys(bedrooms.bedroomList).length}개
+            </span>
+            <span>욕실 {bathrooms.bathCount}개</span>
           </div>
           <div className="w-full py-3">
             <span data-testid="ryokan-amenities">
-              {getTruthyAmenities(ryokanAmenities).join(', ')}
+              {getTruthyAmenities().join(', ')}
             </span>
             <span className="block text-right text-xl text-green-600">
               ₩{pricePerDay} / 1박

@@ -101,45 +101,15 @@ const Search = () => {
         <div className="w-800">
           <div ref={itemRootRef} className="px-5 space-y-5">
             {(isFilter ? filterRyokanList : searchResult).map(
-              (
-                {
-                  amenities,
-                  bathrooms,
-                  bedrooms,
-                  ryokanType,
-                  title,
-                  photos,
-                  pricePerDay,
-                },
-                index
-              ) =>
+              (ryokanDeail, index) =>
                 index === searchResult.length - 1 ? (
                   <SearchItem
-                    bathroomCount={bathrooms.bathCount}
-                    bedroomCount={bedrooms.bedroomCount}
-                    bedsCount={Object.keys(bedrooms.bedroomList).length}
-                    personnel={bedrooms.personnel}
-                    ryokanAmenities={amenities}
-                    ryokanType={ryokanType}
-                    imageUrls={photos}
-                    title={title}
-                    pricePerDay={pricePerDay}
+                    ryokanDetail={ryokanDeail}
                     key={v4()}
                     ref={itemRef}
                   />
                 ) : (
-                  <SearchItem
-                    bathroomCount={bathrooms.bathCount}
-                    bedroomCount={bedrooms.bedroomCount}
-                    bedsCount={Object.keys(bedrooms.bedroomList).length}
-                    personnel={bedrooms.personnel}
-                    ryokanAmenities={amenities}
-                    ryokanType={ryokanType}
-                    imageUrls={photos}
-                    title={title}
-                    pricePerDay={pricePerDay}
-                    key={v4()}
-                  />
+                  <SearchItem ryokanDetail={ryokanDeail} key={v4()} />
                 )
             )}
             {loadingStatus && (
