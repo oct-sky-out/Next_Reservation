@@ -28,7 +28,6 @@ const RyokanDetailPost = () => {
     isBuiltInOnsen: state.ryokanDetail.isBuiltInOnsen,
     pricePerDay: state.ryokanDetail.pricePerDay,
   }));
-  const { pricePerDay, location } = postDatas;
   return (
     <div className="w-full h-1/3">
       <div className="w-400 h-300 fixed top-44 right-14 space-y-3">
@@ -38,13 +37,7 @@ const RyokanDetailPost = () => {
           {postDatas.location.address}
         </span>
         <RyokanLocation
-          markerInformations={[
-            {
-              pricePerDay: pricePerDay,
-              latitude: location.latitude,
-              longitude: location.longitude,
-            },
-          ]}
+          markerInformations={[{ pricePerDay: postDatas.pricePerDay }]}
         />
         <ReservationForm />
       </div>

@@ -70,6 +70,7 @@ const ReservationForm = () => {
           <DatePicker
             className="w-32 border-none"
             selected={startDate || new Date()}
+            minDate={new Date()}
             placeholderText="예약일자"
             onChange={(date) => {
               dispatch(reservationActions.setStartDate(date));
@@ -81,6 +82,7 @@ const ReservationForm = () => {
           <DatePicker
             className="w-32 border-none"
             selected={endDate || new Date()}
+            minDate={startDate || new Date()}
             placeholderText="예약일자"
             onChange={(date) => {
               dispatch(reservationActions.setEndDate(date));
