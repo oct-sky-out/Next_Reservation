@@ -17,6 +17,7 @@ interface IProps {
   setChildrenCountAction: peopleDispatcherType;
   infantsCount: number;
   setInfantsCountAction: peopleDispatcherType;
+  modalWrapperClassName?: string;
 }
 
 const GuestCountMenu: React.FC<IProps> = ({
@@ -28,6 +29,7 @@ const GuestCountMenu: React.FC<IProps> = ({
   setAdultCountAction,
   setChildrenCountAction,
   setInfantsCountAction,
+  modalWrapperClassName,
   children,
 }) => {
   //* redux
@@ -55,7 +57,9 @@ const GuestCountMenu: React.FC<IProps> = ({
         {children}
         {isGusetCountMenuOpend && (
           <>
-            <div className="w-400 h-30 p-3 absolute top-12 rounded-lg flex flex-column bg-white space-y-3">
+            <div
+              className={`w-400 h-30 p-3 absolute top-12 rounded-lg flex flex-column bg-white space-y-3 border-2 border-solid border-emerald  ${modalWrapperClassName}`}
+            >
               <div>
                 <div className="flex-none flex justify-around items-center flex-wrap p-3">
                   <div className="w-1/2 space-y-3">

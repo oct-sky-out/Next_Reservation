@@ -1,10 +1,17 @@
+import { useSelector } from '@/store/index';
 import ReservationForm from './ReservationForm';
 import RyokanDetailImage from './RyokanDetailImage';
 import RyokanDetailPost from './RyokanDetailPost';
 
 const RyokanDetailPage = () => {
+  const isModalOpend = useSelector((state) => state.modalState.modalState);
+
   return (
-    <div className="w-screen h-screen text-black p-5">
+    <div
+      className={`w-screen h-screen text-black p-5 ${
+        isModalOpend ? 'filter blur-sm' : ''
+      }`}
+    >
       <div className="w-3/4 h-3/4">
         <RyokanDetailImage />
       </div>

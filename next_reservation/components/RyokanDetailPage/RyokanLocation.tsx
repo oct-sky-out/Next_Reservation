@@ -12,8 +12,8 @@ interface IProps {
 
 const SearchReslutLocation: React.FC<IProps> = ({ markerInformations }) => {
   const { latitude, longitude } = useSelector((state) => ({
-    latitude: state.searchRoom.latitude,
-    longitude: state.searchRoom.longitude,
+    latitude: state.ryokanDetail.location.latitude,
+    longitude: state.ryokanDetail.location.longitude,
   }));
   const mapRef = useRef<HTMLDivElement>(null);
   const loader = new Loader({
@@ -58,7 +58,7 @@ const SearchReslutLocation: React.FC<IProps> = ({ markerInformations }) => {
         });
       }
     });
-  }, [markerInformations]);
+  }, []);
 
   return <div ref={mapRef} className="w-full h-full" />;
 };

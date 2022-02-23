@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IReservation } from '@/types/reduxActionTypes/ReduxReservationType';
 
 const initialState: IReservation = {
-  ryoknaId: '',
+  ryokanId: '',
   adultCount: 0,
   childrenCount: 0,
   infantsCount: 0,
@@ -14,6 +14,19 @@ const reservationSlice = createSlice({
   initialState,
   name: 'reservation',
   reducers: {
+    setPeopleCount: (
+      state,
+      action: PayloadAction<{
+        adultCount: number;
+        childrenCount: number;
+        infantsCount: number;
+      }>
+    ) => ({
+      ...state,
+      adultCount: action.payload.adultCount,
+      childrenCount: action.payload.childrenCount,
+      infantsCount: action.payload.infantsCount,
+    }),
     setAdultCount: (state, action: PayloadAction<number>) => ({
       ...state,
       adultCount: action.payload,

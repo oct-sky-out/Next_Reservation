@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useSelector } from '@/store/index';
+import { v4 } from 'uuid';
 
 const RyokanDetailImage = () => {
   const photos = useSelector((state) => state.ryokanDetail.photos);
@@ -66,7 +67,7 @@ const RyokanDetailImage = () => {
       <div className="flex w-full h-200 space-x-3 mt-3">
         {photos.length ? (
           photos.map((photo) => (
-            <div className="w-200">
+            <div className="w-200" key={v4()}>
               <img
                 className="w-full h-full"
                 src={photo.photoUrl}

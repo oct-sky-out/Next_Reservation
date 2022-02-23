@@ -9,8 +9,12 @@ import {
   MdOutlineCoffee,
   MdOutlineChair,
 } from 'react-icons/md';
-import SearchReslutLocation from '../Search/SearchReslutLocation';
+import RyokanLocation from './RyokanLocation';
 import ReservationForm from './ReservationForm';
+import {
+  RyokanType as RyokanTypes,
+  BuildingType as BuildingTypes,
+} from '@/lib/staticData/RegisterRyokanType';
 
 const RyokanDetailPost = () => {
   const postDatas = useSelector((state) => ({
@@ -33,7 +37,7 @@ const RyokanDetailPost = () => {
           <IoLocationSharp size="24" color="#138a6c" />
           {postDatas.location.address}
         </span>
-        <SearchReslutLocation
+        <RyokanLocation
           markerInformations={[
             {
               pricePerDay: pricePerDay,
@@ -48,11 +52,11 @@ const RyokanDetailPost = () => {
         <div className="text-lg flex flex-wrap space-y-1 py-3">
           <div className="w-1/2 flex items-center space-x-3">
             <MdOutlineBedroomParent size="30" color="#138a6c" />
-            <span>{postDatas.ryokanType}</span>
+            <span>{RyokanTypes[postDatas.ryokanType]}</span>
           </div>
           <div className="w-1/2 flex items-center space-x-3">
             <MdOutlineApartment size="30" color="#138a6c" />
-            <span>{postDatas.buildingType}</span>
+            <span>{BuildingTypes[postDatas.buildingType]}</span>
           </div>
           <div className="w-1/2 flex items-center space-x-3">
             <MdOutlineHotTub size="30" color="#138a6c" />

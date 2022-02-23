@@ -92,14 +92,16 @@ const RoomSearchBar = () => {
           setAdultCountAction={searchRoomActions.setAdultCount}
           setChildrenCountAction={searchRoomActions.setChildrenCount}
           setInfantsCountAction={searchRoomActions.setInfantsCount}
+          modalWrapperClassName="-left-10"
         >
           <input
             data-testid="guest-count-menu-text"
             type="text"
-            className="form-control w-full h-8 border-0 p-2"
+            className="form-control w-full h-8 border-0 p-2 bg-white"
             placeholder="인원수 추가"
-            defaultValue={`성인 ${adultCount}명, 어린이 : ${childrenCount}명, 영유아 : ${infantsCount}`}
+            value={`성인 ${adultCount}명, 어린이 : ${childrenCount}명, 영유아 : ${infantsCount}`}
             onClick={() => setIsGuestCountMenuOpend(true)}
+            readOnly
           />
         </GuestCountMenu>
       </div>
