@@ -8,8 +8,10 @@ import Loader from 'react-loader-spinner';
 import SearchItem from './SearchItem';
 import SearchFilter from './SearchFilter';
 import SearchReslutLocation from './SearchReslutLocation';
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 import useSearchFilter from '../hooks/useSearchFilter';
+import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { RyokanSearchResultType } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
+import { searchRoomActions } from '@/store/searchRoom';
 
 const Search = () => {
   //* redux
@@ -26,7 +28,9 @@ const Search = () => {
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [isMaxLoaded, setIsMaxLoaded] = useState(false);
   const [offset, setOffset] = useState(0);
-  const [filterRyokanList, setFilterRyokanList] = useState<IRyokanType[]>([]);
+  const [filterRyokanList, setFilterRyokanList] = useState<
+    RyokanSearchResultType[]
+  >([]);
   const searchFilter = useSearchFilter(searchResult, searchRoomFilter);
 
   //* useRefs
@@ -44,7 +48,7 @@ const Search = () => {
   //*useCallback
   const fetchSearch = useCallback(async () => {
     setLoadingStatus(true);
-    const { data } = await axios.get<IRyokanType[]>('/api/search', {
+    const { data } = await axios.get<RyokanSearchResultType[]>('/api/search', {
       params: {
         documentStart: offset,
         latitude: searchRoom.latitude,
@@ -92,6 +96,19 @@ const Search = () => {
     observerNextPage();
   }, [observerNextPage]);
 
+  useEffect(() => {
+    const searchRoomFormJson = localStorage.getItem('search');
+    if (
+      searchRoom.checkInDate === null &&
+      searchRoom.checkInDate === null &&
+      searchRoomFormJson
+    ) {
+      dispatch(
+        searchRoomActions.setSearchRoomForm(JSON.parse(searchRoomFormJson))
+      );
+    }
+  }, []);
+
   return (
     <div className={`${modalState ? 'filter blur-sm' : ''} `}>
       <div>
@@ -101,45 +118,15 @@ const Search = () => {
         <div className="w-800">
           <div ref={itemRootRef} className="px-5 space-y-5">
             {(isFilter ? filterRyokanList : searchResult).map(
-              (
-                {
-                  amenities,
-                  bathrooms,
-                  bedrooms,
-                  ryokanType,
-                  title,
-                  photos,
-                  pricePerDay,
-                },
-                index
-              ) =>
+              (ryokanDeail, index) =>
                 index === searchResult.length - 1 ? (
                   <SearchItem
-                    bathroomCount={bathrooms.bathCount}
-                    bedroomCount={bedrooms.bedroomCount}
-                    bedsCount={Object.keys(bedrooms.bedroomList).length}
-                    personnel={bedrooms.personnel}
-                    ryokanAmenities={amenities}
-                    ryokanType={ryokanType}
-                    imageUrls={photos}
-                    title={title}
-                    pricePerDay={pricePerDay}
+                    ryokanDetail={ryokanDeail}
                     key={v4()}
                     ref={itemRef}
                   />
                 ) : (
-                  <SearchItem
-                    bathroomCount={bathrooms.bathCount}
-                    bedroomCount={bedrooms.bedroomCount}
-                    bedsCount={Object.keys(bedrooms.bedroomList).length}
-                    personnel={bedrooms.personnel}
-                    ryokanAmenities={amenities}
-                    ryokanType={ryokanType}
-                    imageUrls={photos}
-                    title={title}
-                    pricePerDay={pricePerDay}
-                    key={v4()}
-                  />
+                  <SearchItem ryokanDetail={ryokanDeail} key={v4()} />
                 )
             )}
             {loadingStatus && (

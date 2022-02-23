@@ -58,6 +58,9 @@ module.exports = {
         fadeInAndUpForm: 'fadeInAndUpForm 1s ease none',
       },
     },
+    inset: {
+      '-3.1': '-3.1rem',
+    },
     zIndex: {
       2: '2',
       3: '3',

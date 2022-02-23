@@ -17,8 +17,10 @@ export type RyokanInformationType = {
   convenienceSpaces: convenienceSpacesType;
 };
 
+export type RyokanSearchResultType = IRyokanType & { id: string };
+
 export interface ISearchResultRyokan {
-  searchResult: IRyokanType[];
+  searchResult: RyokanSearchResultType[];
   filter: {
     filterConvenienceSpaces: convenienceSpacesType;
     filterPricePerDay: { min: number; max: number };

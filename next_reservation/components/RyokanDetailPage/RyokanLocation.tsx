@@ -5,15 +5,13 @@ import { Loader } from '@googlemaps/js-api-loader';
 interface IProps {
   markerInformations: {
     pricePerDay: string;
-    latitude: number;
-    longitude: number;
   }[];
 }
 
 const SearchReslutLocation: React.FC<IProps> = ({ markerInformations }) => {
   const { latitude, longitude } = useSelector((state) => ({
-    latitude: state.searchRoom.latitude,
-    longitude: state.searchRoom.longitude,
+    latitude: state.ryokanDetail.location.latitude,
+    longitude: state.ryokanDetail.location.longitude,
   }));
   const mapRef = useRef<HTMLDivElement>(null);
   const loader = new Loader({
@@ -40,8 +38,8 @@ const SearchReslutLocation: React.FC<IProps> = ({ markerInformations }) => {
           const marker = new google.maps.Marker({
             icon: 'https://firebasestorage.googleapis.com/v0/b/next-reservation.appspot.com/o/common%2FVariant4.svg?alt=media&token=c5849e27-3783-4b81-a3bf-ca0bd7a286e0',
             position: {
-              lat: markerInformation.latitude,
-              lng: markerInformation.longitude,
+              lat: latitude,
+              lng: longitude,
             },
             animation: google.maps.Animation.DROP,
             map,

@@ -5,27 +5,21 @@ import { useSelector } from '@/store/index';
 import { searchRoomActions } from '@/store/searchRoom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Swal from 'sweetalert2';
-import GuestCountMenu from './GuestCountMenu';
+import GuestCountMenu from '../common/GuestCountMenu';
 import RecommendationPlace from './RecommendationPlace';
 import DatePicker from '@/components/common/DatePicker';
 
 const RoomSearchBar = () => {
   const router = useRouter();
+  const searchRoomForm = useSelector((selector) => selector.searchRoom);
   const {
-    location,
-    checkInDate,
-    checkOutDate,
     adultCount,
     childrenCount,
     infantsCount,
-  } = useSelector((selector) => ({
-    location: selector.searchRoom.location,
-    checkInDate: selector.searchRoom.checkInDate,
-    checkOutDate: selector.searchRoom.checkOutDate,
-    adultCount: selector.searchRoom.adultCount,
-    childrenCount: selector.searchRoom.childrenCount,
-    infantsCount: selector.searchRoom.infantsCount,
-  }));
+    checkInDate,
+    checkOutDate,
+    location,
+  } = searchRoomForm;
   const dispatch = useDispatch();
 
   const [isGuestCountMenuOpend, setIsGuestCountMenuOpend] = useState(false);
@@ -37,9 +31,10 @@ const RoomSearchBar = () => {
       checkInDate &&
       checkOutDate &&
       (adultCount || childrenCount || infantsCount)
-    )
+    ) {
+      localStorage.setItem('search', JSON.stringify({ ...searchRoomForm }));
       router.push(`/room/search?place=${location}`);
-    else
+    } else
       Swal.fire({
         title: '검색항목이 부족합니다.',
         text: '검색항목이 부족합니다. 검색항목 중 빠진것이 없는지 확인해주세요!',
@@ -74,7 +69,7 @@ const RoomSearchBar = () => {
           data-testid="check-out-input"
           className="form-control w-full h-8 p-2 mt-1 border-0"
           selected={checkOutDate}
-          minDate={checkInDate || new Date()}
+          minDate={checkInDate!}
           placeholderText="체크아웃 날짜입력"
           onChange={(date) => {
             dispatch(searchRoomActions.setCheckOutDate(date));
@@ -86,14 +81,22 @@ const RoomSearchBar = () => {
         <GuestCountMenu
           isGusetCountMenuOpend={isGuestCountMenuOpend}
           setIsGusetCountMenuOpend={setIsGuestCountMenuOpend}
+          adultCount={adultCount}
+          childrenCount={childrenCount}
+          infantsCount={infantsCount}
+          setAdultCountAction={searchRoomActions.setAdultCount}
+          setChildrenCountAction={searchRoomActions.setChildrenCount}
+          setInfantsCountAction={searchRoomActions.setInfantsCount}
+          modalWrapperClassName="-left-10"
         >
           <input
             data-testid="guest-count-menu-text"
             type="text"
-            className="form-control w-full h-8 border-0 p-2"
+            className="form-control w-full h-8 border-0 p-2 bg-white"
             placeholder="인원수 추가"
-            defaultValue={`성인 ${adultCount}명, 어린이 : ${childrenCount}명, 영유아 : ${infantsCount}`}
+            value={`성인 ${adultCount}명, 어린이 : ${childrenCount}명, 영유아 : ${infantsCount}`}
             onClick={() => setIsGuestCountMenuOpend(true)}
+            readOnly
           />
         </GuestCountMenu>
       </div>

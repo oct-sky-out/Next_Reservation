@@ -2,35 +2,47 @@ import { useSelector } from '@/store/index';
 import { searchRoomActions } from '@/store/searchRoom';
 import { useDispatch } from 'react-redux';
 import OutsideClickHandler from 'react-outside-click-handler';
+import { ActionCreatorWithPreparedPayload } from '@reduxjs/toolkit';
 
+type peopleDispatcherType = (peopleCount: number) => {
+  payload: number;
+  type: string;
+};
 interface IProps {
   isGusetCountMenuOpend: boolean;
   setIsGusetCountMenuOpend: (state: boolean) => void;
+  adultCount: number;
+  setAdultCountAction: peopleDispatcherType;
+  childrenCount: number;
+  setChildrenCountAction: peopleDispatcherType;
+  infantsCount: number;
+  setInfantsCountAction: peopleDispatcherType;
+  modalWrapperClassName?: string;
 }
 
 const GuestCountMenu: React.FC<IProps> = ({
   isGusetCountMenuOpend,
   setIsGusetCountMenuOpend,
+  adultCount,
+  childrenCount,
+  infantsCount,
+  setAdultCountAction,
+  setChildrenCountAction,
+  setInfantsCountAction,
+  modalWrapperClassName,
   children,
 }) => {
   //* redux
   const dispatch = useDispatch();
-  const { adultCount, childrenCount, infantsCount } = useSelector(
-    (selector) => ({
-      adultCount: selector.searchRoom.adultCount,
-      childrenCount: selector.searchRoom.childrenCount,
-      infantsCount: selector.searchRoom.infantsCount,
-    })
-  );
 
   const adultGuestAddSub = (count: number) => {
-    dispatch(searchRoomActions.setAdultCount(count));
+    dispatch(setAdultCountAction(count));
   };
   const childrenGuestAddSub = (count: number) => {
-    dispatch(searchRoomActions.setChildrenCount(count));
+    dispatch(setChildrenCountAction(count));
   };
   const infantsGuestAddSub = (count: number) => {
-    dispatch(searchRoomActions.setInfantsCount(count));
+    dispatch(setInfantsCountAction(count));
   };
 
   return (
@@ -45,7 +57,9 @@ const GuestCountMenu: React.FC<IProps> = ({
         {children}
         {isGusetCountMenuOpend && (
           <>
-            <div className="w-400 h-30 p-3 absolute top-12 rounded-lg flex flex-column bg-white space-y-3">
+            <div
+              className={`w-400 h-30 p-3 absolute top-12 rounded-lg flex flex-column bg-white space-y-3 border-2 border-solid border-emerald  ${modalWrapperClassName}`}
+            >
               <div>
                 <div className="flex-none flex justify-around items-center flex-wrap p-3">
                   <div className="w-1/2 space-y-3">
