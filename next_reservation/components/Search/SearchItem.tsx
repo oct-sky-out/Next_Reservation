@@ -4,12 +4,12 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ryokanDetailActions } from '@/store/ryokanDetail';
 import { v4 } from 'uuid';
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 import findTruthyAmenities from '@/lib/utils/findTruthyAmenities';
 import { RyokanType } from '@/lib/staticData/RegisterRyokanType';
+import { RyokanSearchResultType } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
 
 interface IProps {
-  ryokanDetail: IRyokanType;
+  ryokanDetail: RyokanSearchResultType;
 }
 
 const SearchItem = React.forwardRef<any, IProps>(({ ryokanDetail }, ref) => {

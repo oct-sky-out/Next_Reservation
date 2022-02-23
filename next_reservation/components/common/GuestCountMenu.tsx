@@ -2,35 +2,45 @@ import { useSelector } from '@/store/index';
 import { searchRoomActions } from '@/store/searchRoom';
 import { useDispatch } from 'react-redux';
 import OutsideClickHandler from 'react-outside-click-handler';
+import { ActionCreatorWithPreparedPayload } from '@reduxjs/toolkit';
 
+type peopleDispatcherType = (peopleCount: number) => {
+  payload: number;
+  type: string;
+};
 interface IProps {
   isGusetCountMenuOpend: boolean;
   setIsGusetCountMenuOpend: (state: boolean) => void;
+  adultCount: number;
+  setAdultCountAction: peopleDispatcherType;
+  childrenCount: number;
+  setChildrenCountAction: peopleDispatcherType;
+  infantsCount: number;
+  setInfantsCountAction: peopleDispatcherType;
 }
 
 const GuestCountMenu: React.FC<IProps> = ({
   isGusetCountMenuOpend,
   setIsGusetCountMenuOpend,
+  adultCount,
+  childrenCount,
+  infantsCount,
+  setAdultCountAction,
+  setChildrenCountAction,
+  setInfantsCountAction,
   children,
 }) => {
   //* redux
   const dispatch = useDispatch();
-  const { adultCount, childrenCount, infantsCount } = useSelector(
-    (selector) => ({
-      adultCount: selector.searchRoom.adultCount,
-      childrenCount: selector.searchRoom.childrenCount,
-      infantsCount: selector.searchRoom.infantsCount,
-    })
-  );
 
   const adultGuestAddSub = (count: number) => {
-    dispatch(searchRoomActions.setAdultCount(count));
+    dispatch(setAdultCountAction(count));
   };
   const childrenGuestAddSub = (count: number) => {
-    dispatch(searchRoomActions.setChildrenCount(count));
+    dispatch(setChildrenCountAction(count));
   };
   const infantsGuestAddSub = (count: number) => {
-    dispatch(searchRoomActions.setInfantsCount(count));
+    dispatch(setInfantsCountAction(count));
   };
 
   return (

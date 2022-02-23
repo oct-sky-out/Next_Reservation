@@ -5,7 +5,7 @@ import { useSelector } from '@/store/index';
 import { searchRoomActions } from '@/store/searchRoom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Swal from 'sweetalert2';
-import GuestCountMenu from './GuestCountMenu';
+import GuestCountMenu from '../common/GuestCountMenu';
 import RecommendationPlace from './RecommendationPlace';
 import DatePicker from '@/components/common/DatePicker';
 
@@ -86,6 +86,12 @@ const RoomSearchBar = () => {
         <GuestCountMenu
           isGusetCountMenuOpend={isGuestCountMenuOpend}
           setIsGusetCountMenuOpend={setIsGuestCountMenuOpend}
+          adultCount={adultCount}
+          childrenCount={childrenCount}
+          infantsCount={infantsCount}
+          setAdultCountAction={searchRoomActions.setAdultCount}
+          setChildrenCountAction={searchRoomActions.setChildrenCount}
+          setInfantsCountAction={searchRoomActions.setInfantsCount}
         >
           <input
             data-testid="guest-count-menu-text"

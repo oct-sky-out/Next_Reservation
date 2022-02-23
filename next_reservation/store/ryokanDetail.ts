@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ryokanDetailType } from '@/types/reduxActionTypes/ReduxRyokanDetailType';
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { RyokanSearchResultType } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
 
-const initialState: ryokanDetailType = {
+const initialState: RyokanSearchResultType = {
+  id: '',
   ryokanType: '',
   buildingType: '',
   isBuiltInOnsen: false,
@@ -53,7 +53,10 @@ const ryokanDetailSlice = createSlice({
   initialState,
   reducers: {
     initDetail: (_state, _action: PayloadAction<void>) => ({ ...initialState }),
-    setRyokanDetail: (_state, action: PayloadAction<IRyokanType>) => ({
+    setRyokanDetail: (
+      _state,
+      action: PayloadAction<RyokanSearchResultType>
+    ) => ({
       ...action.payload,
     }),
   },

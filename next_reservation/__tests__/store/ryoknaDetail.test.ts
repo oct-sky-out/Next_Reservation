@@ -56,6 +56,7 @@ describe('료칸 상세페이지 이동시 리덕스의 상태 변경', () => {
         description: 'hello',
         pricePerDay: '1,200',
         date: { openDate: new Date(), closeDate: null },
+        id: 'asd',
       })
     );
 
@@ -65,6 +66,7 @@ describe('료칸 상세페이지 이동시 리덕스의 상태 변경', () => {
   test('료칸 상세정보를 초기화 시킨다.', () => {
     store.dispatch(
       ryokanDetailActions.setRyokanDetail({
+        id: 'asd',
         ryokanType: 'Japanese-Western',
         buildingType: 'Rental_Cottage',
         isBuiltInOnsen: false,

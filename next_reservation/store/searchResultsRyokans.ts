@@ -1,8 +1,8 @@
+import { convenienceSpacesType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 import {
-  convenienceSpacesType,
-  IRyokanType,
-} from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
-import { ISearchResultRyokan } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
+  ISearchResultRyokan,
+  RyokanSearchResultType,
+} from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: ISearchResultRyokan = {
@@ -40,7 +40,10 @@ const searchResultsRoomsSlice = createSlice({
         filterRyokanType: '',
       },
     }),
-    setSearchResult: (state, action: PayloadAction<IRyokanType[]>) => ({
+    setSearchResult: (
+      state,
+      action: PayloadAction<RyokanSearchResultType[]>
+    ) => ({
       ...state,
       searchResult: action.payload,
     }),

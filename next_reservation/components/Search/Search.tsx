@@ -8,8 +8,9 @@ import Loader from 'react-loader-spinner';
 import SearchItem from './SearchItem';
 import SearchFilter from './SearchFilter';
 import SearchReslutLocation from './SearchReslutLocation';
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 import useSearchFilter from '../hooks/useSearchFilter';
+import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { RyokanSearchResultType } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
 
 const Search = () => {
   //* redux
@@ -26,7 +27,9 @@ const Search = () => {
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [isMaxLoaded, setIsMaxLoaded] = useState(false);
   const [offset, setOffset] = useState(0);
-  const [filterRyokanList, setFilterRyokanList] = useState<IRyokanType[]>([]);
+  const [filterRyokanList, setFilterRyokanList] = useState<
+    RyokanSearchResultType[]
+  >([]);
   const searchFilter = useSearchFilter(searchResult, searchRoomFilter);
 
   //* useRefs
@@ -44,7 +47,7 @@ const Search = () => {
   //*useCallback
   const fetchSearch = useCallback(async () => {
     setLoadingStatus(true);
-    const { data } = await axios.get<IRyokanType[]>('/api/search', {
+    const { data } = await axios.get<RyokanSearchResultType[]>('/api/search', {
       params: {
         documentStart: offset,
         latitude: searchRoom.latitude,

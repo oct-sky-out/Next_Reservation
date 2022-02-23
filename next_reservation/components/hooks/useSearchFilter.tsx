@@ -2,6 +2,7 @@ import {
   convenienceSpacesType,
   IRyokanType,
 } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { RyokanSearchResultType } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
 
 type SearchRoomFilterType = {
   filterConvenienceSpaces: convenienceSpacesType;
@@ -13,7 +14,7 @@ type SearchRoomFilterType = {
 };
 
 const useSearchFilter = (
-  searchResult: IRyokanType[],
+  searchResult: RyokanSearchResultType[],
   searchRoomFilter: SearchRoomFilterType
 ) => {
   const ELIGIBLE = true;

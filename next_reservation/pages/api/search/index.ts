@@ -1,4 +1,5 @@
 import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { RyokanSearchResultType } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { firestroeAdmin } from '../../../firebaseAdmin';
@@ -28,7 +29,7 @@ search.get(async (req, res) => {
       childrenCount,
       infantsCount,
     } = req.query;
-    let searchDocumentsResults: IRyokanType[] = [];
+    let searchDocumentsResults: RyokanSearchResultType[] = [];
     const ryokanCollection = firestroeAdmin().collection('RegisterRyokans');
     await (
       await ryokanCollection
@@ -36,9 +37,12 @@ search.get(async (req, res) => {
         .offset(+documentStart)
         .limit(RESULT_LIMIT)
         .get()
-    ).docs.forEach((doc) =>
-      searchDocumentsResults.push(doc.data() as IRyokanType)
-    );
+    ).docs.forEach((doc) => {
+      searchDocumentsResults.push({
+        ...(doc.data() as IRyokanType),
+        id: doc.id,
+      });
+    });
     searchDocumentsResults = searchDocumentsResults.filter(
       (ryokan) =>
         ryokan.location.latitude <= +latitude + 0.5 &&
