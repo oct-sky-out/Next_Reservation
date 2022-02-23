@@ -1,10 +1,25 @@
 import { useSelector } from '@/store/index';
-import ReservationForm from './ReservationForm';
+import { ryokanDetailActions } from '@/store/ryokanDetail';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import RyokanDetailImage from './RyokanDetailImage';
 import RyokanDetailPost from './RyokanDetailPost';
 
 const RyokanDetailPage = () => {
-  const isModalOpend = useSelector((state) => state.modalState.modalState);
+  const { isModalOpend, ryokanDetail } = useSelector((state) => ({
+    isModalOpend: state.modalState.modalState,
+    ryokanDetail: state.ryokanDetail,
+  }));
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const ryokanDetailJson = localStorage.getItem('ryokanDetail');
+    if (ryokanDetail.id === '' && ryokanDetailJson) {
+      dispatch(
+        ryokanDetailActions.setRyokanDetail(JSON.parse(ryokanDetailJson))
+      );
+    }
+  }, []);
 
   return (
     <div

@@ -11,21 +11,15 @@ import DatePicker from '@/components/common/DatePicker';
 
 const RoomSearchBar = () => {
   const router = useRouter();
+  const searchRoomForm = useSelector((selector) => selector.searchRoom);
   const {
-    location,
-    checkInDate,
-    checkOutDate,
     adultCount,
     childrenCount,
     infantsCount,
-  } = useSelector((selector) => ({
-    location: selector.searchRoom.location,
-    checkInDate: selector.searchRoom.checkInDate,
-    checkOutDate: selector.searchRoom.checkOutDate,
-    adultCount: selector.searchRoom.adultCount,
-    childrenCount: selector.searchRoom.childrenCount,
-    infantsCount: selector.searchRoom.infantsCount,
-  }));
+    checkInDate,
+    checkOutDate,
+    location,
+  } = searchRoomForm;
   const dispatch = useDispatch();
 
   const [isGuestCountMenuOpend, setIsGuestCountMenuOpend] = useState(false);
@@ -37,9 +31,10 @@ const RoomSearchBar = () => {
       checkInDate &&
       checkOutDate &&
       (adultCount || childrenCount || infantsCount)
-    )
+    ) {
+      localStorage.setItem('search', JSON.stringify({ ...searchRoomForm }));
       router.push(`/room/search?place=${location}`);
-    else
+    } else
       Swal.fire({
         title: '검색항목이 부족합니다.',
         text: '검색항목이 부족합니다. 검색항목 중 빠진것이 없는지 확인해주세요!',

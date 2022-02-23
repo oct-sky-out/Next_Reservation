@@ -11,6 +11,7 @@ import SearchReslutLocation from './SearchReslutLocation';
 import useSearchFilter from '../hooks/useSearchFilter';
 import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 import { RyokanSearchResultType } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
+import { searchRoomActions } from '@/store/searchRoom';
 
 const Search = () => {
   //* redux
@@ -94,6 +95,19 @@ const Search = () => {
   useEffect(() => {
     observerNextPage();
   }, [observerNextPage]);
+
+  useEffect(() => {
+    const searchRoomFormJson = localStorage.getItem('search');
+    if (
+      searchRoom.checkInDate === null &&
+      searchRoom.checkInDate === null &&
+      searchRoomFormJson
+    ) {
+      dispatch(
+        searchRoomActions.setSearchRoomForm(JSON.parse(searchRoomFormJson))
+      );
+    }
+  }, []);
 
   return (
     <div className={`${modalState ? 'filter blur-sm' : ''} `}>

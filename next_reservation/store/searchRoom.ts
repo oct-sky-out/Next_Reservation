@@ -16,6 +16,9 @@ const searchRoomSlice = createSlice({
   name: 'searchRoom',
   initialState,
   reducers: {
+    setSearchRoomForm: (_state, action: PayloadAction<ISearchRoom>) => ({
+      ...action.payload,
+    }),
     setLocation: {
       prepare: (location: string) => ({ payload: location }),
       reducer: (state, action: PayloadAction<string>) => ({

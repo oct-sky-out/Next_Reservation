@@ -44,8 +44,6 @@ const ReservationForm = () => {
   };
 
   useEffect(() => {
-    console.log(searchAdultCount, searchChildrenCount, searchInfantsCount);
-    console.log(adultCount, childrenCount, infantsCount);
     dispatch(
       reservationActions.setPeopleCount({
         adultCount: searchAdultCount,

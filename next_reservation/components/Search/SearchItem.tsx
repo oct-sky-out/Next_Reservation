@@ -39,6 +39,7 @@ const SearchItem = React.forwardRef<any, IProps>(({ ryokanDetail }, ref) => {
   }, [visiableImage]);
 
   const moveRyokanDetailPage = () => {
+    localStorage.setItem('ryokanDetail', JSON.stringify(ryokanDetail));
     dispatch(ryokanDetailActions.setRyokanDetail(ryokanDetail));
     router.push(`/room/${title}`);
   };
