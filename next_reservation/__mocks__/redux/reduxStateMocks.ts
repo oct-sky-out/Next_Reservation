@@ -118,6 +118,7 @@ export const mockStoreValue: mockStoreType = {
     },
   },
   ryokanDetail: {
+    id: '',
     ryokanType: '',
     buildingType: '',
     isBuiltInOnsen: false,
@@ -161,5 +162,13 @@ export const mockStoreValue: mockStoreType = {
     description: '',
     pricePerDay: '',
     date: { openDate: null, closeDate: null },
+  },
+  reservation: {
+    ryokanId: '',
+    adultCount: 0,
+    childrenCount: 0,
+    infantsCount: 0,
+    startDate: new Date(),
+    endDate: new Date(),
   },
 };
