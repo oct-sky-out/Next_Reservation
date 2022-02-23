@@ -69,7 +69,7 @@ const RoomSearchBar = () => {
           data-testid="check-out-input"
           className="form-control w-full h-8 p-2 mt-1 border-0"
           selected={checkOutDate}
-          minDate={checkInDate || new Date()}
+          minDate={checkInDate!}
           placeholderText="체크아웃 날짜입력"
           onChange={(date) => {
             dispatch(searchRoomActions.setCheckOutDate(date));

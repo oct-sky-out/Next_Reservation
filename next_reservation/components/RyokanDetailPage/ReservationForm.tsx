@@ -1,11 +1,15 @@
+import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
 import { reservationActions } from '@/store/reservation';
+import axios from '@/lib/api';
+import Swal from 'sweetalert2';
 import DatePicker from '@/components/common/DatePicker';
 import GuestCountMenu from '@/components/common/GuestCountMenu';
 
 const ReservationForm = () => {
+  const router = useRouter();
   const {
     adultCount,
     childrenCount,
@@ -18,6 +22,7 @@ const ReservationForm = () => {
     searchChildrenCount,
     searchInfantsCount,
     ryokanId,
+    email,
   } = useSelector((state) => ({
     adultCount: state.reservation.adultCount,
     childrenCount: state.reservation.childrenCount,
@@ -30,6 +35,7 @@ const ReservationForm = () => {
     searchCheckInDate: state.searchRoom.checkInDate,
     searchCheckOutDate: state.searchRoom.checkOutDate,
     ryokanId: state.ryokanDetail.id,
+    email: state.user.data.email,
   }));
   const dispatch = useDispatch();
   const [isGuestCountMenuOpend, setIsGuestCountMenuOpend] = useState(false);
@@ -39,8 +45,45 @@ const ReservationForm = () => {
     [adultCount, childrenCount, infantsCount]
   );
 
-  const clickReservation = () => {
-    dispatch(reservationActions.setRyokanId(ryokanId));
+  const clickReservation = async () => {
+    try {
+      dispatch(reservationActions.setRyokanId(ryokanId));
+      const { data } = await axios.post('/api/reserve', {
+        email,
+        reserveId: ryokanId,
+        adultCount,
+        childrenCount,
+        infantsCount,
+        checkIn: startDate,
+        checkOut: endDate,
+      });
+      if (data) {
+        Swal.fire({
+          toast: true,
+          title: '예약성공',
+          text: '예약을 완료했습니다.',
+          icon: 'success',
+          position: 'top-end',
+          timer: 5000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+          showCloseButton: true,
+        });
+        router.push('/my/reservations');
+      }
+    } catch {
+      Swal.fire({
+        toast: true,
+        title: '에약실패',
+        text: '예약에 실패했습니다.',
+        icon: 'error',
+        position: 'top-end',
+        timer: 5000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        showCloseButton: true,
+      });
+    }
   };
 
   useEffect(() => {

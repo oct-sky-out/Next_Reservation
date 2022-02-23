@@ -16,7 +16,6 @@ const register = nextConnect<NextApiRequest, NextApiResponse>({
 register.post(async (req, res) => {
   const { email, registerData } = req.body;
   if (isEqual(registerData, ryokanInitialData)) res.status(400).end();
-  console.log();
   await firestroeAdmin()
     .collection('RegisterRyokans')
     .doc()
