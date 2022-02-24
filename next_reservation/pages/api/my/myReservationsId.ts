@@ -2,6 +2,15 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { firestroeAdmin } from 'firebaseAdmin';
 
+type reservedRyokanType = {
+  adultCount: number;
+  childrenCount: number;
+  infantsCount: number;
+  checkIn: string;
+  checkOut: string;
+  reserveId: string;
+};
+
 const myReservationsId = nextConnect<NextApiRequest, NextApiResponse>({
   onError: (err, _req, res) => {
     res.status(400).send(err);
@@ -15,7 +24,7 @@ myReservationsId.get(async (req, res) => {
   const { email } = req.query;
 
   if (!email) res.status(400).end();
-  let myReservations: { reserveIds: string[] } = {
+  let myReservations: { reserveIds: reservedRyokanType[] } = {
     reserveIds: [],
   };
 

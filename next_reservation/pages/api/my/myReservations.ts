@@ -17,15 +17,14 @@ myReservations.post(async (req, res) => {
   if (!reserveId) res.status(400).end();
   let ryokans: unknown[] = []; // type => IRyokanType[]
 
-  ryokans = await (
-    await firestroeAdmin().collection('RegisterRyokans').get()
-  ).docs
-    .map((ryokanDocument) => {
-      for (const id of reserveId as string[])
-        if (ryokanDocument.id === id) return ryokanDocument.data();
-      return null;
-    })
-    .filter((ryokan) => ryokan);
+  for (const id of reserveId as string[]) {
+    await (
+      await firestroeAdmin().collection('RegisterRyokans').get()
+    ).forEach(
+      (document) => document.id === id && ryokans.push(document.data())
+    );
+  }
+
   res.status(200).send(ryokans);
 });
 
