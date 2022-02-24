@@ -171,4 +171,5 @@ export const mockStoreValue: mockStoreType = {
     startDate: new Date(),
     endDate: new Date(),
   },
+  myReservations: [],
 };

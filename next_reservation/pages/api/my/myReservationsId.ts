@@ -1,15 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { firestroeAdmin } from 'firebaseAdmin';
-
-type reservedRyokanType = {
-  adultCount: number;
-  childrenCount: number;
-  infantsCount: number;
-  checkIn: string;
-  checkOut: string;
-  reserveId: string;
-};
+import { reservedRyokanType } from '@/types/apiTyps/my/myReservationsId';
 
 const myReservationsId = nextConnect<NextApiRequest, NextApiResponse>({
   onError: (err, _req, res) => {
