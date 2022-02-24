@@ -37,7 +37,6 @@ reserve.post(async (req, res) => {
     checkOut,
   };
 
-  console.log(reserveData);
   if (userReservataionData)
     await firestroeAdmin()
       .collection('reservationList')
