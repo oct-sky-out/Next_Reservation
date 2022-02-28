@@ -1,7 +1,8 @@
 import { GetServerSideProps, NextPage } from 'next';
+import MyReservations from '@/components/My/MyReservations/MyReservations';
 
 const ryokan: NextPage = () => {
-  return <div>mypage</div>;
+  return <MyReservations />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
