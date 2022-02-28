@@ -25,5 +25,5 @@
     "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "firebaseClient.ts"],
-  "exclude": ["node_modules, .yarn"]
+  "exclude": ["node_modules", ".yarn"]
 }
