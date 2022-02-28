@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { ryokanDetailActions } from '@/store/ryokanDetail';
 import { v4 } from 'uuid';
 import findTruthyAmenities from '@/lib/utils/findTruthyAmenities';
 import { RyokanType } from '@/lib/staticData/RegisterRyokanType';
 import { RyokanSearchResultType } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
+import SearchItemImage from './SearchItemImage';
 
 interface IProps {
   ryokanDetail: RyokanSearchResultType;
@@ -39,8 +38,6 @@ const SearchItem = React.forwardRef<any, IProps>(({ ryokanDetail }, ref) => {
   }, [visiableImage]);
 
   const moveRyokanDetailPage = () => {
-    localStorage.setItem('ryokanDetail', JSON.stringify(ryokanDetail));
-    dispatch(ryokanDetailActions.setRyokanDetail(ryokanDetail));
     router.push(`/room/${title}`);
   };
 
@@ -57,13 +54,7 @@ const SearchItem = React.forwardRef<any, IProps>(({ ryokanDetail }, ref) => {
               visiableImage === index ? 'block' : 'hidden'
             }`}
           >
-            <Image
-              className="rounded-xl"
-              src={image.photoUrl}
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
-            />
+            <SearchItemImage itemImage={image} />
           </div>
         ))}
       </div>
