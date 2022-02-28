@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from '@/store/index';
 import { v4 } from 'uuid';
 
@@ -22,7 +22,7 @@ const RyokanDetailImage = () => {
   useEffect(() => {
     if (isPhotoAvailable()) setSelectedPhoto(photos[0].photoUrl);
     else setSelectedPhoto('');
-  }, []);
+  }, [photos]);
 
   useEffect(() => {
     if (isPhotoAvailable()) setSelectedPhoto(photos[photoOrder].photoUrl);
@@ -37,6 +37,7 @@ const RyokanDetailImage = () => {
               layout="fill"
               objectFit="cover"
               objectPosition="center"
+              loading="lazy"
               src={selectedPhoto}
             />
           </div>
@@ -67,9 +68,12 @@ const RyokanDetailImage = () => {
       <div className="flex w-full h-200 space-x-3 mt-3">
         {photos.length ? (
           photos.map((photo) => (
-            <div className="w-200" key={v4()}>
-              <img
+            <div className="w-200 relative" key={v4()}>
+              <Image
                 className="w-full h-full"
+                layout="fill"
+                objectFit="cover"
+                objectPosition="center"
                 src={photo.photoUrl}
                 alt={photo.photoName}
               />

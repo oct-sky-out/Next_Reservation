@@ -1,25 +1,31 @@
+import { useRouter } from 'next/router';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from '@/store/index';
 import { ryokanDetailActions } from '@/store/ryokanDetail';
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import RyokanDetailImage from './RyokanDetailImage';
 import RyokanDetailPost from './RyokanDetailPost';
+import axios from '@/lib/api';
+import { RyokanSearchResultType } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
 
 const RyokanDetailPage = () => {
+  const router = useRouter();
   const { isModalOpend, ryokanDetail } = useSelector((state) => ({
     isModalOpend: state.modalState.modalState,
     ryokanDetail: state.ryokanDetail,
   }));
   const dispatch = useDispatch();
 
+  const fetchRyokanDetail = useCallback(async () => {
+    const { data } = await axios.get<RyokanSearchResultType>(
+      `/api/ryokan/detail?title=${router.query.ryokan}`
+    );
+    dispatch(ryokanDetailActions.setRyokanDetail(data));
+  }, [router.query]);
+
   useEffect(() => {
-    const ryokanDetailJson = localStorage.getItem('ryokanDetail');
-    if (ryokanDetail.id === '' && ryokanDetailJson) {
-      dispatch(
-        ryokanDetailActions.setRyokanDetail(JSON.parse(ryokanDetailJson))
-      );
-    }
-  }, []);
+    fetchRyokanDetail();
+  }, [fetchRyokanDetail]);
 
   return (
     <div
