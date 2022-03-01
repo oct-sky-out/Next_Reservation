@@ -33,6 +33,12 @@ const RegisterTitleAndDescription = () => {
     dispatch(registerRyokanActions.setCloseDate(date));
   };
 
+  const parseDate = (date: string | Date | null) => {
+    if (typeof date === 'string') return new Date(date);
+    if (!date) return new Date();
+    return date;
+  };
+
   return (
     <div className="w-full h-outOfHeader text-black col-start-2 animate-fadeInAndUpForm register-form overflow-scroll">
       <div className="w-2/3 h-2/3 mx-auto my-5 relative ">
@@ -40,7 +46,7 @@ const RegisterTitleAndDescription = () => {
           <div className="flex flex-col space-y-5">
             <span className="text-2xl">료칸 예약 시작일</span>
             <DatePicker
-              selected={openDate}
+              selected={parseDate(openDate)}
               placeholderText="예약 시작날짜"
               onChange={changedReservationStartDate}
               minDate={new Date()}
@@ -51,10 +57,10 @@ const RegisterTitleAndDescription = () => {
           <div className="flex flex-col space-y-5">
             <span className="text-2xl">료칸 예약 종료일</span>
             <DatePicker
-              selected={closeDate}
+              selected={parseDate(closeDate)}
               placeholderText="예약 종료날짜"
               onChange={changedReservationEndDate}
-              minDate={openDate || undefined}
+              minDate={parseDate(openDate)}
               name="reservationEnd"
               className="w-1/2 h-12 text-xl"
               disabled={!openDate}

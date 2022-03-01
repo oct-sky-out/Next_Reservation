@@ -3,6 +3,6 @@ export interface IReservation {
   adultCount: number;
   childrenCount: number;
   infantsCount: number;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
 }

@@ -6,8 +6,8 @@ const initialState: IReservation = {
   adultCount: 0,
   childrenCount: 0,
   infantsCount: 0,
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: new Date().toISOString(),
+  endDate: new Date().toISOString(),
 };
 
 const reservationSlice = createSlice({
@@ -41,17 +41,17 @@ const reservationSlice = createSlice({
     }),
     setDate: (
       state,
-      action: PayloadAction<{ startDate: Date; endDate: Date }>
+      action: PayloadAction<{ startDate: string; endDate: string }>
     ) => ({
       ...state,
       startDate: action.payload.startDate,
       endDate: action.payload.endDate,
     }),
-    setStartDate: (state, action: PayloadAction<Date>) => ({
+    setStartDate: (state, action: PayloadAction<string>) => ({
       ...state,
       startDate: action.payload,
     }),
-    setEndDate: (state, action: PayloadAction<Date>) => ({
+    setEndDate: (state, action: PayloadAction<string>) => ({
       ...state,
       endDate: action.payload,
     }),

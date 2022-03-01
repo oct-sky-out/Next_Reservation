@@ -103,8 +103,17 @@ const Search = () => {
       searchRoom.checkInDate === null &&
       searchRoomFormJson
     ) {
+      const parsedsearchRoomForm = JSON.parse(searchRoomFormJson);
+      dispatch(searchRoomActions.setSearchRoomForm(parsedsearchRoomForm));
       dispatch(
-        searchRoomActions.setSearchRoomForm(JSON.parse(searchRoomFormJson))
+        searchRoomActions.setCheckInDate(
+          new Date(parsedsearchRoomForm.checkInDate)
+        )
+      );
+      dispatch(
+        searchRoomActions.setCheckOutDate(
+          new Date(parsedsearchRoomForm.checkOutDate)
+        )
       );
     }
   }, []);
