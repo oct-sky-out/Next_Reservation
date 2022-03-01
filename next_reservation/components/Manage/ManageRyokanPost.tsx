@@ -10,15 +10,15 @@ const ManageRyokanPost: React.FC<IManageRyokanPost> = ({ ryokanPost }) => {
     <div className="w-full h-full relative">
       <div>
         <h3 className="text-xl">제목</h3>
-        <span>{ryokanPost.title}</span>
+        <span className="text-lg">{ryokanPost.title}</span>
       </div>
       <div>
         <h3 className="text-xl">가격</h3>
-        <span>{ryokanPost.pricePerDay}</span>
+        <span className="text-lg">₩ {ryokanPost.pricePerDay}</span>
       </div>
       <div>
         <h3 className="text-xl">개장일</h3>
-        <span>
+        <span className="text-lg">
           {new Date(ryokanPost.date.openDate as string).toLocaleString(
             'ko-KR',
             { year: '2-digit', month: '2-digit', day: '2-digit' }
@@ -27,7 +27,7 @@ const ManageRyokanPost: React.FC<IManageRyokanPost> = ({ ryokanPost }) => {
       </div>
       <div>
         <h3 className="text-xl">종료일</h3>
-        <span>
+        <span className="text-lg">
           {new Date(ryokanPost.date.closeDate as string).toLocaleString(
             'ko-KR',
             {
