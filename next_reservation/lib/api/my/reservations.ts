@@ -4,12 +4,12 @@ import axios from '../index';
 
 const reservations = async (userEmail: string) => {
   const reserveHistories = await axios.get<reservedRyokanType[]>(
-    `/api/my/myReservationsId?email=${userEmail}`
+    `/api/my/reservationsId?email=${userEmail}`
   );
   const reserveIds = reserveHistories.data.map((history) => history.reserveId);
 
   const myReservaionRyokans = await axios.post<IRyokanType[]>(
-    `/api/my/myReservations`,
+    `/api/my/reservations`,
     { reserveId: reserveIds }
   );
 
