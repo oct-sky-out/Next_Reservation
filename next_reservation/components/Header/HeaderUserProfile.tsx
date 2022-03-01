@@ -37,7 +37,7 @@ const HeaderUserProfile = () => {
               email: '',
               name: '',
               token: '',
-              brithDay: new Date(),
+              brithDay: new Date().toISOString(),
               userPicture: { src: '', height: 0, width: 0 },
             })
           );

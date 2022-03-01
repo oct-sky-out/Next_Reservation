@@ -8,12 +8,9 @@ interface ISearchItemImage {
 const SearchItemImage: React.FC<ISearchItemImage> = ({ itemImage }) => {
   return (
     <>
-      <Image
-        className="rounded-xl"
+      <img
+        className="rounded-xl w-full h-full object-cover object-center"
         src={itemImage.photoUrl}
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
         loading="lazy"
       />
     </>
