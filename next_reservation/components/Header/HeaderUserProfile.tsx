@@ -37,7 +37,7 @@ const HeaderUserProfile = () => {
               email: '',
               name: '',
               token: '',
-              brithDay: new Date(),
+              brithDay: new Date().toISOString(),
               userPicture: { src: '', height: 0, width: 0 },
             })
           );
@@ -54,6 +54,11 @@ const HeaderUserProfile = () => {
 
   const goingRegistRyokan = useCallback(() => {
     router.push('/room/register/ryokan');
+    setIsUserMenuOpened(false);
+  }, []);
+
+  const goingMyAccount = useCallback(() => {
+    router.push('/my/account');
     setIsUserMenuOpened(false);
   }, []);
 
@@ -79,6 +84,7 @@ const HeaderUserProfile = () => {
           <>
             <div className="w-60 h-30 absolute rounded-lg header-user-profile-wrapper flex flex-column">
               <button
+                onClick={goingMyAccount}
                 type="button"
                 className="py-3 px-6 header-user-profile-management text-black border-b-2 border-emerald"
               >

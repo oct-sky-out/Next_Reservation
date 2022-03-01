@@ -94,12 +94,15 @@ const ReservationForm = () => {
         infantsCount: searchInfantsCount,
       })
     );
-    dispatch(
-      reservationActions.setDate({
-        startDate: searchCheckInDate!,
-        endDate: searchCheckOutDate!,
-      })
-    );
+    if (searchCheckInDate && searchCheckOutDate) {
+      console.log(searchCheckInDate, searchCheckOutDate);
+      dispatch(
+        reservationActions.setDate({
+          startDate: searchCheckInDate.toISOString(),
+          endDate: searchCheckOutDate.toISOString(),
+        })
+      );
+    }
   }, []);
 
   return (
@@ -112,11 +115,13 @@ const ReservationForm = () => {
           <span>예약시작 일자</span>
           <DatePicker
             className="w-32 border-none"
-            selected={startDate || new Date()}
+            selected={new Date(startDate)}
             minDate={new Date()}
             placeholderText="예약일자"
             onChange={(date) => {
-              dispatch(reservationActions.setStartDate(date));
+              dispatch(
+                reservationActions.setStartDate(date.toLocaleString('ko-KR'))
+              );
             }}
           />
         </div>
@@ -124,11 +129,13 @@ const ReservationForm = () => {
           <span>예약종료 일자</span>
           <DatePicker
             className="w-32 border-none"
-            selected={endDate || new Date()}
-            minDate={startDate || new Date()}
+            selected={new Date(endDate)}
+            minDate={new Date(startDate)}
             placeholderText="예약일자"
             onChange={(date) => {
-              dispatch(reservationActions.setEndDate(date));
+              dispatch(
+                reservationActions.setEndDate(date.toLocaleString('ko-KR'))
+              );
             }}
           />
         </div>

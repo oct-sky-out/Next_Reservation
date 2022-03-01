@@ -3,7 +3,7 @@ export interface IFirebaseSignUpResult {
   email: string;
   name: string;
   userPicture: StaticImageData;
-  brithDay: Date | null;
+  brithDay: string | null;
   token?: string;
 }
 
@@ -18,7 +18,7 @@ export interface IFirebaseSignInResult {
   email: string;
   name: string;
   userPicture: StaticImageData;
-  brithDay: Date | null;
+  brithDay: string | null;
   token: string;
 }
 

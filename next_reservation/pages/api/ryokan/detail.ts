@@ -15,7 +15,6 @@ const detail = nextConnect<NextApiRequest, NextApiResponse>({
 
 detail.get(async (req, res) => {
   const { title } = req.query;
-  console.log(title);
 
   if (!title) res.status(400).end();
   let ryokanResult = null;
