@@ -3,7 +3,7 @@ import nextConnect from 'next-connect';
 import { firestroeAdmin } from 'firebaseAdmin';
 import { reservedRyokanType } from '@/types/apiTyps/my/myReservationsId';
 
-const myReservationsId = nextConnect<NextApiRequest, NextApiResponse>({
+const reservationsId = nextConnect<NextApiRequest, NextApiResponse>({
   onError: (err, _req, res) => {
     res.status(400).send(err);
   },
@@ -12,7 +12,7 @@ const myReservationsId = nextConnect<NextApiRequest, NextApiResponse>({
   },
 });
 
-myReservationsId.get(async (req, res) => {
+reservationsId.get(async (req, res) => {
   const { email } = req.query;
 
   if (!email) res.status(400).end();
@@ -36,4 +36,4 @@ myReservationsId.get(async (req, res) => {
   res.status(200).send(myReservations.reserveIds);
 });
 
-export default myReservationsId;
+export default reservationsId;

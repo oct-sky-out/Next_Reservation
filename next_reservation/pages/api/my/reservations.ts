@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { firestroeAdmin } from 'firebaseAdmin';
 
-const myReservations = nextConnect<NextApiRequest, NextApiResponse>({
+const reservations = nextConnect<NextApiRequest, NextApiResponse>({
   onError: (err, _req, res) => {
     res.status(400).send(err);
   },
@@ -11,7 +11,7 @@ const myReservations = nextConnect<NextApiRequest, NextApiResponse>({
   },
 });
 
-myReservations.post(async (req, res) => {
+reservations.post(async (req, res) => {
   const { reserveId } = req.body;
 
   if (!reserveId) res.status(400).end();
@@ -28,4 +28,4 @@ myReservations.post(async (req, res) => {
   res.status(200).send(ryokans);
 });
 
-export default myReservations;
+export default reservations;
