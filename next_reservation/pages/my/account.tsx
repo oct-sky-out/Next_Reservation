@@ -1,5 +1,5 @@
-import Account from '@/components/My/Account/Account';
 import { GetServerSideProps } from 'next';
+import Account from '@/components/My/Account/Account';
 
 const account = () => {
   return <Account />;
