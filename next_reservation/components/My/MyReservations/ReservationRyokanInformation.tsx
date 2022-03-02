@@ -1,5 +1,5 @@
 import { RyokanType as RyokanTypes } from '@/lib/staticData/RegisterRyokanType';
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { IRyokanType } from '@/types/reduxActionTypes/ReduxRyokanType';
 interface IReservationRyokanInformation {
   reservedRyokan: Omit<IRyokanType, 'photos'>;
 }

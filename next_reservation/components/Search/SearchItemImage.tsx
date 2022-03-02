@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { photoType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { photoType } from '@/types/reduxActionTypes/ReduxRyokanType';
 import { useMemo } from 'react';
 
 interface ISearchItemImage {

@@ -1,5 +1,5 @@
 import { reservedRyokanType } from '../apiTyps/my/myReservationsId';
-import { IRyokanType } from './ReduxRegiserRyokanType';
+import { IRyokanType } from './ReduxRyokanType';
 
 export type MyReservation = {
   reservedRyokan: IRyokanType;

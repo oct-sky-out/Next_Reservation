@@ -1,17 +1,17 @@
 import { GetServerSideProps, NextPage } from 'next';
-import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
-import RegisterDate from '@/components/Register/RegisterDate/RegisterDate';
+import RyokanFormWrapper from '@/components/RyokanForm/RyokanFormWrapper/RyokanFormWrapper';
+import RegisterDate from '@/components/RyokanForm/RegisterDate/RegisterDate';
 
 const date: NextPage = () => {
   return (
-    <RegisterRyokan
-      producerText="숙소의 위치정보가 일치하나요?"
+    <RyokanFormWrapper
+      producerText="료칸 개장일과 종료일은 언제인가요?"
       priviousHref="/room/register/pricePerDay"
       nextHref="/room/register/completion"
       step={10}
     >
       <RegisterDate />
-    </RegisterRyokan>
+    </RyokanFormWrapper>
   );
 };
 

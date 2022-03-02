@@ -1,4 +1,4 @@
-import { amenitiesType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { amenitiesType } from '@/types/reduxActionTypes/ReduxRyokanType';
 import Amenities from '../staticData/Amenities';
 
 const findTruthyAmenities = (amenities: amenitiesType) =>

@@ -1,18 +1,18 @@
 import React from 'react';
 import { GetServerSideProps, NextPage } from 'next';
-import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
-import RegisterConvenienceSpaces from '@/components/Register/RegisterConvenienceSpaces/RegisterConvenienceSpaces';
+import RyokanFormWrapper from '@/components/RyokanForm/RyokanFormWrapper/RyokanFormWrapper';
+import ConvenienceSpaces from '@/components/RyokanForm/ConvenienceSpaces/ConvenienceSpaces';
 
 const convenienceSpaces: NextPage = () => {
   return (
-    <RegisterRyokan
+    <RyokanFormWrapper
       producerText="게스트가 어떤 공간을 사용할 수 있나요?"
       priviousHref="/room/register/amenities"
       nextHref="/room/register/ryokanPhotos"
       step={6}
     >
-      <RegisterConvenienceSpaces />
-    </RegisterRyokan>
+      <ConvenienceSpaces />
+    </RyokanFormWrapper>
   );
 };
 

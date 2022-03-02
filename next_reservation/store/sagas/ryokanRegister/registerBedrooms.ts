@@ -3,8 +3,8 @@ import { registerFormValidAction } from '@/store/registerFormIsValid';
 import { RootState } from '@/store/index';
 
 const getBedroomListAndPersonnel = (state: RootState) => ({
-  bedroomList: state.registerRyokan.bedrooms.bedroomList,
-  personnelCount: state.registerRyokan.bedrooms.personnel,
+  bedroomList: state.ryokanForm.bedrooms.bedroomList,
+  personnelCount: state.ryokanForm.bedrooms.personnel,
 });
 
 type callSagaArgType = ReturnType<typeof getBedroomListAndPersonnel>;
@@ -40,10 +40,10 @@ function* observationBedroomCountAndPersonnel() {
 export default function* watchBedroomCountAndPersonnel() {
   yield takeLatest(
     [
-      'register/setBedroom',
-      'register/setBedroomList',
-      'register/setBedroomCount',
-      'register/setPersonnel',
+      'ryokanForm/setBedroom',
+      'ryokanForm/setBedroomList',
+      'ryokanForm/setBedroomCount',
+      'ryokanForm/setPersonnel',
     ],
     observationBedroomCountAndPersonnel
   );

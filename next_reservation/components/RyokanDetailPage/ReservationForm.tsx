@@ -95,7 +95,6 @@ const ReservationForm = () => {
       })
     );
     if (searchCheckInDate && searchCheckOutDate) {
-      console.log(searchCheckInDate, searchCheckOutDate);
       dispatch(
         reservationActions.setDate({
           startDate: searchCheckInDate.toISOString(),

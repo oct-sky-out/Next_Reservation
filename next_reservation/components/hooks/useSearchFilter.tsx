@@ -1,7 +1,7 @@
 import {
   convenienceSpacesType,
   IRyokanType,
-} from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+} from '@/types/reduxActionTypes/ReduxRyokanType';
 import { RyokanSearchResultType } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
 
 type SearchRoomFilterType = {

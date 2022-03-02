@@ -29,7 +29,7 @@ export const mockStoreValue: mockStoreType = {
     data: {
       type: '',
       email: '',
-      brithDay: new Date(),
+      brithDay: '',
       name: '',
       userPicture: userDefaultProfilePicture,
       token: '',
@@ -41,7 +41,8 @@ export const mockStoreValue: mockStoreType = {
     },
     logged: false,
   },
-  registerRyokan: {
+  ryokanForm: {
+    option: { isEdit: false, ryokanId: '' },
     buildingType: '',
     ryokanType: '',
     isBuiltInOnsen: false,
@@ -168,8 +169,9 @@ export const mockStoreValue: mockStoreType = {
     adultCount: 0,
     childrenCount: 0,
     infantsCount: 0,
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: '',
+    endDate: '',
   },
   myReservations: [],
+  isRendered: false,
 };

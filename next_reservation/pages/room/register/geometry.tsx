@@ -1,25 +1,22 @@
 import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
-import RegisterGeometry from '@/components/Register/RegisterGeometry/RegisterGeometry';
+import RyokanFormWrapper from '@/components/RyokanForm/RyokanFormWrapper/RyokanFormWrapper';
+import Geometry from '@/components/RyokanForm/Geometry/Geometry';
 
-const RegisterGeometryHOCComponent = dynamic(
-  async () => await RegisterGeometry,
-  {
-    ssr: false,
-  }
-);
+const GeometryHOCComponent = dynamic(async () => await Geometry, {
+  ssr: false,
+});
 
 const geometry: NextPage = () => {
   return (
-    <RegisterRyokan
+    <RyokanFormWrapper
       producerText="숙소의 위치정보가 일치하나요?"
       priviousHref="/room/register/location"
       nextHref="/room/register/amenities"
       step={4}
     >
-      <RegisterGeometryHOCComponent />
-    </RegisterRyokan>
+      <GeometryHOCComponent />
+    </RyokanFormWrapper>
   );
 };
 
