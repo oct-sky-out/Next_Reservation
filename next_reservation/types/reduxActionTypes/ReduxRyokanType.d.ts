@@ -27,6 +27,11 @@ export type photoType = {
   photoName: string;
 };
 
+export type editOption = {
+  isEdit: boolean;
+  ryokanId: string;
+};
+
 export interface IRyokanType {
   ryokanType: string;
   buildingType: string;

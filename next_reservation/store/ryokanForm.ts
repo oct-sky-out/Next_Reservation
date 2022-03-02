@@ -5,9 +5,13 @@ import {
   amenitiesType,
   convenienceSpacesType,
   photoType,
-} from '../types/reduxActionTypes/ReduxRegiserRyokanType';
+  editOption,
+} from '../types/reduxActionTypes/ReduxRyokanType';
 
-const initialState: IRyokanType = {
+export type RyokanType = IRyokanType & { option: editOption };
+
+const initialState: RyokanType = {
+  option: { isEdit: false, ryokanId: '' },
   ryokanType: '',
   buildingType: '',
   isBuiltInOnsen: false,
@@ -53,13 +57,22 @@ const initialState: IRyokanType = {
   date: { openDate: null, closeDate: null },
 };
 
-const registerRyokanSlice = createSlice({
-  name: 'register',
+const ryokanFormSlice = createSlice({
+  name: 'ryokanForm',
   initialState,
   reducers: {
-    setRyokanForm: {
+    setRyokanForm: (_state, action: PayloadAction<RyokanType>) => ({
+      ...action.payload,
+    }),
+    setRyokanOption: (state, action: PayloadAction<editOption>) => ({
+      ...state,
+      option: action.payload,
+    }),
+    setRyokan: {
       prepare: (ryokanForm: IRyokanType) => ({ payload: ryokanForm }),
-      reducer: (_state, action: PayloadAction<IRyokanType>) => action.payload,
+      reducer: (state, action: PayloadAction<IRyokanType>) => {
+        return { option: state.option, ...action.payload };
+      },
     },
     setRyokanType: {
       prepare: (ryokanType: string) => {
@@ -347,7 +360,14 @@ const registerRyokanSlice = createSlice({
       prepare: (photoName: string) => {
         return { payload: photoName };
       },
-      reducer: (_state, _action: PayloadAction<string>) => {},
+      reducer: (state, action: PayloadAction<string>) => {
+        return {
+          ...state,
+          photos: state.photos.filter(
+            (photo) => photo.photoName !== action.payload
+          ),
+        };
+      },
     },
     modifyPhoto: {
       prepare: (modifyPhoto: {
@@ -411,8 +431,8 @@ const registerRyokanSlice = createSlice({
   },
 });
 
-const { actions } = registerRyokanSlice;
+const { actions } = ryokanFormSlice;
 
 export const ryokanInitialData = initialState;
-export const registerRyokanActions = actions;
-export default registerRyokanSlice;
+export const ryokanFormActions = actions;
+export default ryokanFormSlice;

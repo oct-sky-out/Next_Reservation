@@ -2,7 +2,7 @@ import {
   amenitiesType,
   convenienceSpacesType,
   IRyokanType,
-} from './ReduxRegiserRyokanType';
+} from './ReduxRyokanType';
 
 export type SearchResultRyokanOfBedroomType = {
   people: number;
