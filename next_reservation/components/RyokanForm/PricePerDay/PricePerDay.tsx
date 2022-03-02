@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { ryokanFormActions } from '@/store/ryokanForm';
 import { registerFormValidAction } from '@/store/registerFormIsValid';
 import Input from '@/components/common/Input';
 
 const RegisterPricePerDay = () => {
   const dispatch = useDispatch();
   const pricePerDay = useSelector(
-    (selector) => selector.registerRyokan.pricePerDay
+    (selector) => selector.ryokanForm.pricePerDay
   );
 
   useEffect(() => {
@@ -20,9 +20,7 @@ const RegisterPricePerDay = () => {
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
     const locailPrice = +value.replace(/\D/g, '');
-    dispatch(
-      registerRyokanActions.setPricePerDay(locailPrice.toLocaleString())
-    );
+    dispatch(ryokanFormActions.setPricePerDay(locailPrice.toLocaleString()));
   };
 
   return (

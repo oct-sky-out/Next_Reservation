@@ -13,15 +13,28 @@ interface IProps {
 const RegisterFooter: React.FC<IProps> = ({ nextHref, previousHref, step }) => {
   const router = useRouter();
   const isValid = useSelector((selector) => selector.registerIsValid.isValid);
-  const registerRyokan = useSelector((selector) => selector.registerRyokan);
+  const ryokanForm = useSelector((selector) => selector.ryokanForm);
 
   const saveRegisterForm = () => {
-    if (router.pathname !== '/room/register/completion')
+    if (!router.pathname.includes('completion')) {
       localStorage.setItem(
         'savedRegisterRyokanData',
-        JSON.stringify(registerRyokan)
+        JSON.stringify(ryokanForm)
       );
+    }
   };
+
+  const removeRegisterRyokanForm = () => {
+    if (router.pathname.includes('completion')) {
+      localStorage.removeItem('savedRegisterRyokanData');
+    }
+  };
+
+  const clickNextPageButton = () => {
+    saveRegisterForm();
+    removeRegisterRyokanForm();
+  };
+
   return (
     <RegisterFooterStyle
       step={step}
@@ -39,7 +52,7 @@ const RegisterFooter: React.FC<IProps> = ({ nextHref, previousHref, step }) => {
         <button
           className="btn btn-primary next-page-btn"
           disabled={!isValid}
-          onClick={saveRegisterForm}
+          onClick={clickNextPageButton}
         >
           <a>{router.pathname === '/room/register/date' ? '등록' : '다음'}</a>
         </button>

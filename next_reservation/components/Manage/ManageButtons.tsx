@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Swal from 'sweetalert2';
 import { RyokanManageType } from '@/types/apiTyps/ryokan/RyokanManage';
 import { useDispatch } from 'react-redux';
-import { ryokanManageFormActions } from '@/store/ryokanManageForm';
+import { ryokanFormActions } from '@/store/ryokanForm';
 
 interface IManageButtons {
   ryokanId: string;
@@ -14,9 +14,14 @@ const ManageButtons: React.FC<IManageButtons> = ({ ryokanId, ryokan }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const ryokanEdit = () => {
-    dispatch(ryokanManageFormActions.setManageRyokan({ ryokanData: ryokan }));
-    dispatch(ryokanManageFormActions.setRyokanId({ ryokanId }));
-    router.push(`/room/manage${ryokan.title}`);
+    const { ryokanId, ryokanManager, ...ryokanForm } = ryokan;
+    dispatch(
+      ryokanFormActions.setRyokanForm({
+        ...ryokanForm,
+        option: { isEdit: true, ryokanId },
+      })
+    );
+    router.push(`/room/manage/${ryokanForm.title}/ryokan`);
   };
   const ryokanDelete = async () => {
     await axios.delete(`/api/ryokan/remove?ryokanId=${ryokanId}`);

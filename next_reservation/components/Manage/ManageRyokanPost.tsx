@@ -1,6 +1,5 @@
 import ManageButtons from './ManageButtons';
 import { RyokanManageType } from '@/types/apiTyps/ryokan/RyokanManage';
-import ryokan from 'pages/login';
 
 interface IManageRyokanPost {
   ryokan: RyokanManageType;

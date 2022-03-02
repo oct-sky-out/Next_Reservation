@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { ryokanFormActions } from '@/store/ryokanForm';
 import { registerFormValidAction } from '@/store/registerFormIsValid';
 import { Loader } from '@googlemaps/js-api-loader';
 import L from 'lodash';
@@ -16,10 +16,10 @@ const RegisterGeometry = () => {
 
   const mapRef = useRef<HTMLDivElement>(null);
   const latitude = useSelector(
-    (selector) => selector.registerRyokan.location.latitude
+    (selector) => selector.ryokanForm.location.latitude
   );
   const longitude = useSelector(
-    (selector) => selector.registerRyokan.location.longitude
+    (selector) => selector.ryokanForm.location.longitude
   );
 
   const didMounted = useDidMounted();
@@ -66,8 +66,8 @@ const RegisterGeometry = () => {
             const centerlongitude = map.getCenter()?.lng();
             if (centerlatitude && centerlongitude) {
               marker.setPosition({ lat: centerlatitude, lng: centerlongitude });
-              dispatch(registerRyokanActions.setLatitude(centerlatitude));
-              dispatch(registerRyokanActions.setLongitude(centerlongitude));
+              dispatch(ryokanFormActions.setLatitude(centerlatitude));
+              dispatch(ryokanFormActions.setLongitude(centerlongitude));
             }
           }, 1000)
         );

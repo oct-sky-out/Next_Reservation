@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 import useModal from '@/components/hooks/useModal';
 import AddBedList from './AddBedList';
 import { BedTypes } from '@/lib/staticData/RegisterRyokanBedrooms';
-import { bedroomType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { bedroomType } from '@/types/reduxActionTypes/ReduxRyokanType';
 
 interface IProps {
   bedroomList: { [key: string]: bedroomType[] };

@@ -3,7 +3,7 @@ import { useSelector } from '@/store/index';
 import { searchResultsRoomsActions } from '@/store/searchResultsRyokans';
 import { v4 } from 'uuid';
 import convenienceSpaces from '@/lib/staticData/ConvenienceSpaces';
-import { convenienceSpacesType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { convenienceSpacesType } from '@/types/reduxActionTypes/ReduxRyokanType';
 
 const SearchFilterConvenienceSpace = () => {
   const dispatch = useDispatch();

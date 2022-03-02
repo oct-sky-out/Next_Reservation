@@ -1,12 +1,14 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
 import RegisterRyokanStyle from '@/styles/components/Register/RegisterRyokan';
 import RegisterLeftSideInformation from '../LeftSideProcedureInformation/LeftSideInformation';
 import RegisterFooter from '../Footer/Footer';
-import { registerRyokanActions } from '@/store/registerRyokan';
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { ryokanFormActions, RyokanType } from '@/store/ryokanForm';
+import { IRyokanType } from '@/types/reduxActionTypes/ReduxRyokanType';
+import axios from '@/lib/api';
+import { isRenderdAction } from '@/store/isRenderd';
 
 interface IPorps {
   producerText: string;
@@ -23,20 +25,44 @@ const RegisterRyokan: React.FC<IPorps> = ({
   children,
 }) => {
   const dispatch = useDispatch();
-  const modalState = useSelector((selector) => selector.modalState.modalState);
+  const { modalState, ryokanForm, isRenderd } = useSelector((selector) => ({
+    modalState: selector.modalState.modalState,
+    ryokanForm: selector.ryokanForm,
+    isRenderd: selector.isRendered,
+  }));
   const router = useRouter();
 
-  useEffect(() => {
-    const savedData = localStorage.getItem('savedRegisterRyokanData');
-
-    if (savedData) {
-      dispatch(
-        registerRyokanActions.setRyokanForm(
-          JSON.parse(savedData) as IRyokanType
-        )
+  const wrapperDidMountingSetRyokanForm = async () => {
+    if (router.pathname.includes('manage')) {
+      const { data } = await axios.get<RyokanType>(
+        `/api/ryokan/searchRyokanByTitle?title=${router.query.ryokan}`
       );
+      dispatch(ryokanFormActions.setRyokanForm(data));
+    }
+    if (router.pathname.includes('register'))
+      localStorage.setItem(
+        'savedRegisterRyokanData',
+        JSON.stringify({
+          ...ryokanForm,
+          option: { isEdit: false, ryokanId: '' },
+        } as RyokanType)
+      );
+  };
+
+  useEffect(() => {
+    if (router.pathname.includes('register')) {
+      const savedData = localStorage.getItem('savedRegisterRyokanData');
+      if (savedData) {
+        const ryokan = JSON.parse(savedData);
+        dispatch(ryokanFormActions.setRyokan(ryokan as IRyokanType));
+      }
     }
   }, [router.pathname]);
+
+  useEffect(() => {
+    if (!isRenderd) wrapperDidMountingSetRyokanForm();
+    dispatch(isRenderdAction.setRendered(true));
+  }, []);
 
   return (
     <RegisterRyokanStyle>

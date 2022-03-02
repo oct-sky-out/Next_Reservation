@@ -1,4 +1,4 @@
-import { photoType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { photoType } from '@/types/reduxActionTypes/ReduxRyokanType';
 
 interface IManageRyokanImage {
   image: photoType;

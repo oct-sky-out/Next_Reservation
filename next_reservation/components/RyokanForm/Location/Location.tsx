@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { ryokanFormActions } from '@/store/ryokanForm';
 import { FaLocationArrow } from 'react-icons/fa';
 import { AiOutlineExclamation } from 'react-icons/ai';
 import Swal from 'sweetalert2';
@@ -19,7 +19,7 @@ const RegisterLocation = () => {
           longitude: myLocation.coords.longitude,
         },
       });
-      dispatch(registerRyokanActions.setAutoLocation(data));
+      dispatch(ryokanFormActions.setAutoLocation(data));
     } catch (error: any | geocodingError) {
       Swal.fire({
         icon: 'error',

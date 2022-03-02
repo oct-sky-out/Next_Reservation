@@ -1,19 +1,18 @@
 //! componet import
-import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'store';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { useSelector } from '@/store/index';
 import { registerFormValidAction } from '@/store/registerFormIsValid';
+import { ryokanFormActions } from '@/store/ryokanForm';
+import React, { useCallback, useEffect } from 'react';
 
-const RegisterRyokanBathrooms = () => {
+const Bathrooms = () => {
   //* Redux
   const dispatch = useDispatch();
-  const { bathCount, isShared, isFormValid } = useSelector((selector) => ({
-    bathCount: selector.registerRyokan.bathrooms.bathCount,
-    isShared: selector.registerRyokan.bathrooms.isShared,
-    isFormValid: selector.registerIsValid.isValid,
+  const { bathCount, isShared, isFormValid } = useSelector((state) => ({
+    bathCount: state.ryokanForm.bathrooms.bathCount,
+    isShared: state.ryokanForm.bathrooms.isShared,
+    isFormValid: state.registerIsValid.isValid,
   }));
-
   //* useEffect
   useEffect(() => {
     if (bathCount) {
@@ -28,15 +27,15 @@ const RegisterRyokanBathrooms = () => {
   const bathCountAddOrSub = useCallback(
     ({ currentTarget: { value } }: React.MouseEvent<HTMLButtonElement>) => {
       if (value === 'add')
-        dispatch(registerRyokanActions.setBathCount(bathCount + 1));
+        dispatch(ryokanFormActions.setBathCount(bathCount + 1));
       if (value === 'sub')
-        dispatch(registerRyokanActions.setBathCount(bathCount - 1));
+        dispatch(ryokanFormActions.setBathCount(bathCount - 1));
     },
     [bathCount]
   );
   const isBathShared = useCallback((isShared: boolean) => {
-    if (isShared) dispatch(registerRyokanActions.setIsBathShared(true));
-    if (!isShared) dispatch(registerRyokanActions.setIsBathShared(false));
+    if (isShared) dispatch(ryokanFormActions.setIsBathShared(true));
+    if (!isShared) dispatch(ryokanFormActions.setIsBathShared(false));
   }, []);
 
   return (
@@ -107,4 +106,4 @@ const RegisterRyokanBathrooms = () => {
   );
 };
 
-export default RegisterRyokanBathrooms;
+export default Bathrooms;

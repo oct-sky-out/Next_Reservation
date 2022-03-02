@@ -3,13 +3,13 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
 import { FiPaperclip } from 'react-icons/fi';
 import L from 'lodash';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { ryokanFormActions } from '@/store/ryokanForm';
 import { registerFormValidAction } from '@/store/registerFormIsValid';
 import RegisterMultiphotos from './RegisterMultiphotos';
 
 const RegisterRyokanPhotos = () => {
   const dispatch = useDispatch();
-  const photos = useSelector((seletor) => seletor.registerRyokan.photos);
+  const photos = useSelector((seletor) => seletor.ryokanForm.photos);
 
   const fileUploaded = ({
     target: { files },
@@ -17,7 +17,7 @@ const RegisterRyokanPhotos = () => {
     if (files && files.length !== 0) {
       const formData = new FormData();
       formData.append('file', files[0]);
-      dispatch(registerRyokanActions.uploadPhotoStart(formData));
+      dispatch(ryokanFormActions.uploadPhotoStart(formData));
     }
   };
 

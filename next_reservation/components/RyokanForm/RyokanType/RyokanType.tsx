@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { ryokanFormActions } from '@/store/ryokanForm';
 import { registerFormValidAction } from '@/store/registerFormIsValid';
 import Selector from '@/components/common/Selector';
 import CheckBox from '@/components/common/CheckBox';
@@ -15,9 +15,9 @@ const RegisterRyokanType = () => {
   const dispatch = useDispatch();
   const { ryokanType, buildingType, isBuiltInOnsen, isFormValid } = useSelector(
     (selector) => ({
-      ryokanType: selector.registerRyokan.ryokanType,
-      buildingType: selector.registerRyokan.buildingType,
-      isBuiltInOnsen: selector.registerRyokan.isBuiltInOnsen,
+      ryokanType: selector.ryokanForm.ryokanType,
+      buildingType: selector.ryokanForm.buildingType,
+      isBuiltInOnsen: selector.ryokanForm.isBuiltInOnsen,
       isFormValid: selector.registerIsValid.isValid,
     })
   );
@@ -37,15 +37,15 @@ const RegisterRyokanType = () => {
   ) => {
     if (objKey) {
       if (objKey in RyokanTypes)
-        dispatch(registerRyokanActions.setRyokanType(objKey));
+        dispatch(ryokanFormActions.setRyokanType(objKey));
       if (objKey in BuildingTypes)
-        dispatch(registerRyokanActions.setBuildingType(objKey));
+        dispatch(ryokanFormActions.setBuildingType(objKey));
     }
   };
 
   const selectedBuiltInOnsen = useCallback(
     ({ target: { checked } }: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(registerRyokanActions.setIsBuiltInOnsen(checked));
+      dispatch(ryokanFormActions.setIsBuiltInOnsen(checked));
     },
     [isBuiltInOnsen, dispatch]
   );

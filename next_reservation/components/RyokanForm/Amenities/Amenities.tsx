@@ -1,31 +1,24 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { ryokanFormActions } from '@/store/ryokanForm';
 import { registerFormValidAction } from '@/store/registerFormIsValid';
 import { v4 } from 'uuid';
-import useDidMounted from '@/components/hooks/useDidMounted';
 import CheckBox from '@/components/common/CheckBox';
-import Amenities from '@/lib/staticData/Amenities';
+import AmenitiesSelector from '@/lib/staticData/Amenities';
+import { amenitiesType } from '@/types/reduxActionTypes/ReduxRyokanType';
 
-const RegisterAmenities = () => {
+const Amenities = () => {
   //* Redux
   const dispatch = useDispatch();
-  const amenities = useSelector(
-    (selector) => selector.registerRyokan.amenities
-  );
-
-  //* First Render Ref
-  const didMounted = useDidMounted();
+  const amenities = useSelector((selector) => selector.ryokanForm.amenities);
 
   // * useEffect
   useEffect(() => {
-    if (!didMounted) {
-      dispatch(registerFormValidAction.setValid(true));
-    }
-  }, [didMounted]);
+    dispatch(registerFormValidAction.setValid(true));
+  }, []);
 
-  const amenitiesKeys = [
+  const amenitiesKeys: Required<keyof amenitiesType>[] = [
     'breakfast',
     'closet',
     'coolingEquipment',
@@ -34,13 +27,13 @@ const RegisterAmenities = () => {
     'toiletries',
     'hairdryer',
     'tv',
-  ] as const;
+  ];
 
   //* useCallback
   const checkedAmenity = useCallback(
     ({ target }: React.ChangeEvent<HTMLInputElement>, index: number) => {
       dispatch(
-        registerRyokanActions.setAmenities({
+        ryokanFormActions.setAmenities({
           amenityKey: amenitiesKeys[index],
           amenityValue: target.checked,
         })
@@ -56,7 +49,7 @@ const RegisterAmenities = () => {
           <h1 className="text-2xl">료칸의 편의시설을 선택해주세요.</h1>
           <div>
             <div className="w-full flex flex-col justify-around space-y-5">
-              {Object.entries(Amenities).map((amenity, index) => (
+              {Object.entries(AmenitiesSelector).map((amenity, index) => (
                 <CheckBox
                   id="amenity"
                   key={v4()}
@@ -77,4 +70,4 @@ const RegisterAmenities = () => {
   );
 };
 
-export default RegisterAmenities;
+export default Amenities;

@@ -7,10 +7,11 @@ import Swal from 'sweetalert2';
 
 const RegisterCompletion = () => {
   const router = useRouter();
-  const { registerInfo, email } = useSelector((selector) => ({
-    registerInfo: selector.registerRyokan,
+  const { ryokanForm, email } = useSelector((selector) => ({
+    ryokanForm: selector.ryokanForm,
     email: selector.user.data.email,
   }));
+  const { option, ...ryokan } = ryokanForm;
 
   const [fetchedResult, setFetchedResultDom] = useState<boolean>(false);
   const [registerResultJSX, setRegisterResultJSX] = useState<JSX.Element>(
@@ -20,24 +21,44 @@ const RegisterCompletion = () => {
     router.push('/');
   };
 
+  const goToRyokanManagePage = () => {
+    router.push('/room/manage');
+  };
+  const clickMovePage = () => {
+    if (option.isEdit) goToRyokanManagePage();
+    goToHomepage();
+  };
+  const goPageMessage = () => {
+    if (option.isEdit) return '료칸 관리페이지로 돌아가기';
+    return '홈으로 돌아가기';
+  };
+
+  const completionMessage = () => {
+    if (option.isEdit) return '성공적으로 수정하였습니다!';
+    return '성공적으로 등록하였습니다!';
+  };
+  const incompletionMessage = () => {
+    if (option.isEdit) return '수정에 실패하였습니다.';
+    return '등록에 실패하였습니다.';
+  };
+
+  const getMessage = (isCompletion: boolean) =>
+    isCompletion ? completionMessage() : incompletionMessage();
+
   const registerResult = useCallback(
     (isCompletion) => () => {
       return (
         <div className="text-2xl space-y-5">
-          <span className="block">
-            {isCompletion
-              ? '성공적으로 등록하였습니다!'
-              : '등록에 실패하였습니다.'}
-          </span>
+          <span className="block">{getMessage(isCompletion)}</span>
           <button
             type="button"
             className="rounded-full py-3 px-6 border-4 border-emerald  "
           >
             <div
               className=" w-full h-full flex justify-center items-center"
-              onClick={goToHomepage}
+              onClick={clickMovePage}
             >
-              홈으로 돌아가기
+              {goPageMessage()}
             </div>
           </button>
         </div>
@@ -46,12 +67,22 @@ const RegisterCompletion = () => {
     []
   );
 
-  const fetchRegisterRyokan = async () => {
+  const registerRyokan = async () =>
+    await axios.post('/api/ryokan/register', {
+      email,
+      registerData: ryokan,
+    });
+
+  const editRyokan = async () =>
+    await axios.put('/api/ryokan/edit', {
+      ryokanId: option.ryokanId,
+      ryokan,
+    });
+
+  const fetchRegisterOrEditRyokan = async () => {
     try {
-      await axios.post('/api/ryokan/register', {
-        email,
-        registerData: registerInfo,
-      });
+      if (option.isEdit) await editRyokan();
+      if (!option.isEdit) await registerRyokan();
       setRegisterResultJSX(registerResult(true));
     } catch {
       await Swal.fire({
@@ -65,7 +96,7 @@ const RegisterCompletion = () => {
   };
 
   useEffect(() => {
-    fetchRegisterRyokan();
+    fetchRegisterOrEditRyokan();
     if (localStorage.getItem('savedRegisterRyokanData'))
       localStorage.removeItem('savedRegisterRyokanData');
   }, []);

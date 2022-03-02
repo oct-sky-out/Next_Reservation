@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { ryokanFormActions } from '@/store/ryokanForm';
 import { registerFormValidAction } from '@/store/registerFormIsValid';
 import Selector from '@/components/common/Selector';
 import Input from '@/components/common/Input';
@@ -12,10 +12,10 @@ const RegisterLocationForm = () => {
   const dispatch = useDispatch();
   const { contry, address, detailAddress, postCode } = useSelector(
     (selector) => ({
-      contry: selector.registerRyokan.location.contry,
-      address: selector.registerRyokan.location.address,
-      detailAddress: selector.registerRyokan.location.detailAddress,
-      postCode: selector.registerRyokan.location.postCode,
+      contry: selector.ryokanForm.location.contry,
+      address: selector.ryokanForm.location.address,
+      detailAddress: selector.ryokanForm.location.detailAddress,
+      postCode: selector.ryokanForm.location.postCode,
     })
   );
 
@@ -32,25 +32,25 @@ const RegisterLocationForm = () => {
     target: { value },
   }: React.ChangeEvent<HTMLSelectElement>) => {
     const findedConrty = Contry.find((contry) => contry === value);
-    if (findedConrty) dispatch(registerRyokanActions.setContry(findedConrty));
+    if (findedConrty) dispatch(ryokanFormActions.setContry(findedConrty));
   };
 
   const changeAddressState = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(registerRyokanActions.setAddress(value));
+    dispatch(ryokanFormActions.setAddress(value));
   };
 
   const changeDetailAddressState = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(registerRyokanActions.setDetailAddress(value));
+    dispatch(ryokanFormActions.setDetailAddress(value));
   };
 
   const changePostCodeState = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(registerRyokanActions.setPostCode(value));
+    dispatch(ryokanFormActions.setPostCode(value));
   };
 
   return (

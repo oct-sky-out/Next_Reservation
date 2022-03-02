@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { ryokanFormActions } from '@/store/ryokanForm';
 import Selector from '@/components/common/Selector';
 import useDidMounted from '@/components/hooks/useDidMounted';
 import BedroomList from './BedroomList';
@@ -11,9 +11,9 @@ const RegisterRyokanBeedrooms = () => {
   //* Redux
   const dispatch = useDispatch();
   const { bedroomList, bedroomCount, personnel } = useSelector((selector) => ({
-    bedroomList: selector.registerRyokan.bedrooms.bedroomList,
-    bedroomCount: selector.registerRyokan.bedrooms.bedroomCount,
-    personnel: selector.registerRyokan.bedrooms.personnel,
+    bedroomList: selector.ryokanForm.bedrooms.bedroomList,
+    bedroomCount: selector.ryokanForm.bedrooms.bedroomCount,
+    personnel: selector.ryokanForm.bedrooms.personnel,
   }));
 
   //* useRef
@@ -22,7 +22,7 @@ const RegisterRyokanBeedrooms = () => {
   // * useEffect
   useEffect(() => {
     if (!didMounted) {
-      dispatch(registerRyokanActions.setBedroomCount(bedroomCount));
+      dispatch(ryokanFormActions.setBedroomCount(bedroomCount));
     }
   }, [didMounted]);
 
@@ -54,9 +54,9 @@ const RegisterRyokanBeedrooms = () => {
   const personnelAddOrSub = useCallback(
     ({ currentTarget: { value } }: React.MouseEvent<HTMLButtonElement>) => {
       if (value === 'add')
-        dispatch(registerRyokanActions.setPersonnel(personnel + 1));
+        dispatch(ryokanFormActions.setPersonnel(personnel + 1));
       if (value === 'sub')
-        dispatch(registerRyokanActions.setPersonnel(personnel - 1));
+        dispatch(ryokanFormActions.setPersonnel(personnel - 1));
     },
     [personnel]
   );
@@ -64,9 +64,9 @@ const RegisterRyokanBeedrooms = () => {
     ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
       const count = value.match(/([\d])+/g);
       if (count) {
-        dispatch(registerRyokanActions.setBedroomCount(+count[0]));
+        dispatch(ryokanFormActions.setBedroomCount(+count[0]));
         dispatch(
-          registerRyokanActions.setBedroomList({
+          ryokanFormActions.setBedroomList({
             bedrooms: makingBedList(+count[0]),
           })
         );

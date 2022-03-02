@@ -2,15 +2,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { ryokanFormActions } from '@/store/ryokanForm';
 import { registerFormValidAction } from '@/store/registerFormIsValid';
 import L from 'lodash';
 import Input from '@/components/common/Input';
 
 const RegisterTitleAndDescription = () => {
   const { title, description } = useSelector((selector) => ({
-    title: selector.registerRyokan.title,
-    description: selector.registerRyokan.description,
+    title: selector.ryokanForm.title,
+    description: selector.ryokanForm.description,
   }));
   const dispatch = useDispatch();
 
@@ -22,12 +22,12 @@ const RegisterTitleAndDescription = () => {
   const changeTitle = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(registerRyokanActions.setTitle(value));
+    dispatch(ryokanFormActions.setTitle(value));
   };
   const changeDescription = ({
     target: { value },
   }: React.ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(registerRyokanActions.setDesctription(value));
+    dispatch(ryokanFormActions.setDesctription(value));
   };
 
   return (

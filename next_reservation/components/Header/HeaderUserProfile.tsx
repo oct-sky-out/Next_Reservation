@@ -62,6 +62,11 @@ const HeaderUserProfile = () => {
     setIsUserMenuOpened(false);
   }, []);
 
+  const goingManageRyokan = useCallback(() => {
+    router.push('/room/manage');
+    setIsUserMenuOpened(false);
+  }, []);
+
   return (
     <OutsideClickHandler
       onOutsideClick={() => {
@@ -91,6 +96,7 @@ const HeaderUserProfile = () => {
                 계정
               </button>
               <button
+                onClick={goingManageRyokan}
                 type="button"
                 className="py-3 px-6 text-black border-b-2 border-emerald"
               >

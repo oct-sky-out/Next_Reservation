@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { ryokanFormActions } from '@/store/ryokanForm';
 import { v4 } from 'uuid';
 import { GrClose } from 'react-icons/gr';
 import Selector from '@/components/common/Selector';
 import { BedTypes } from '@/lib/staticData/RegisterRyokanBedrooms';
-import { bedroomType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { bedroomType } from '@/types/reduxActionTypes/ReduxRyokanType';
 
 interface IProps {
   closeModal: () => void;
@@ -75,7 +75,7 @@ const AddBedeList: React.FC<IProps> = ({
   );
   const bedRegisterOrModifyEnded = () => {
     dispatch(
-      registerRyokanActions.setBedroom({
+      ryokanFormActions.setBedroom({
         bedroom: copyBedrooms,
         roomNumber: roomNumber - 1,
       })

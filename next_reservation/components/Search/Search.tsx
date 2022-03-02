@@ -9,7 +9,7 @@ import SearchItem from './SearchItem';
 import SearchFilter from './SearchFilter';
 import SearchReslutLocation from './SearchReslutLocation';
 import useSearchFilter from '../hooks/useSearchFilter';
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { IRyokanType } from '@/types/reduxActionTypes/ReduxRyokanType';
 import { RyokanSearchResultType } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
 import { searchRoomActions } from '@/store/searchRoom';
 

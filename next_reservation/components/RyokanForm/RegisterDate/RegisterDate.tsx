@@ -2,15 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { ryokanFormActions } from '@/store/ryokanForm';
 import { registerFormValidAction } from '@/store/registerFormIsValid';
 import DatePicker from '@/components/common/DatePicker';
 
 const RegisterTitleAndDescription = () => {
   const dispatch = useDispatch();
   const { openDate, closeDate } = useSelector((selector) => ({
-    openDate: selector.registerRyokan.date.openDate,
-    closeDate: selector.registerRyokan.date.closeDate,
+    openDate: selector.ryokanForm.date.openDate,
+    closeDate: selector.ryokanForm.date.closeDate,
   }));
 
   useEffect(() => {
@@ -23,14 +23,14 @@ const RegisterTitleAndDescription = () => {
     date: Date,
     _e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    dispatch(registerRyokanActions.setOpenDate(date));
+    dispatch(ryokanFormActions.setOpenDate(date));
   };
 
   const changedReservationEndDate = (
     date: Date,
     _e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    dispatch(registerRyokanActions.setCloseDate(date));
+    dispatch(ryokanFormActions.setCloseDate(date));
   };
 
   const parseDate = (date: string | Date | null) => {

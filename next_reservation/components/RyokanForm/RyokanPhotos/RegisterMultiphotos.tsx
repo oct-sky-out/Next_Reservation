@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { ryokanFormActions } from '@/store/ryokanForm';
 import L from 'lodash';
 import { FiPaperclip } from 'react-icons/fi';
 import { MdDriveFileRenameOutline } from 'react-icons/md';
@@ -16,10 +16,13 @@ interface IProps {
 
 const RegisterMultiphotos: React.FC<IProps> = ({ fileUploaded }) => {
   const dispatch = useDispatch();
-  const photos = useSelector((seletor) => seletor.registerRyokan.photos);
+  const photos = useSelector((seletor) => seletor.ryokanForm.photos);
 
-  const photoDelete = (photoName: string) =>
-    dispatch(registerRyokanActions.deletePhoto(photoName));
+  const photoDelete = (photoName: string) => {
+    console.log(photoName);
+
+    dispatch(ryokanFormActions.deletePhoto(photoName));
+  };
 
   const photoModify = (photoName: string, photoNo: number) => {
     const input = document.createElement('input');
@@ -32,7 +35,7 @@ const RegisterMultiphotos: React.FC<IProps> = ({ fileUploaded }) => {
         const formData = new FormData();
         formData.append('file', target.files[0]);
         dispatch(
-          registerRyokanActions.modifyPhoto({ formData, photoName, photoNo })
+          ryokanFormActions.modifyPhoto({ formData, photoName, photoNo })
         );
       }
     };

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
-import { registerRyokanActions } from '@/store/registerRyokan';
+import { ryokanFormActions } from '@/store/ryokanForm';
 import { registerFormValidAction } from '@/store/registerFormIsValid';
 import { v4 } from 'uuid';
 import useDidMounted from '@/components/hooks/useDidMounted';
@@ -12,7 +12,7 @@ const RegisterConvenienceSpaces = () => {
   //* Redux
   const dispatch = useDispatch();
   const convenienceSpaces = useSelector(
-    (selector) => selector.registerRyokan.convenienceSpaces
+    (selector) => selector.ryokanForm.convenienceSpaces
   );
 
   //* First Render Ref
@@ -38,7 +38,7 @@ const RegisterConvenienceSpaces = () => {
   const checkedConvenienceSpace = useCallback(
     ({ target }: React.ChangeEvent<HTMLInputElement>, index: number) => {
       dispatch(
-        registerRyokanActions.setConvenienceSpace({
+        ryokanFormActions.setConvenienceSpace({
           spaceKey: convenienceSpaceKeys[index],
           spaceValue: target.checked,
         })
