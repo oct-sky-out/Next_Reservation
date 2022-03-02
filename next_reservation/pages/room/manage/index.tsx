@@ -1,11 +1,11 @@
 import { GetServerSideProps, NextPage } from 'next';
 import axios from '@/lib/api';
 import ManageRyokan from '@/components/Manage/ManageRyokan';
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { RyokanManageType } from '@/types/apiTyps/ryokan/RyokanManage';
 
-const manage: NextPage<{ ryokans: IRyokanType[] }> = ({ ryokans }) => (
-  <ManageRyokan ryokans={ryokans} />
-);
+const manage: NextPage<{
+  ryokans: RyokanManageType[];
+}> = ({ ryokans }) => <ManageRyokan ryokans={ryokans} />;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   if (!req.cookies['access_token']) {

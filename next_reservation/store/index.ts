@@ -17,6 +17,7 @@ import searchResultsRoomsSlice from './searchResultsRyokans';
 import ryokanDetailSlice from './ryokanDetail';
 import reservationSlice from './reservation';
 import myReservationsSlice from './myReservations';
+import ryokanManageFormSlice from './ryokanManageForm';
 
 // 여러개의 리듀서 컴바인
 const rootReducer = combineReducers({
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   ryokanDetail: ryokanDetailSlice.reducer,
   reservation: reservationSlice.reducer,
   myReservations: myReservationsSlice.reducer,
+  ryokanManage: ryokanManageFormSlice.reducer,
 });
 
 // 스토어 타입
