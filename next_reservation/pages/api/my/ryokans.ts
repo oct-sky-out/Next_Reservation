@@ -20,7 +20,7 @@ ryokans.get(async (req, res) => {
     (await firestroeAdmin().collection('RegisterRyokans').get()).forEach(
       (ryokan) =>
         ryokan.data().ryokanManager === user.email! &&
-        ryokans.push(ryokan.data())
+        ryokans.push({ ...ryokan.data(), ryokanId: ryokan.id })
     );
     res.status(200).send(ryokans);
   }

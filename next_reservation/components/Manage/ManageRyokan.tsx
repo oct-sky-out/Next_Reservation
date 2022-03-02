@@ -1,10 +1,10 @@
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 import React from 'react';
 import { v4 } from 'uuid';
 import ManageRyokanItem from './ManageRyokanItem';
+import { RyokanManageType } from '@/types/apiTyps/ryokan/RyokanManage';
 
 interface IManageRyokan {
-  ryokans: IRyokanType[];
+  ryokans: RyokanManageType[];
 }
 const ManageRyokan: React.FC<IManageRyokan> = ({ ryokans }) => {
   return (
