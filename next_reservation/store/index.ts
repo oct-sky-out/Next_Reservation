@@ -7,7 +7,7 @@ import {
 } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import userSignInAndUp from './userSignInAndUp';
-import registerRyokan from './registerRyokan';
+import ryokanForm from './ryokanForm';
 import registerFormIsValid from './registerFormIsValid';
 import modalOpenStateSlice from './modalOpen';
 import rootSaga from './sagas';
@@ -17,12 +17,12 @@ import searchResultsRoomsSlice from './searchResultsRyokans';
 import ryokanDetailSlice from './ryokanDetail';
 import reservationSlice from './reservation';
 import myReservationsSlice from './myReservations';
-import ryokanManageFormSlice from './ryokanManageForm';
+import isRenderdSlice from './isRenderd';
 
 // 여러개의 리듀서 컴바인
 const rootReducer = combineReducers({
   user: userSignInAndUp.reducer,
-  registerRyokan: registerRyokan.reducer,
+  ryokanForm: ryokanForm.reducer,
   registerIsValid: registerFormIsValid.reducer,
   modalState: modalOpenStateSlice.reducer,
   loading: loadingSlice.reducer,
@@ -31,7 +31,7 @@ const rootReducer = combineReducers({
   ryokanDetail: ryokanDetailSlice.reducer,
   reservation: reservationSlice.reducer,
   myReservations: myReservationsSlice.reducer,
-  ryokanManage: ryokanManageFormSlice.reducer,
+  isRendered: isRenderdSlice.reducer,
 });
 
 // 스토어 타입

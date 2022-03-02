@@ -1,8 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { firestroeAdmin } from 'firebaseAdmin';
-import { ryokanInitialData } from '@/store/registerRyokan';
-import { isEqual } from 'lodash';
 
 const remove = nextConnect<NextApiRequest, NextApiResponse>({
   onError: (err, _req, res) => {

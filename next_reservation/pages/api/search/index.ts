@@ -1,4 +1,4 @@
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { IRyokanType } from '@/types/reduxActionTypes/ReduxRyokanType';
 import { RyokanSearchResultType } from '@/types/reduxActionTypes/ReduxSearchResultsRyokans';
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';

@@ -1,4 +1,4 @@
-import { convenienceSpacesType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { convenienceSpacesType } from '@/types/reduxActionTypes/ReduxRyokanType';
 import {
   ISearchResultRyokan,
   RyokanSearchResultType,

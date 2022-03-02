@@ -1,4 +1,4 @@
-import { convenienceSpacesType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { convenienceSpacesType } from '@/types/reduxActionTypes/ReduxRyokanType';
 import ConvenienceSpaces from '../staticData/ConvenienceSpaces';
 
 const findTruthyConveniences = (convenienceSpaces: convenienceSpacesType) =>

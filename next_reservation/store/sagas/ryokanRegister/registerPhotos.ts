@@ -1,15 +1,13 @@
 import { call, put, select, takeLatest, all } from 'redux-saga/effects';
-import { registerRyokanActions } from '../../registerRyokan';
+import { ryokanFormActions } from '../../ryokanForm';
 import axios from '@/lib/api';
 import { RootState } from '../../index';
 
-type photoUploadType = ReturnType<
-  typeof registerRyokanActions.uploadPhotoStart
->;
-type photoDeleteType = ReturnType<typeof registerRyokanActions.deletePhoto>;
-type photoModifyType = ReturnType<typeof registerRyokanActions.modifyPhoto>;
+type photoUploadType = ReturnType<typeof ryokanFormActions.uploadPhotoStart>;
+type photoDeleteType = ReturnType<typeof ryokanFormActions.deletePhoto>;
+type photoModifyType = ReturnType<typeof ryokanFormActions.modifyPhoto>;
 
-const getUploadedPhotos = (state: RootState) => state.registerRyokan.photos;
+const getUploadedPhotos = (state: RootState) => state.ryokanForm.photos;
 
 // Photo Upload
 const uploadFirebaseStorage = async ({
@@ -30,7 +28,7 @@ const uploadFirebaseStorage = async ({
 function* photoUploadSaga(action: photoUploadType) {
   const { result } = yield call(uploadFirebaseStorage, action);
   yield put(
-    registerRyokanActions.setPhoto({
+    ryokanFormActions.setPhoto({
       photoUrl: result.photoUrl,
       photoName: result.photoName,
     })
@@ -62,7 +60,7 @@ function* deletePhotoSaga(action: photoDeleteType) {
       (photo) => photo.photoName !== result.removePhotoName
     );
 
-    yield put(registerRyokanActions.setPhotos(deletedPhotos));
+    yield put(ryokanFormActions.setPhotos(deletedPhotos));
   } catch (err: any) {
     console.error(err);
   }
@@ -95,18 +93,18 @@ function* modifyPhotoSaga(action: photoModifyType) {
       }
       return photo;
     });
-    yield put(registerRyokanActions.setPhotos(modifiedPhoto));
+    yield put(ryokanFormActions.setPhotos(modifiedPhoto));
   } catch (err: any) {
     console.error(err);
   }
 }
 
 export function* watchPhotoUpload() {
-  yield takeLatest('register/uploadPhotoStart', photoUploadSaga);
+  yield takeLatest('ryokanForm/uploadPhotoStart', photoUploadSaga);
 }
 export function* watchPhotoDelete() {
-  yield takeLatest('register/deletePhoto', deletePhotoSaga);
+  yield takeLatest('ryokanForm/deletePhoto', deletePhotoSaga);
 }
 export function* watchPhotoModify() {
-  yield takeLatest('register/modifyPhoto', modifyPhotoSaga);
+  yield takeLatest('ryokanForm/modifyPhoto', modifyPhotoSaga);
 }

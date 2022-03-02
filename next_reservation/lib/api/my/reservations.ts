@@ -1,5 +1,5 @@
 import { reservedRyokanType } from '@/types/apiTyps/my/myReservationsId';
-import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
+import { IRyokanType } from '@/types/reduxActionTypes/ReduxRyokanType';
 import axios from '../index';
 
 const reservations = async (userEmail: string) => {
