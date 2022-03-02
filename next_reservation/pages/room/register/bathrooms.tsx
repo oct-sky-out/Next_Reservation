@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetServerSideProps, NextPage } from 'next';
-import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
-import RegisterRyokanBathrooms from '@/components/Register/RegisterBathRooms/RegisterBathRooms';
+import RegisterRyokan from '@/components/RyokanForm/RyokanFormWrapper/RyokanFormWrapper';
+import BathRooms from '@/components/RyokanForm/BathRooms/BathRooms';
 
 const bathrooms: NextPage = () => {
   return (
@@ -11,7 +11,7 @@ const bathrooms: NextPage = () => {
       nextHref="/room/register/location"
       step={3}
     >
-      <RegisterRyokanBathrooms />
+      <BathRooms />
     </RegisterRyokan>
   );
 };

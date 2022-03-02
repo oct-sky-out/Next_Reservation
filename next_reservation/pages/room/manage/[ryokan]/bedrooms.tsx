@@ -1,20 +1,20 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
-import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
-import RegisterRyokanBedrooms from '@/components/Register/RegisterRyokanBedrooms/RegisterRyokanBedrooms';
+import RyokanFormWrapper from '@/components/RyokanForm/RyokanFormWrapper/RyokanFormWrapper';
+import Bedrooms from '@/components/RyokanForm/Bedrooms/Bedrooms';
 
 const bedrooms: NextPage = () => {
   const router = useRouter();
   return (
-    <RegisterRyokan
+    <RyokanFormWrapper
       producerText="숙박인원을 수정해주세요."
       priviousHref={`/room/manage/${router.query.ryokan}/ryokan`}
       nextHref={`/room/manage/${router.query.ryokan}/bathrooms`}
       step={2}
     >
-      <RegisterRyokanBedrooms />
-    </RegisterRyokan>
+      <Bedrooms />
+    </RyokanFormWrapper>
   );
 };
 

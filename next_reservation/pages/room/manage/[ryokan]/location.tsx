@@ -1,20 +1,20 @@
 import { useRouter } from 'next/router';
 import { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
-import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
-import RegisterLocation from '@/components/Register/RegisterLocation/RegisterLocation';
+import RyokanFormWrapper from '@/components/RyokanForm/RyokanFormWrapper/RyokanFormWrapper';
+import Location from '@/components/RyokanForm/Location/Location';
 
 const location: NextPage = () => {
   const router = useRouter();
   return (
-    <RegisterRyokan
+    <RyokanFormWrapper
       producerText="숙소의 위치를 수정하세요."
       priviousHref={`/room/manage/${router.query.ryokan}/bathrooms`}
       nextHref={`/room/manage/${router.query.ryokan}/geometry`}
       step={4}
     >
-      <RegisterLocation />
-    </RegisterRyokan>
+      <Location />
+    </RyokanFormWrapper>
   );
 };
 

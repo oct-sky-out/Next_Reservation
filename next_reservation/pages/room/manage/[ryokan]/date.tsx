@@ -1,19 +1,19 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
-import RegisterDate from '@/components/Register/RegisterDate/RegisterDate';
+import RyokanFormWrapper from '@/components/RyokanForm/RyokanFormWrapper/RyokanFormWrapper';
+import RegisterDate from '@/components/RyokanForm/RegisterDate/RegisterDate';
 
 const date: NextPage = () => {
   const router = useRouter();
   return (
-    <RegisterRyokan
+    <RyokanFormWrapper
       producerText="개장일과 종료일을 수정하세요."
       priviousHref={`/room/manage/${router.query.ryokan}/pricePerDay`}
       nextHref={`/room/manage/${router.query.ryokan}/completion`}
       step={10}
     >
       <RegisterDate />
-    </RegisterRyokan>
+    </RyokanFormWrapper>
   );
 };
 

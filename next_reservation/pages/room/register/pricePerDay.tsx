@@ -1,17 +1,17 @@
 import { NextPage, GetServerSideProps } from 'next';
-import RegisterRyokan from '@/components/Register/RegisterRyokan/RegisterRyokan';
-import RegisterPricePerDay from '@/components/Register/RegisterPricePerDay/RegisterPricePerDay';
+import RyokanFormWrapper from '@/components/RyokanForm/RyokanFormWrapper/RyokanFormWrapper';
+import PricePerDay from '@/components/RyokanForm/PricePerDay/PricePerDay';
 
 const pricePerDay: NextPage = () => {
   return (
-    <RegisterRyokan
+    <RyokanFormWrapper
       producerText="1박당 가격을 정해주세요."
       priviousHref="/room/register/titleAndDiscription"
       nextHref="/room/register/date"
       step={9}
     >
-      <RegisterPricePerDay />
-    </RegisterRyokan>
+      <PricePerDay />
+    </RyokanFormWrapper>
   );
 };
 

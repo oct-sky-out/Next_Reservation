@@ -1,4 +1,4 @@
-import RegisterCompletion from '@/components/Register/RegisterCompletion/RegisterCompletion';
+import RegisterCompletion from '@/components/RyokanForm/Completion/Completion';
 import { GetServerSideProps, NextPage } from 'next';
 
 const completion: NextPage = () => {
