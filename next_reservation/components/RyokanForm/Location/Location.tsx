@@ -5,7 +5,7 @@ import { FaLocationArrow } from 'react-icons/fa';
 import { AiOutlineExclamation } from 'react-icons/ai';
 import Swal from 'sweetalert2';
 import axios from '@/lib/api';
-import RegisterLocationForm from './RegisterLocationForm';
+import RegisterLocationForm from './LocationForm';
 import { locationApiType, geocodingError } from '@/types/apiTyps/maps/location';
 
 const RegisterLocation = () => {

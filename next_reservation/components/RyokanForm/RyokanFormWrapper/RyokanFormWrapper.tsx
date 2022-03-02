@@ -3,8 +3,8 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
 import RegisterRyokanStyle from '@/styles/components/Register/RegisterRyokan';
-import RegisterLeftSideInformation from '../RegisterLeftSideProcedureInformation/RegisterLeftSideInformation';
-import RegisterFooter from '../RegisterFooter/RegisterFooter';
+import RegisterLeftSideInformation from '../LeftSideProcedureInformation/LeftSideInformation';
+import RegisterFooter from '../Footer/Footer';
 import { registerRyokanActions } from '@/store/registerRyokan';
 import { IRyokanType } from '@/types/reduxActionTypes/ReduxRegiserRyokanType';
 
