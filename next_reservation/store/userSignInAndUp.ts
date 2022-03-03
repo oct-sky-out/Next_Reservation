@@ -33,7 +33,7 @@ const initialState: {
     email: '',
     brithDay: null,
     name: '',
-    userPicture: { src: '', height: 0, width: 0 },
+    userPicture: '',
     token: '',
   },
   error: {
@@ -105,7 +105,7 @@ const userSignInSlice = createSlice({
         return { payload: islogged };
       },
     },
-    setUserPicture: (state, action: PayloadAction<StaticImageData>) => ({
+    setUserPicture: (state, action: PayloadAction<string>) => ({
       ...state,
       data: {
         ...state.data,

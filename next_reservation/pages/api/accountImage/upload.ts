@@ -34,7 +34,7 @@ upload.post(uploader.single('file'), async (req, res) => {
         .end(photo?.buffer);
       setTimeout(() => {
         resolve(
-          `https://firebasestorage.googleapis.com/v0/b/next-reservation.appspot.com/o/registerRyokanPhoto%2F${fileName}?alt=media`
+          `https://firebasestorage.googleapis.com/v0/b/next-reservation.appspot.com/o/accountPhoto%2F${fileName}?alt=media`
         );
       }, 1000);
     } catch (err: any) {
@@ -44,7 +44,7 @@ upload.post(uploader.single('file'), async (req, res) => {
 
   res
     .status(200)
-    .send({ status: 'success', photoUrl: imageUrl, photoName: fileName });
+    .send({ state: 'success', photoUrl: imageUrl, photoName: fileName });
 });
 
 export default upload;

@@ -18,7 +18,7 @@ const getEmail = (state: RootState) => state.user.data.email;
 const updateImagePath = async (email: string, imagePath: string) => {
   try {
     const { data } = await axios.patch<{ state: string }>(
-      '/api/accountImage/ipdateImagePath',
+      '/api/accountImage/updateImagePath',
       { email, imagePath }
     );
     return data;
@@ -46,13 +46,7 @@ const uploadFirebaseStorage = async ({
 
 function* photoUploadSaga(action: photoUploadType) {
   const { result } = yield call(uploadFirebaseStorage, action);
-  yield put(
-    userSignInAndUpActions.setUserPicture({
-      height: 200,
-      width: 200,
-      src: result.photoUrl,
-    })
-  );
+  yield put(userSignInAndUpActions.setUserPicture(result.photoUrl));
   const email = getEmail(yield select());
   yield call(updateImagePath, email, result.photoUrl);
 }
@@ -76,13 +70,7 @@ const removeFirebaseStorage = async ({ payload }: photoRemoveType) => {
 function* removePhotoSaga(action: photoRemoveType) {
   try {
     const { result } = yield call(removeFirebaseStorage, action);
-    yield put(
-      userSignInAndUpActions.setUserPicture({
-        height: 100,
-        width: 100,
-        src: result.newPhotoPath,
-      })
-    );
+    yield put(userSignInAndUpActions.setUserPicture(result.newPhotoPath));
     const email = getEmail(yield select());
     yield call(updateImagePath, email, result.newPhotoPath);
   } catch (err: any) {
@@ -113,13 +101,7 @@ const modifyFirebaseStorage = async ({ payload }: photoModifyType) => {
 function* modifyPhotoSaga(action: photoModifyType) {
   try {
     const { result } = yield call(modifyFirebaseStorage, action);
-    yield put(
-      userSignInAndUpActions.setUserPicture({
-        height: 200,
-        width: 200,
-        src: result.photoUrl,
-      })
-    );
+    yield put(userSignInAndUpActions.setUserPicture(result.photoUrl));
     const email = getEmail(yield select());
     yield call(updateImagePath, email, result.photoUrl);
   } catch (err: any) {

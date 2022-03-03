@@ -14,14 +14,11 @@ const updateImagePath = nextConnect<NextApiRequest, NextApiResponse>({
 updateImagePath.patch(async (req: NextApiRequest, res: NextApiResponse) => {
   const { email, imagePath } = req.body;
 
-  await firestroeAdmin()
-    .collection('NEXT_USERS')
-    .doc(email)
-    .update({
-      userPicture: {
-        src: imagePath,
-      },
-    });
+  await firestroeAdmin().collection('NEXT_USERS').doc(email).update({
+    userPicture: imagePath,
+  });
 
   res.status(200).send({ state: 'success' });
 });
+
+export default updateImagePath;

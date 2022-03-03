@@ -31,11 +31,11 @@ modify.post(uploader.single('file'), async (req, res) => {
   const imageUrl = await new Promise<string>((resolve, reject) => {
     try {
       bucket()
-        .file(`registerRyokanPhoto/${fileName}`)
+        .file(`accountPhoto/${fileName}`)
         .createWriteStream({ metadata: { contentType: photo?.mimetype } })
         .end(photo?.buffer);
 
-      const newPhotoName = `https://firebasestorage.googleapis.com/v0/b/next-reservation.appspot.com/o/registerRyokanPhoto%2F${fileName}?alt=media`;
+      const newPhotoName = `https://firebasestorage.googleapis.com/v0/b/next-reservation.appspot.com/o/accountPhoto%2F${fileName}?alt=media`;
       setTimeout(() => {
         resolve(newPhotoName);
       }, 2000);
