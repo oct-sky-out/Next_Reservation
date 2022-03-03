@@ -7,6 +7,11 @@ import {
   watchPhotoDelete,
   watchPhotoModify,
 } from './ryokanRegister/registerPhotos';
+import {
+  watchAccountPhotoModify,
+  watchAccountPhotoRemove,
+  watchAccountPhotoUpload,
+} from './user/changeAccoutPhotoSaga';
 
 export default function* rootSaga() {
   yield all([
@@ -16,5 +21,8 @@ export default function* rootSaga() {
     watchPhotoUpload(),
     watchPhotoDelete(),
     watchPhotoModify(),
+    watchAccountPhotoUpload(),
+    watchAccountPhotoRemove(),
+    watchAccountPhotoModify(),
   ]);
 }

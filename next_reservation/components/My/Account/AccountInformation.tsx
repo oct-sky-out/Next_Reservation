@@ -1,17 +1,14 @@
 import { useSelector } from '@/store/index';
+import AccountImage from './AccountImage';
 
 const AccountInformation = () => {
   const account = useSelector((store) => store.user.data);
 
   return (
     <div className="w-full h-300">
-      <div className="flex space-y-5 space-x-10 justify-center">
-        <div className="w-200 h-200 space-y-5">
-          <h3 className="text-2xl">사진</h3>
-          <img
-            className="w-full h-full object-contain rounded-full border-solid border-emerald border-4 p-1"
-            src={account.userPicture.src}
-          />
+      <div className="w-1/3 mx-auto flex space-y-5 space-x-10 justify-around">
+        <div className="w-full h-full space-y-5">
+          <AccountImage />
         </div>
         <div className="flex flex-col justify-center">
           <div>

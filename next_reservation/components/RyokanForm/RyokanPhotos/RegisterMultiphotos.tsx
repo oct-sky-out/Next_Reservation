@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '@/store/index';
@@ -19,14 +18,11 @@ const RegisterMultiphotos: React.FC<IProps> = ({ fileUploaded }) => {
   const photos = useSelector((seletor) => seletor.ryokanForm.photos);
 
   const photoDelete = (photoName: string) => {
-    console.log(photoName);
-
     dispatch(ryokanFormActions.deletePhoto(photoName));
   };
 
   const photoModify = (photoName: string, photoNo: number) => {
     const input = document.createElement('input');
-    input.setAttribute('data-testid', 'test-modify');
     input.type = 'file';
     input.accept = 'image/*';
     input.onchange = async (e) => {

@@ -38,7 +38,7 @@ const HeaderUserProfile = () => {
               name: '',
               token: '',
               brithDay: new Date().toISOString(),
-              userPicture: { src: '', height: 0, width: 0 },
+              userPicture: '',
             })
           );
           dispatch(userSignInAndUpActions.setLogeed(false));
@@ -83,7 +83,10 @@ const HeaderUserProfile = () => {
             setIsUserMenuOpened(!isUserMenuOpened);
           }}
         >
-          <img src={userPicture.src} className="header-user-profile-image" />
+          <img
+            src="/_next/static/image/public/static/user/default_user_picture.0864b7391dea61a6ccfc62059ab89fd2.png"
+            className="header-user-profile-image"
+          />
         </button>
         {isUserMenuOpened && (
           <>
