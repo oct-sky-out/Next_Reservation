@@ -1,10 +1,10 @@
-import { NextPageContext } from 'next';
-import App, { AppProps, AppContext } from 'next/app';
+import App, { AppProps } from 'next/app';
 import withReduxSaga from 'next-redux-saga';
 import { wrapper } from '@/store/index';
 import { userSignInAndUpActions } from '@/store/userSignInAndUp';
 import axios from '@/lib/api';
 import Header from '@/components/Header/Header';
+import ClientErrorBoundary from '@/components/Error/ClientErrorBoundary';
 import cookieParseToArray from '@/lib/utils/cookieParseToArray';
 
 import GlobalStyle from '@/styles/global/globals';
@@ -15,9 +15,11 @@ const app = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <GlobalStyle />
-      <Header />
-      <Component {...pageProps} />
-      <div id="root-modal" />
+      <ClientErrorBoundary>
+        <Header />
+        <Component {...pageProps} />
+        <div id="root-modal" />
+      </ClientErrorBoundary>
     </>
   );
 };
