@@ -29,8 +29,8 @@ const AccountDeleteButton = () => {
           showConfirmButton: false,
           showCloseButton: true,
         });
-        router.push('/');
         nookies.destroy(null, 'access_token');
+        router.push('/');
       }
     } catch {
       Swal.fire({
