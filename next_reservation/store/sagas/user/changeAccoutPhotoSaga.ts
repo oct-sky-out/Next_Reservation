@@ -127,12 +127,12 @@ function* modifyPhotoSaga(action: photoModifyType) {
   }
 }
 
-export function* watchPhotoUpload() {
+export function* watchAccountPhotoUpload() {
   yield takeLatest('user/uploadUserPicture', photoUploadSaga);
 }
-export function* watchPhotoRemove() {
+export function* watchAccountPhotoRemove() {
   yield takeLatest('user/removeUserPicture', removePhotoSaga);
 }
-export function* watchPhotoModify() {
+export function* watchAccountPhotoModify() {
   yield takeLatest('user/modifyUserPicture', modifyPhotoSaga);
 }
