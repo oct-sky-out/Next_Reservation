@@ -105,6 +105,19 @@ const userSignInSlice = createSlice({
         return { payload: islogged };
       },
     },
+    setUserPicture: (state, action: PayloadAction<StaticImageData>) => ({
+      ...state,
+      data: {
+        ...state.data,
+        userPicture: action.payload,
+      },
+    }),
+    uploadUserPicture: (state, _action: PayloadAction<FormData>) => state,
+    removeUserPicture: (state, _action: PayloadAction<string>) => state,
+    modifyUserPicture: (
+      state,
+      _action: PayloadAction<{ photoName: string; fileBuffer: FormData }>
+    ) => state,
   },
 });
 
