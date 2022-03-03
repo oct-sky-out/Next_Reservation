@@ -156,7 +156,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
                 type: '',
                 email: '',
                 name: '',
-                brithDay: new Date(),
+                brithDay: new Date().toISOString(),
                 token: '',
                 userPicture: { src: '', width: 0, height: 0 },
               })

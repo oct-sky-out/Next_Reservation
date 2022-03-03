@@ -8,8 +8,8 @@ const Error = ({ statusCode }: ErrorComponentProps) => {
   return (
     <p>
       {statusCode
-        ? `An error ${statusCode} occurred on server`
-        : 'An error occurred on client'}
+        ? `${statusCode} 서버에서 오류가 발생했습니다.`
+        : '클라이언트 오류.'}
     </p>
   );
 };
