@@ -158,7 +158,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
                 name: '',
                 brithDay: new Date().toISOString(),
                 token: '',
-                userPicture: { src: '', width: 0, height: 0 },
+                userPicture: '',
               })
             );
           })
