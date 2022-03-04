@@ -16,7 +16,7 @@ const MyReservations = () => {
 
   const fetchUserReservations = useCallback(async () => {
     const reservationsResult = await getReservationsApi(email);
-    dispatch(myReservationsActions.setReservaions(reservationsResult));
+    dispatch(myReservationsActions.setReservations(reservationsResult));
   }, [email]);
 
   useEffect(() => {

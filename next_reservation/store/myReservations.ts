@@ -8,7 +8,7 @@ const myReservationsSlice = createSlice({
   initialState,
   reducers: {
     initReservations: (_state, _action: PayloadAction<void>) => [],
-    setReservaions: (_state, action: PayloadAction<MyReservations>) => [
+    setReservations: (_state, action: PayloadAction<MyReservations>) => [
       ...action.payload,
     ],
   },
