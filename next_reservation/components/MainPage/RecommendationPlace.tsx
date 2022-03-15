@@ -77,7 +77,7 @@ const RecommendationPlace: React.FC<IProps> = ({
         <input
           data-testid="location-input"
           type="text"
-          className="form-control h-8 mt-1 p-2 w-full border-0"
+          className="form-control h-6 md:h-8 md:mt-1 md:p-2 w-full border-0 text-sm md:text-md "
           placeholder="위치입력"
           value={location}
           onChange={changeLocation}
@@ -86,7 +86,7 @@ const RecommendationPlace: React.FC<IProps> = ({
           }}
         />
         {openRecommenationPalce && (
-          <div className="absolute space-y-10 top-20 p-10 bg-white w-700 rounded-md">
+          <div className="absolute space-y-10 top-20 p-10 bg-white w-400 md:w-600 lg:w-700 rounded-md">
             {places.predictions.length === 0 && (
               <div
                 onClick={clickAroundMyPosition}

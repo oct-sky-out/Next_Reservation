@@ -43,7 +43,7 @@ const RoomSearchBar = () => {
   };
 
   return (
-    <div className="w-2/3 bg-white rounded-full mx-auto my-5 text-black flex justify-between">
+    <div className="w-full md:w-11/12 lg:w-2/3 h-1/3 md:h-16 bg-white rounded-full mx-auto my-5 text-black flex justify-between">
       <div className="w-1/5 rounded-full px-4 py-2 inline-block hover:bg-gray-100 relative">
         <RecommendationPlace
           openRecommenationPalce={openRecommenationPalce}
@@ -54,7 +54,7 @@ const RoomSearchBar = () => {
         <span className="text-sm">체크인</span>
         <DatePicker
           data-testid="check-in-input"
-          className="form-control w-full h-8 p-2 mt-1 border-0"
+          className="form-control h-6 md:h-8 md:mt-1 md:p-2 w-full border-0 text-sm md:text-md "
           selected={checkInDate}
           placeholderText="체크인 날짜입력"
           minDate={new Date()}
@@ -67,7 +67,7 @@ const RoomSearchBar = () => {
         <span className="text-sm">체크아웃</span>
         <DatePicker
           data-testid="check-out-input"
-          className="form-control w-full h-8 p-2 mt-1 border-0"
+          className="form-control h-6 md:h-8 md:mt-1 md:p-2 w-full border-0 text-sm md:text-md "
           selected={checkOutDate}
           minDate={checkInDate!}
           placeholderText="체크아웃 날짜입력"
@@ -87,12 +87,12 @@ const RoomSearchBar = () => {
           setAdultCountAction={searchRoomActions.setAdultCount}
           setChildrenCountAction={searchRoomActions.setChildrenCount}
           setInfantsCountAction={searchRoomActions.setInfantsCount}
-          modalWrapperClassName="-left-10"
+          modalWrapperClassName="-left-64 lg:-left-10"
         >
           <input
             data-testid="guest-count-menu-text"
             type="text"
-            className="form-control w-full h-8 border-0 p-2 bg-white"
+            className="form-control h-6 md:h-8 md:mt-1 md:p-2 w-full border-0 text-sm md:text-md "
             placeholder="인원수 추가"
             value={`성인 ${adultCount}명, 어린이 : ${childrenCount}명, 영유아 : ${infantsCount}`}
             onClick={() => setIsGuestCountMenuOpend(true)}
@@ -105,8 +105,8 @@ const RoomSearchBar = () => {
         cy-test="search-btn"
         onClick={clickSearchButton}
       >
-        <div className="w-20 rounded-full bg-emerald ml-auto mr-1 my-auto py-3">
-          <AiOutlineSearch size="32" className="mx-auto my-0" />
+        <div className="w-10 md:w-20 rounded-full bg-emerald ml-auto mr-3 md:mr-0 my-auto md:py-4">
+          <AiOutlineSearch size="32" className="w-5 md:w-10 mx-auto my-0" />
         </div>
       </div>
     </div>

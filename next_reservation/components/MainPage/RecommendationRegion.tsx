@@ -43,13 +43,13 @@ const RecommendationRegion = () => {
 
   return (
     <div className="w-full p-10">
-      <div className="flex flex-wrap justify-around items-center">
+      <div className="flex flex-col md:flex-wrap lg:flex-row justify-around items-center">
         {urlsAndRegionName.map((region, index) => (
           <React.Fragment key={v4()}>
-            <div className="flex w-1/5 flex-col space-y-5">
+            <div className="flex w-full lg:w-1/4 flex-col justify-center items-center md:space-y-5">
               <div
                 cy-test={`recommend-place-${index}`}
-                className="w-3/4 items-center mx-2 border-4 border-solid border-emerald p-2 rounded-xl transition ease-in-out transform translate-y-0 hover:-translate-y-25 hover:scale-110 duration-300 cursor-pointer"
+                className="w-full lg:w-3/4 items-center my-2 md:my-0 mx-2 border-4 border-solid border-emerald p-2 rounded-xl transition ease-in-out transform translate-y-0 hover:-translate-y-25 hover:scale-110 duration-300 cursor-pointer"
                 onClick={() => regionCardClick(region.region)}
               >
                 <div className="w-full h-300 rounded-xl relative">
@@ -63,7 +63,7 @@ const RecommendationRegion = () => {
                   />
                 </div>
               </div>
-              <div className="w-1/4 py-2">
+              <div className="w-1/4 py-2 text-center">
                 <span className="text-3xl my-auto">{region.region}</span>
               </div>
             </div>

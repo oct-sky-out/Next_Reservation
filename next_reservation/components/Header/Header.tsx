@@ -35,29 +35,29 @@ const Header: React.FC = () => {
       <Container
         className={`${
           modalOpenState ? 'filter blur-sm' : ''
-        } p-0 flex justify-center`}
+        } p-0 flex justify-center h-18 md:space-between`}
       >
         <Link href="/">
-          <a>
-            <div className="header-wrapper ">
-              <YasumiCol className="header-logo" />
-              <YasumiTxt className="header-txt" />
+          <a className="w-1/2">
+            <div className="header-wrapper flex justify-center space-x-2 w-full">
+              <YasumiCol className="header-logo w-3 md:w-3" />
+              <YasumiTxt className="header-txt w-28 md:w-36" />
             </div>
           </a>
         </Link>
         {!isLogged && (
           <>
-            <div className="header-auth-btns flex space-x-3 mr-8">
+            <div className="w-1/2 flex items-center justify-center header-auth-btns flex space-x-3 mr-8">
               <button
                 type="button"
-                className=" rounded-full py-3 px-3 header-sign-up-btn"
+                className="w-1/2 md:w-100px h-30 bg-emerald rounded-full p-2 md:py-3 md:px-3 header-sign-up-btn text-sm md:text-md"
                 onClick={onSignUpClick}
               >
                 회원가입
               </button>
               <button
                 type="button"
-                className="mr-8 rounded-full py-3 px-3 header-sign-in-btn"
+                className="w-1/2 md:w-100px mr-8 rounded-full bg-emerald md:py-3 p-2 md:px-3 header-sign-in-btn text-sm md:text-md"
                 onClick={onSignInClick}
               >
                 로그인
